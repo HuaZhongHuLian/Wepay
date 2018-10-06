@@ -9,6 +9,7 @@ import {
 import BaseComponent, { BaseStyles } from "./BaseComponent";
 import HTMLView from 'react-native-htmlview';
 import SplashScreen from "react-native-splash-screen"
+
 import NavigationBar from '../common/NavigationBar';
 
 export default class AboutOur extends BaseComponent {
