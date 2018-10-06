@@ -79,7 +79,9 @@ export default class BusinessUnion extends BaseComponent {
 
             {/*申请代理*/}
             <View style={{}}>
-                <Image source={require("../../../res/images/lianmeng-bg.png")}/>
+                <Image source={require("../../../res/images/lianmeng-bg.png")}
+                       style={{width:Utils.getWidth()}}
+                       resizeMode={"cover"}/>
                 <View style={{position: "absolute", zIndex: 1, flex: 1, padding: 10}}>
                     <Text style={{fontSize: 15, color: Colors.black_dc}}>申请条件:</Text>
                     <View style={{flexDirection: "row", width: Utils.getWidth(), marginTop: 7}}>
