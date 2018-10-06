@@ -17,7 +17,7 @@ export  default class Welcome extends BaseComponent {
     }
     render() {
         return (
-            <View style={BaseStyles.container}>
+            <View style={BaseStyles.container_column}>
                 <Text style={BaseStyles.container_row}> Welcome Wepay</Text>
             </View>
         );

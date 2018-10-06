@@ -210,7 +210,7 @@ export default class SettingView extends BaseComponent {
 
     render() {
         return (
-            <View style={BaseStyles.container}>
+            <View style={BaseStyles.container_column}>
                 <NavigationBar
                     title='设置'
                     navigation={this.props.navigation}
