@@ -1,5 +1,5 @@
-const url = 'http://wp.wepay168.com/wepay'  //正式服务器
-//const url = 'http://192.168.0.10:8081/wepay'
+// const url = 'http://wp.wepay168.com/wepay'  //正式服务器
+const url = 'http://192.168.0.10:8081/wepay'
 //const url = 'http://121.201.46.206/wepay'      //测试服务器
 //const url = 'http://103.206.121.128:8080/wepay'
 
@@ -1008,6 +1008,76 @@ export default class BaseUrl {
         return url + "/verify/status?sessionId=" + sessionId;
     }
 
+
+    // 商家提现首页
+    // 描述:	
+    // 请求url ：/merchantWd/index
+    // 请求方式:get/post
+    // 请求参数 sessionId
+    static getStoreCashInfo(sessionId) {
+        return url + "/merchantWd/index?sessionId=" + sessionId;
+    }
+
+
+
+    /**
+     描述:	
+请求url ：/merchantWd/add
+请求方式:post
+请求参数
+序号	参数名称	是否必须	描述	格式
+1	sessionId	是	token	String
+2	amount	是	提现数额	int
+3	cardId	是	银行卡id	int
+4	describe	是	描述	String
+5	safetyPwd	是	交易密码	String
+6	file	是	图片最少1张，最多3张	file
+返回值(json格式)
+序号	参数名称	一定会返回	描述
+1	code	是	状态码 
+2	msg	是	错误信息
+3	data	是	数据
+返回值示例
+(成功)
+{
+    "code": 1,
+    "msg": "",
+    "data": [
+        {
+            "id": 4,
+            "pic": "mallBanner/1536572997156.png",
+            "bannerType": 3,
+            "goodsId": 65,
+            "shopId": 26,
+            "uid": 2520
+        },
+        {
+            "id": 3,
+            "pic": "mallBanner/1536571648925.png",
+            "bannerType": 3,
+            "goodsId": 55,
+            "shopId": 26,
+            "uid": 2520
+        }
+    ]
+}
+
+（失败）
+{
+    "code": 2,
+    "msg": "用户登录状态已过期",
+    "data": ""
+}
+{
+    "code": 5,
+    "msg": "您的提现额度不足",
+    "data": ""
+}
+     */
+
+    static getStoreCashApplyUrl() {
+        return url + "/merchantWd/add"; 
+    }
 
     /**
      * .申请店铺-获取店铺类型列表（商品分类）
