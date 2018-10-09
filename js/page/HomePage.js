@@ -135,7 +135,7 @@ export default class HomePage extends BaseComponent {
                             {/*顶部 用户信息布局*/}
                             <TouchableOpacity
                                 activeOpacity={1}
-                                onPress={() => this.onClicks(11)}
+                                onPress={() => this.onClicks(101)}
                             >
                                 <View
                                     style={[BaseStyles.container_row, { alignItems: 'center' }]}
@@ -167,7 +167,7 @@ export default class HomePage extends BaseComponent {
                             {/*扫描二维码布局*/}
                             <TouchableOpacity
                                 activeOpacity={1}
-                                onPress={() => this.onClicks(12)}
+                                onPress={() => this.onClicks(102)}
                             ><View
                                 style={[BaseStyles.container_column, {
                                     height: 160,
@@ -189,7 +189,7 @@ export default class HomePage extends BaseComponent {
                             }]}>
                                 <TouchableOpacity
                                     activeOpacity={0.8}
-                                    onPress={() => this.onClicks(13)}
+                                    onPress={() => this.onClicks(103)}
                                 >
                                     <View style={{ flexDirection: 'column', alignItems: "center" }}>
                                         <Text style={{ fontSize: 16, color: '#fff' }}>余额</Text>
@@ -226,9 +226,9 @@ export default class HomePage extends BaseComponent {
                             {this._itemView(() => this.onClicks(7), require('../../res/images/gongyi.png'), "爱心公益")}
                             {this._itemView(() => this.onClicks(8), require('../../res/images/youxi.png'), "游戏娱乐")}
                             {this._itemView(() => this.onClicks(9), require('../../res/images/hudong.png'), "群员互动")}
-                            {this._itemView(() => this.onClicks(101), require('../../res/images/duixian.png'), "商家兑现")}
-                            {this._itemView(() => this.onClicks(102), require('../../res/images/huafei.png'), "话费充值")}
-                            {this._itemView(() => this.onClicks(103), require('../../res/images/jiayou.png'), "余额加油")}
+                            {this._itemView(() => this.onClicks(10), require('../../res/images/duixian.png'), "商家兑现")}
+                            {this._itemView(() => this.onClicks(11), require('../../res/images/huafei.png'), "话费充值")}
+                            {this._itemView(() => this.onClicks(12), require('../../res/images/jiayou.png'), "余额加油")}
 
                         </View>
                     </View>
@@ -238,13 +238,13 @@ export default class HomePage extends BaseComponent {
 
     onClicks(type) {
         switch (type) {
-            case 11:
+            case 101:
                 this.props.navigation.navigate('SettingView');
                 break;
-            case 12:
+            case 102:
                 this.props.navigation.navigate('SaoSaoView');
                 break;
-            case 13:
+            case 103:
                 this.props.navigation.navigate('YueOrIntegralRecord', { type: 0 });
                 break;
             case 14:
@@ -276,31 +276,32 @@ export default class HomePage extends BaseComponent {
                 DialogUtils.showToast("此模块正在升级中...")
                 break;
             case 9://群员互动
-            case 102:
-            case 103:
+            case 10://商家兑现
+                this.gotoStroe()
+                break;
+            case 11:
+            case 12:
                 DialogUtils.showToast("此模块正在升级中...")
                 break;
-            case 101:
-            {
-                let url = BaseUrl.getStoreCashInfo(this.props.AppStore.userInfo.sessionId)
-                HttpUtils.getData(url)
-                    .then(result => {
-                        if (result.code == 1) {
-                            StoreCash.userData = result.data;
-                            //this.props.navigation.navigate('StoreCash');
-                            this.props.navigation.navigate('StoreCash', {requireData : result.data});
-                        }else{
-                            DialogUtils.showToast(result.msg)
-                            if(result.code == 2 || result.code == 4){
-                                this.goLogin(this.props.navigation)
-                            }
-                        }
-                    })
-                break;
-            }
             default://
                 break
         }
+    }
+
+    gotoStroe(){
+        let url = BaseUrl.getStoreCashInfo(this.props.AppStore.userInfo.sessionId)
+        HttpUtils.getData(url)
+            .then(result => {
+                if (result.code == 1) {
+                    StoreCash.userData = result.data;
+                    this.props.navigation.navigate('StoreCash', {requireData : result.data});
+                }else{
+                    DialogUtils.showToast(result.msg)
+                    if(result.code == 2 || result.code == 4){
+                        this.goLogin(this.props.navigation)
+                    }
+                }
+            })
     }
 
 }
