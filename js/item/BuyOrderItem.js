@@ -175,7 +175,11 @@ export default class BuyOrderItem extends BaseComponent {
 
     //上传图片 
     onClickImage() {
-        this.handleAsyncSelectPhoto()
+        if (this.orderType===3){
+            DialogUtils.onImagePress([this.state.defaultImage],0)
+        } else {
+            this.handleAsyncSelectPhoto()
+        }
     }
 
     render() {
@@ -195,7 +199,8 @@ export default class BuyOrderItem extends BaseComponent {
             <Text style={Styles.text}>打款截图:</Text>
             <View style={{ flexDirection: "row", backgroundColor: backgroundColor }}>
                 <TouchableOpacity onPress={() => this.onClickImage()}>
-                    <Image style={{ width: 140, height: 140, borderWidth: 0.5, borderColor: "#999", marginTop: 10 }} source={this.state.defaultImage} />
+                    <Image style={{ width: 140, height: 140, borderWidth: 0.5, borderColor: "#999", marginTop: 10 }}
+                           source={this.state.defaultImage} />
                 </TouchableOpacity>
                 <View style={{ flex: 1 }}></View>
 

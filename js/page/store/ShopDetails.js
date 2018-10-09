@@ -31,7 +31,7 @@ export default class ShopDetails extends BaseComponent {
 
     shouldComponentUpdate() {
         this.shopId = this.props.navigation.state.params.shopId
-        //this.getShopDetail(this.shopId)
+        this.getShopDetail(this.shopId)
         return true
     }
 
