@@ -134,11 +134,12 @@ export default class ApplyBusiness extends BaseComponent {
                         <View style={styles.itemView}>
                             <Text style={styles.itemText}>
                                 姓 名</Text>
+
                             <TextInput
                                 style={styles.itemTextInput}
                                 placeholder={'请输入真实姓名'}
-                                defaultValue={this.state.name}
-                                maxLength={8}
+                                //defaultValue={this.state.name}
+                                maxLength={20}
                                 placeholderTextColor={'#999'}
                                 underlineColorAndroid='transparent'
                                 keyboardType='default'

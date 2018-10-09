@@ -76,7 +76,7 @@ export default class AboutOur extends BaseComponent {
                         </View>
                         <View style={{ flexDirection: "row", marginTop: 8, }}>
                             <Text style={styles.redText}>【积分】：</Text>
-                            <Text style={styles.text}>余额每流通（转出、支付）一次，Wepay系统会赠送80%的积分，积分是余额流通产生的价值。。</Text>
+                            <Text style={styles.text}>余额每流通（转出、支付）一次，Wepay系统会赠送80%的积分，积分是余额流通产生的价值。</Text>
                         </View>
                         <View style={{ flexDirection: "row", marginTop: 8, }}>
                             <Text style={styles.redText}>【转出】：</Text>
