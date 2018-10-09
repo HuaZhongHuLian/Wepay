@@ -5,7 +5,7 @@ import {
     View,
     TouchableOpacity,
     Image,
-    Animated,
+    Animated, Linking,
 } from 'react-native';
 import Utils from '../util/Utils';
 import BaseComponent, { upDataUserInfo } from '../page/BaseComponent';
@@ -162,7 +162,9 @@ import { inject } from '../../node_modules/mobx-react';
 
                         <View style={Styles.view}>
                             <Text style={Styles.text}>手机号码:</Text>
-                            <Text style={Styles.textValue}>{this.props.data.item.mobile}</Text>
+                            <Text Text style={[Styles.textValue, {color: "#2828FF", textDecorationLine: "underline"}]}
+                                  onPress={() => this.callGive(this.props.data.item.mobile)}
+                            >{this.props.data.item.mobile}</Text>
                         </View>
 
                         <View style={{ backgroundColor: "#c1c1c1", height: 0.5 }}></View>
@@ -201,6 +203,19 @@ import { inject } from '../../node_modules/mobx-react';
                 </Animated.View>
             </View>
         );
+    }
+
+
+    callGive(phone) {
+        let url = 'tel: ' + phone;
+        Linking.canOpenURL(url).then(supported => {
+            if (!supported) {
+                DialogUtils.showToast('Can\'t handle url: ' + url)
+                console.log('Can\'t handle url: ' + url);
+            } else {
+                return Linking.openURL(url);
+            }
+        }).catch(err => DialogUtils.showToast('An error occurred', err));
     }
 }
 export const Styles = StyleSheet.create({

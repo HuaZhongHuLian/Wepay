@@ -5,7 +5,7 @@ import {
     View,
     TouchableOpacity,
     Image,
-    Animated,
+    Animated, Linking,
 } from 'react-native';
 import Utils from '../util/Utils';
 import BaseComponent, { mainColor,upDataUserInfo } from '../page/BaseComponent';
@@ -14,6 +14,7 @@ import BaseUrl from '../util/BaseUrl';
 import HttpUtils from '../util/HttpUtils';
 import DialogUtils from '../util/DialogUtils';
 import { inject } from '../../node_modules/mobx-react';
+import Colors from "../util/Colors";
 //未完成订单中，大概分为3个阶段， (刚发布)未选择打款人 ，  (有人购买你的或者卖你的)未选择打款人没有下拉，已选择打款人 和确认打款人点击下拉有银行卡信息 
 /** 未选择打款人 ，  (刚发布)
  *  已选择打款人,    (有人购买你的或者卖你的) 
@@ -122,7 +123,9 @@ export default class SellOrderItem extends BaseComponent {
         }
         DialogUtils.showPop("你确认已收到卖出款？",()=>confirmState(),null,"确认收款","取消")
     }
-
+    showImg(imgPath){
+        DialogUtils.onImagePress([imgPath],0)
+    }
     render() {
         let backgroundColor = "#f8f8f8"
         //取消订单按钮
@@ -134,7 +137,7 @@ export default class SellOrderItem extends BaseComponent {
             <Text style={{ fontSize: 14, color: "#d11", textAlign: "center" }} >取消订单</Text>
         </TouchableOpacity>
 
-        let addImage = <TouchableOpacity >
+        let addImage = <TouchableOpacity onPress={()=>this.showImg(this.state.defaultImage)} >
             <Image style={{ width: 140, height: 140 ,borderWidth:0.5,borderColor:"#999",marginTop:10}} source={this.state.defaultImage} />
         </TouchableOpacity>
 
@@ -210,7 +213,9 @@ export default class SellOrderItem extends BaseComponent {
 
                         <View style={Styles.view}>
                             <Text style={Styles.text}>手机号码:</Text>
-                            <Text style={Styles.textValue}>{this.props.data.item.mobile}</Text>
+                            <Text style={[Styles.textValue,{color: "#2828FF", textDecorationLine:"underline"}]}
+                                  onPress={()=>this.callGive(this.props.data.item.mobile)}
+                            >{this.props.data.item.mobile}</Text>
                         </View>
 
                         <View style={{ backgroundColor: "#c1c1c1", height: 0.5 }}></View>
@@ -231,6 +236,18 @@ export default class SellOrderItem extends BaseComponent {
                 </Animated.View>
             </View>
         );
+    }
+
+    callGive(phone) {
+        let url = 'tel: ' + phone;
+        Linking.canOpenURL(url).then(supported => {
+            if (!supported) {
+                DialogUtils.showToast('Can\'t handle url: ' + url)
+                console.log('Can\'t handle url: ' + url);
+            } else {
+                return Linking.openURL(url);
+            }
+        }).catch(err => DialogUtils.showToast('An error occurred', err));
     }
 }
 export const Styles = StyleSheet.create({
