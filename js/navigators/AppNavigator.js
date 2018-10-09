@@ -40,6 +40,7 @@ import RegisterPage from "../page/setting/RegisterPage";
 import LoginPage from "../page/setting/LoginPage";
 import ApplyStore from "../page/store/ApplyStore";
 import MyStore from "../page/store/MyStore";
+import StoreCash from '../page/setting/StoreCash'
 import BusinessUnion from "../page/store/BusinessUnion";
 import BusinessUnionInfo from "../page/store/BusinessUnionInfo";
 import ApplyBusiness from "../page/store/ApplyBusiness";
@@ -171,6 +172,9 @@ export default AppNavigator = createStackNavigator({
     },
     MyStore: {//我的店铺
         screen: MyStore
+    },
+    StoreCash : { // 店铺提现
+        screen : StoreCash
     },
     BusinessUnion: {//商家联盟
         screen: BusinessUnion

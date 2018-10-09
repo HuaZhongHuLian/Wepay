@@ -24,6 +24,9 @@ import { observer, inject } from 'mobx-react';
 import gcj02towgs84 from "../util/location"
 import codePush from "react-native-code-push";
 import AdView from "../common/AdView";
+import StoreCash from './setting/StoreCash';
+
+
 const screen_width = Utils.getWidth();
 
 @inject('AppStore') @observer
@@ -223,6 +226,9 @@ export default class HomePage extends BaseComponent {
                             {this._itemView(() => this.onClicks(7), require('../../res/images/gongyi.png'), "爱心公益")}
                             {this._itemView(() => this.onClicks(8), require('../../res/images/youxi.png'), "游戏娱乐")}
                             {this._itemView(() => this.onClicks(9), require('../../res/images/hudong.png'), "群员互动")}
+                            {this._itemView(() => this.onClicks(101), require('../../res/images/duixian.png'), "商家兑现")}
+                            {this._itemView(() => this.onClicks(102), require('../../res/images/huafei.png'), "话费充值")}
+                            {this._itemView(() => this.onClicks(103), require('../../res/images/jiayou.png'), "余额加油")}
 
                         </View>
                     </View>
@@ -270,8 +276,28 @@ export default class HomePage extends BaseComponent {
                 DialogUtils.showToast("此模块正在升级中...")
                 break;
             case 9://群员互动
+            case 102:
+            case 103:
                 DialogUtils.showToast("此模块正在升级中...")
                 break;
+            case 101:
+            {
+                let url = BaseUrl.getStoreCashInfo(this.props.AppStore.userInfo.sessionId)
+                HttpUtils.getData(url)
+                    .then(result => {
+                        if (result.code == 1) {
+                            StoreCash.userData = result.data;
+                            //this.props.navigation.navigate('StoreCash');
+                            this.props.navigation.navigate('StoreCash', {requireData : result.data});
+                        }else{
+                            DialogUtils.showToast(result.msg)
+                            if(result.code == 2 || result.code == 4){
+                                this.goLogin(this.props.navigation)
+                            }
+                        }
+                    })
+                break;
+            }
             default://
                 break
         }

@@ -74,7 +74,8 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     entryFile: "index.js",
-    nodeExecutableAndArgs : ["/usr/local/bin/node"]
+    //nodeExecutableAndArgs : ["/usr/local/bin/node"]
+    nodeExecutableAndArgs : [System.properties['os.name'].contains("Mac") ? "/usr/local/bin/node" : "node"]
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -195,4 +196,17 @@ dependencies {
 task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
+}
+
+
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '27.1.1'
+            }
+        }
+    }
 }
