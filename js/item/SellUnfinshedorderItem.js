@@ -14,7 +14,7 @@ import BaseUrl from '../util/BaseUrl';
 import HttpUtils from '../util/HttpUtils';
 import {inject} from '../../node_modules/mobx-react';
 import Colors from "../util/Colors";
-import {Styles} from "./SellOrderItem";
+// import {Styles} from "./SellOrderItem";
 
 //未完成订单中，大概分为3个阶段， (刚发布)未选择打款人 ，  (有人购买你的或者卖你的)未选择打款人没有下拉，已选择打款人 和确认打款人点击下拉有银行卡信息 
 /** 未选择打款人 ，  (刚发布)

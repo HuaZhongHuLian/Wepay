@@ -31,6 +31,7 @@ export default class StoreCash extends BaseComponent {
         this.availableBalance = requireData.availableBalance;
         this.alreadyWithdrawal = requireData.alreadyWithdrawal;
         this.totalRevenue = requireData.totalRevenue;
+        
 
         // this.props = {
         //     availableBalance : requireData.availableBalance,
@@ -157,7 +158,10 @@ export default class StoreCash extends BaseComponent {
                                 placeholderTextColor={'gray'}
                                 underlineColorAndroid='transparent'
                                 keyboardType={'numeric'}
-                                onChangeText={(n) => this.setState({ count: n })}
+                                value={this.state.count}
+                                maxLength = {7}
+
+                                onChangeText={(n) => this.setState({ count: n.replace(/[^\d]+/, '0') })}
                             />
                         </View>
                         {/* <View style={{height:0.5,flex:1,backgroundColor:Colors.lineColor}}/> */}
@@ -207,39 +211,18 @@ export default class StoreCash extends BaseComponent {
         );
     }
 
-
     onApply() {
-        // const isInteger = (char) => {
-        //     const str = /^+?[1-9][0-9]*$/;
-        //     return str.test(char);
-        //     };
-        // if(!isInteger(this.state.count)){
-        //     DialogUtils.showMsg('请输入有效的提现数额');
-        //     return;
-        // }      
+     
         let count = this.state.count;
-        let isValid = count.length > 0;
-        if(isValid){
-            let idx = count.indexOf('.');
-            if(idx >= 0)
-            {
-                count = count.substr(0, idx + 1);
-            }
-            count = new Number(count);
-            if(isNaN(count)){
-                isValid = false;
-            } else if ((count < 500) || ((count % 100) != 0)){
-                isValid = false;
-            }
-        }
-        // 提現數額
-        if(!isValid){
-            DialogUtils.showMsg('请输入有效的提现数额');
+
+         if ((count < 500) || ((count % 100) != 0)){
+            DialogUtils.showMsg('提现数额要100的倍数, 大于500');
             return;
         }
 
         if(count > this.availableBalance){
             DialogUtils.showMsg('不能超出可提取余额');
+            return;
         }
 
         // 银行卡
@@ -261,11 +244,6 @@ export default class StoreCash extends BaseComponent {
             DialogUtils.showMsg('请上传凭证图片');
             return;
         }
-
-        // alert(this.props.totalRevenue)
-        // alert(JSON.stringify([this.state.bankCard, this.state.desc, this.state.count]));
-
-        this.setState({count :count});
         PassWordInput.showPassWordInput((safetyPwd) => this.applySotreCash(safetyPwd))
     }
 
