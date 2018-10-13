@@ -281,11 +281,13 @@ export default class HomePage extends BaseComponent {
             case 10://商家兑现
                 this.gotoStroe()
                 break;
-            case 11:
-                this.props.navigation.navigate('PhoneBill');
+            case 11: //手机充值
+                DialogUtils.showToast("此模块正在升级中...")
+               // this.props.navigation.navigate('PhoneBill');
                 break;
-            case 12:
-                this.props.navigation.navigate('FuelUp');
+            case 12://余额加油
+                DialogUtils.showToast("此模块正在升级中...")
+               // this.props.navigation.navigate('FuelUp');
                 break;
             default://
                 break
