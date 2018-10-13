@@ -163,7 +163,7 @@ export default class SharedRecord extends BaseComponent {
                         >UUID:{data.item ? data.item.userid : "name"}</Text>
                         <Text style={{ color: "#888", fontSize: 14, marginTop: 5 }}
                             numberOfLines={1}
-                        >手机号:{data.item ? data.item.mobile : "name"}</Text>
+                        >手机号:{data.item ? SharedRecord.mobile2star(data.item.mobile) : "name"}</Text>
                     </View>
 
                     <View style={{ flexDirection: 'column', marginLeft: 10, marginRight: 10, alignItems: "flex-end", alignSelf: "flex-end" }}>
@@ -204,5 +204,14 @@ export default class SharedRecord extends BaseComponent {
                 break
         }
         return [color,text]
+    }
+
+    static mobile2star(mobile){
+        let str = mobile.substr(0, 3);
+        for(let k = 3; k < mobile.length - 4; ++k){
+            str += '*';
+        }
+        str += mobile.substr(mobile.length - 4);
+        return str;
     }
 }

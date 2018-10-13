@@ -122,11 +122,11 @@ export default class DialogUtils {
      * 加载动画
      * @param text
      */
-    static showLoading(text) {
+    static showLoading(text,ismodal) {
         let overlayView = (
             <Overlay.View
                 style={{ alignItems: 'center', justifyContent: 'center' }}
-                modal={false}
+                modal={ismodal||false}
                 overlayOpacity={0}
                 ref={v => this.loadingView = v} >
                 <View style={{ backgroundColor: '#333', padding: 25, borderRadius: 15, alignItems: 'center' }}>

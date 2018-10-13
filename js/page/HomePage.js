@@ -53,11 +53,11 @@ export default class HomePage extends BaseComponent {
             <View style={[BaseStyles.container_column,
             {
                 width: screen_width / 3 - 1,
-                height: screen_width / 3 - 1,
+                height: screen_width / 5  - 1,
             }, styles.itemView]}>
                 <Image source={img}
                     style={styles.itemImage} />
-                <Text style={{ fontSize: 15, color: '#333', marginTop: 10 }}>{text}</Text>
+                <Text style={{ fontSize: 13, color: '#333', marginTop: 5 }}>{text}</Text>
             </View>
         </TouchableOpacity>
     }
@@ -276,12 +276,16 @@ export default class HomePage extends BaseComponent {
                 DialogUtils.showToast("此模块正在升级中...")
                 break;
             case 9://群员互动
+                DialogUtils.showToast("此模块正在升级中...")
+                break;
             case 10://商家兑现
                 this.gotoStroe()
                 break;
             case 11:
+                this.props.navigation.navigate('PhoneBill');
+                break;
             case 12:
-                DialogUtils.showToast("此模块正在升级中...")
+                this.props.navigation.navigate('FuelUp');
                 break;
             default://
                 break
@@ -332,8 +336,8 @@ const styles = StyleSheet.create({
         marginTop: 0.5,
     },
     itemImage: {
-        width: 50,
-        height: 50,
+        width: 30,
+        height: 30,
         backgroundColor: '#fff',
         borderColor: "#fff"
     },
