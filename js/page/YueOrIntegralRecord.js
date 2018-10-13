@@ -48,7 +48,7 @@ export default class YueOrIntegralRecord extends BaseComponent {
                     padding: 15,
                     backgroundColor: "#fff",
                 }]}>
-                    <View style={{ alignItems: 'center', width: width / 4 - 20, }}>
+                    <View style={{ alignItems: 'center', width: width / 4 - 20 + 10, }}>
                         <Text style={{
                             color: '#333',
                             fontSize: 15,
@@ -151,10 +151,11 @@ export default class YueOrIntegralRecord extends BaseComponent {
                 //alert(JSON.stringify(data.item))
             }}>
                 <View style={{ flexDirection: 'row', }}>
-                    <View style={{ justifyContent: "center", alignItems: 'center', width: width / 4 - 10, }}>
+                    <View style={{ justifyContent: "center", alignItems: 'center', width: width / 4 - 10 + 5, }}>
                         <Text style={{
                             color: '#333',
                             fontSize: 13,
+                            textAlign : 'center',
                         }}>{this.type === 0 ? this.getYueType(data)[0] : this.getJifenType(data)[0]}</Text>
                     </View>
                     <View style={{ justifyContent: "center", alignItems: 'center', width: width / 4 - 10, }}>
@@ -170,10 +171,11 @@ export default class YueOrIntegralRecord extends BaseComponent {
                             //当getType===0 时  当前余额或者积分 取得的 nowNums 其他的都是取nowNumsGet
                         }}>{data.item.getType === 0||data.item.getType === 4 ? data.item.nowNums : data.item.nowNumsGet}</Text>
                     </View>
-                    <View style={{ justifyContent: "center", alignItems: 'center', width: width / 4 + 14, }}>
+                    <View style={{ justifyContent: "center", alignItems: 'center', width: width / 4 + 14 - 5, }}>
                         <Text style={{
                             color: '#333',
                             fontSize: 13,
+                            textAlign : 'center',
                         }}>{Utils.formatDateTime(data.item.getTime * 1000, "-")}</Text>
                     </View>
                 </View>
@@ -262,9 +264,33 @@ export default class YueOrIntegralRecord extends BaseComponent {
                 typeText = "商城返还"
                 typeValue = "+" + yue
                 break;
+            case 27:
+                typeText = '话费充值\n扣除';
+                typeValue = '-' + yue;
+                break;
+            case 28:
+                typeText = '话费充值\n退还';
+                typeValue = '+' + yue;
+                break;
+            case 29:
+                typeText = '话费充值\n获得';
+                typeValue = '+' + yue;
+                break;
             case 31:
                 typeText = "(" + payId + ")转入"
                 typeValue = "+" + yue
+                break;
+            case 34:
+                typeText = '油卡充值\n扣除';
+                typeValue = '-' + yue;
+                break;
+            case 35:
+                typeText = '油卡充值\n退还';
+                typeValue = '+' + yue;
+                break;
+            case 36:
+                typeText = '油卡充值\n获得';
+                typeValue = '+' + yue;
                 break;
         }
         return [typeText, typeValue];

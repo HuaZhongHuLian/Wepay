@@ -70,6 +70,8 @@ import TranWB from "../page/number/TranWB"
 import OrderRecord from "../page/number/OrderRecord"
 import TeadeRecord from "../page/number/TeadeRecord"
 
+import PhoneBill from '../page/PhoneBill'
+import FuelUp from '../page/FuelUp'
 
 export default AppNavigator = createStackNavigator({
     // PassNumInput: {//密码输入
@@ -286,6 +288,14 @@ export default AppNavigator = createStackNavigator({
     AboutOur: {
         screen: AboutOur,
     },
+
+    // 手机话费充值
+    PhoneBill : {screen : PhoneBill},
+    // 加油
+    FuelUp : {screen : FuelUp},
+
+
+
     Welcome: {//欢迎页 
         screen: Welcome,
         path: 'app/homeTwo',//使用url导航时用到, 如 web app 和 Deep Linking
@@ -296,6 +306,7 @@ export default AppNavigator = createStackNavigator({
     initialRouteName: 'LoginPage', // 默认显示界面
     //initialRouteName: 'TradeHome', // 默认显示界面
     //initialRouteName: 'EchartsDemo', // 默认显示界面
+
 
     mode: 'card',
     navigationOptions: {

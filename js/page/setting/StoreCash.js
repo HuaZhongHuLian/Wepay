@@ -256,7 +256,7 @@ export default class StoreCash extends BaseComponent {
     applySotreCash(safetyPwd) {
 
         let url = BaseUrl.getStoreCashApplyUrl()
-
+        DialogUtils.showLoading("", true);
         /** sessionId   contents  file */
         HttpUtils.uploadImage(
             url,
@@ -269,16 +269,16 @@ export default class StoreCash extends BaseComponent {
             },
             this.state.photos, 
             (result) => {
+                DialogUtils.hideLoading();
                 if (result.code == 1) {
                     DialogUtils.showMsg("申请成功, 请耐心等待审核", "知道了", () => {
                     this.props.navigation.goBack()
-                });
-            } else {
-                DialogUtils.showToast(result.msg);
-                if(result.code == 2 || result.code == 4){
-                    this.goLogin(this.props.navigation)
+                });} else {
+                    DialogUtils.showToast(result.msg);
+                    if(result.code == 2 || result.code == 4){
+                        this.goLogin(this.props.navigation)
+                    }
                 }
-            }
         })
     }
 

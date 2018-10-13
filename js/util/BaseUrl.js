@@ -1,7 +1,7 @@
- const url = 'http://wp.wepay168.com/wepay'  //正式服务器
- //const url = 'http://192.168.0.10:8081/wepay'
- //const url = 'http://121.201.46.206/wepay'      //测试服务器
- //const url = 'http://103.206.121.128:8080/wepay'
+const url = 'http://wp.wepay168.com/wepay'  //正式服务器
+// const url = 'http://192.168.0.10:8081/wepay'
+//const url = 'http://121.201.46.206/wepay'      //测试服务器
+//const url = 'http://103.206.121.128:8080/wepay'
 
 
 export default class BaseUrl {
@@ -1078,6 +1078,52 @@ export default class BaseUrl {
     static getStoreCashApplyUrl() {
         return url + "/merchantWd/add"; 
     }
+
+/**
+ * 话费充值申请
+描述:	
+请求url ：/callCharge/applyFor
+请求方式:post
+请求参数
+序号	参数名称	是否必须	描述	格式
+1	sessionId	是	token	String
+2	amount	是	充值数额	int
+3	safetyPwd	是	交易密码	String
+4	phone	是	手机号	String
+返回值(json格式)
+序号	参数名称	一定会返回	描述
+1	code	是	状态码 
+2	msg	是	错误信息
+3	data	是	数据
+ */
+static getPhoneBillApplyUrl(){
+    return url + '/callCharge/applyFor';
+}
+
+
+/**
+ * 余额加油申请
+描述:	
+请求url ：/balanceRefuel/applyFor
+请求方式:post
+请求参数
+序号	参数名称	是否必须	描述	格式
+1	sessionId	是	token	String
+2	amount	是	充值数额	int
+3	safetyPwd	是	交易密码	String
+4	addressId	否	地址id	int
+5	oilCard	否	油卡号	String
+6	haveCard	是	是否有油卡0.没有，1.有	int
+返回值(json格式)
+序号	参数名称	一定会返回	描述
+1	code	是	状态码 
+2	msg	是	错误信息
+3	data	是	数据
+ */
+static getFuelUpApplyUrl(){
+    return url + '/balanceRefuel/applyFor'
+}
+
 
     /**
      * .申请店铺-获取店铺类型列表（商品分类）
