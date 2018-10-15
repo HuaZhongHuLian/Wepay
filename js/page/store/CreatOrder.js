@@ -67,7 +67,7 @@ export default class CreatOrder extends BaseComponent {
             .then(result => {
                 //alert(JSON.stringify(result))
                 if (result.code === 1) {
-                    DialogUtils.showMsg("购买成功")
+                    DialogUtils.showMsg("购买成功", '确定', ()=>this.props.navigation.navigate('MyOrder'));
                     upDataUserInfo(this.props.AppStore)
                     //this.props.navigation.goBack()
                 }  else if(result.code === 2||result.code === 4){

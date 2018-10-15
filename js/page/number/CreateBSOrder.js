@@ -126,7 +126,7 @@ export default class TradeHome extends BaseComponent {
                             <View style={{ flexDirection: "row", flex: 1, alignItems: "center", paddingLeft: 12, }}>
                                 <Text style={{ fontSize: 14, color: Colors.text6, }}>{this.type===1?"出售":"购买"}价格:</Text>
                                 <TextInput
-                                    style={{ flex: 1,height:40 }}
+                                    style={{ flex: 1,height:40, top : 5}}
                                     placeholder={this.state.price+""}
                                     placeholderTextColor={'#666'}
                                     underlineColorAndroid='transparent'
@@ -137,9 +137,10 @@ export default class TradeHome extends BaseComponent {
                                         this.setState({ myPrice: Utils.chkCurrency(text,4) })
                                     }}
                                 />
-                                <View style={{ flex: 1 ,paddingTop:5}}>
+                                <View style={{flexDirection:'row', justifyContent:'center', alignItems:'center', }}>
+                                    <Text style = {{fontSize : 30,  marginTop : 3}}>-</Text>
                                     <SliderView
-                                        style={{width: 150, marginTop: -5 }}
+                                        style={{width: 150, margin: -10}}
                                         maximumTrackTintColor={Colors.mainColor}
                                         minimumTrackTintColor={Colors.mainColor}
                                         minimumValue={-10} maximumValue={10}
@@ -148,13 +149,15 @@ export default class TradeHome extends BaseComponent {
                                             const num = this.state.price+this.state.price*value/100
                                             this.setState({myPrice:Utils.formatNumBer(num,4)})
                                         }}
-                                    /></View>
+                                    />
+                                    <Text style = {{fontSize : 20,  marginTop : 3}}>+</Text>
+                                </View>
                             </View>
                             <View style={{ backgroundColor: Colors.lineColor, height: 0.5 }} />
                             <View style={{ flexDirection: "row", flex: 1, alignItems: "center", padding: 12 ,height:40}}>
                                 <Text style={{ fontSize: 14, color: Colors.text6, }}>{this.type===1?"出售":"购买"}数量:</Text>
                                 <TextInput
-                                    style={{ flex: 1 ,height:40}}
+                                    style={{ height : 40, flex : 1, top : 5 }}
                                     underlineColorAndroid='transparent'
                                     keyboardType={"numeric"}
                                     value={this.state.num+""}

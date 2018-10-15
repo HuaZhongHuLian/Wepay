@@ -136,9 +136,7 @@ export default class StoreCash extends BaseComponent {
     }
 
     render() {
-        let marLeft = 12;
         let marLeftInner = 18;
-        let styleLabel = { fontSize: 18, color: 'black', marginLeft: marLeft, marginTop: 20 }
         return (
             <View style={{ flex: 1 }}>
                 <NavigationBar title='商家兑现' navigation={this.props.navigation} />
@@ -150,10 +148,10 @@ export default class StoreCash extends BaseComponent {
                             {this.ViewCash('店铺总收益', this.state.totalRevenue)}
                         </View>
                         <View style={{ height: 10, backgroundColor: '#DDD' }} />
-                        <Text style={styleLabel}>提现数额</Text>
-                        <View style={{ width: Utils.getWidth() * 0.7, borderBottomColor: 'gray', borderBottomWidth: 1, flexDirection: 'row', marginLeft: marLeftInner, marginTop: 15 }}>
+                        <Text style={styles.label}>提现数额</Text>
+                        <View style={{ width: Utils.getWidth() * 0.7, borderBottomColor: 'gray', borderBottomWidth: 1, flexDirection: 'row', marginLeft: marLeftInner, marginTop: 15, alignItems : 'flex-end' }}>
                             <Text style={{ fontSize: 24, color: 'red', marginRight: 10 }}>¥</Text>
-                            <TextInput style={{ fontSize: 16, flex: 1 }}
+                            <TextInput style={{ fontSize: 16, flex: 1, top : 8 }}
                                 placeholder={'500以上、100的倍数'}
                                 placeholderTextColor={'gray'}
                                 underlineColorAndroid='transparent'
@@ -165,12 +163,12 @@ export default class StoreCash extends BaseComponent {
                             />
                         </View>
                         {/* <View style={{height:0.5,flex:1,backgroundColor:Colors.lineColor}}/> */}
-                        <Text style={styleLabel}>到账银行</Text>
+                        <Text style={styles.label}>到账银行</Text>
                         <TouchableOpacity style={{ marginLeft: marLeftInner, marginTop: 10 }}
                             onPress={() => this.selectBankCard()}>
                             {this.ViewBankCard()}
                         </TouchableOpacity>
-                        <Text style={styleLabel}>描述</Text>
+                        <Text style={styles.label}>描述</Text>
                         <TextInput style={{ textAlignVertical: 'top', height: 100, fontSize: 16, marginHorizontal: marLeftInner, marginTop: 10, borderWidth: 1, borderColor: 'gray', borderRadius: 2 }}
                             placeholder={'150字以内...'}
                             placeholderTextColor={'gray'}
@@ -180,7 +178,7 @@ export default class StoreCash extends BaseComponent {
                             maxLength={150}
                             onChangeText={(n) => this.setState({ desc: n })}
                         />
-                        <Text style={styleLabel}>上传凭证</Text>
+                        <Text style={styles.label}>上传凭证</Text>
                         <Text style={{ fontSize: 16, color: 'gray', marginLeft: marLeftInner, marginTop: 10 }}>请上传商品订单完成截图与快递单截图(1-3张)</Text>
 
                         <TouchableOpacity style={{ marginLeft: marLeftInner }}
@@ -205,6 +203,10 @@ export default class StoreCash extends BaseComponent {
                             onPress={() => this.onApply()}>
                             <Text style={{ fontSize: 20, color: 'white', fontWeight: '900' }}>申请提现</Text>
                         </TouchableOpacity>
+                        <Text style = {styles.desc}>兑换说明：</Text>
+                        <Text style = {styles.desc}>1.只针对Wepay商城商家流通，余额必须来源于商城的正式交易，私下交易和红包释放余额不属于兑现范筹。</Text>
+                        <Text style = {styles.desc}>2.申请时必须提交商城总收益截图和快递单号截图，弄虚作假作假者予以封号处理，绝不姑息。</Text>
+                        <Text style = {[styles.desc, {marginBottom : 50}]}>3.到帐时间1-3个工作日内。</Text>
                     </View>
                 </ScrollView>
             </View>
@@ -283,3 +285,9 @@ export default class StoreCash extends BaseComponent {
     }
 
 }
+
+
+const styles = StyleSheet.create({
+    label : { fontSize: 18, color: 'black', marginLeft: 12, marginTop: 20 },
+    desc : {color : 'rgb(245, 95, 95)', marginHorizontal : 20},
+});

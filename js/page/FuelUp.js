@@ -162,6 +162,11 @@ export default class PhoneBill extends BaseComponent {
                     onPress={() => this.onClick()}>
                     <Text style={{ fontSize: 20, color: 'white', fontWeight: '900' }}>确认</Text>
                 </TouchableOpacity>
+
+                <Text style = {styles.desc}>加油说明：</Text>
+                <Text style = {styles.desc}>1.只针对自己的ID号，不能为别人代充</Text>
+                <Text style = {styles.desc}>2.每个ID号每个月最多只能充值1000元油卡</Text>
+                <Text style = {styles.desc}>3.到油时间为1-3个工作日内，自己负责去油站圈存</Text>
             </View>
         );
     }
@@ -223,4 +228,5 @@ const styles = StyleSheet.create({
     touch : { flexDirection: 'row', marginHorizontal: 15, alignItems: 'center' },
     touchFont : { fontSize: 16, color : 'black', marginHorizontal: 15 },
     input : { fontSize: 16, backgroundColor: '#F8F8F8', borderColor: '#F1F1F1', borderWidth: 1, borderRadius: 4, paddingTop :10, paddingLeft : 5},
+    desc : {marginHorizontal : 20, color : 'rgb(245, 95, 95)'}
 });

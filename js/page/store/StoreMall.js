@@ -8,6 +8,7 @@ import {
     Image,
     Button,
     ImageBackground,
+    Platform,
 } from 'react-native';
 import BaseComponent, {BaseStyles} from "../BaseComponent";
 import NavigationBar from "../../common/NavigationBar";
@@ -277,7 +278,7 @@ export default class StoreMall extends BaseComponent {
             >
                 <View style={{
                     marginLeft: 0,
-                    width: 240,
+                    width: (Platform.OS == 'ios' ? 240 : 220),
                     backgroundColor: "#fff",
                     height: 35,
                     borderRadius: 18,

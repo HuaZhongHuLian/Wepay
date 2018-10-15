@@ -31,8 +31,9 @@ export default class PhoneBill extends BaseComponent {
 
 
     render(){
-        let marLeft = 15;
-        let marTop = 20;
+        const marLeft = 15;
+        const marTop = 20;
+        const colorDesc = 'rgb(245, 95, 95)';
         return (
             <View  style = {{flex : 1, backgroundColor : '#F1F1F1'}}>
                 <NavigationBar title='话费充值' navigation={this.props.navigation} />
@@ -72,7 +73,11 @@ export default class PhoneBill extends BaseComponent {
                     }}
                     onPress={() => this.onClick()}>
                     <Text style={{ fontSize: 20, color: 'white', fontWeight: '900' }}>确认</Text>
-                </TouchableOpacity>                
+                </TouchableOpacity>       
+                <Text style = {{marginHorizontal : 20, color : colorDesc}}>充值说明：</Text>
+                <Text style = {{marginHorizontal : 20, color : colorDesc}}>1.只针对自己ID号所绑定的手机号为准</Text>
+                <Text style = {{marginHorizontal : 20, color : colorDesc}}>2.每个ID号每个月只能充值一次</Text>
+                <Text style = {{marginHorizontal : 20, color : colorDesc, marginBottom : 50}}>3.到帐时间1-2工作日内</Text>
             </View>
         );
     }
