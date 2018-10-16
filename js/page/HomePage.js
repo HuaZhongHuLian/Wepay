@@ -273,13 +273,15 @@ export default class HomePage extends BaseComponent {
                 DialogUtils.showToast("此模块正在升级中...")
                 break;
             case 8://游戏娱乐
+                // this.props.navigation.navigate('GameAmuse');
                 DialogUtils.showToast("此模块正在升级中...")
                 break;
             case 9://群员互动
                 DialogUtils.showToast("此模块正在升级中...")
                 break;
             case 10://商家兑现
-                this.gotoStroe()
+                DialogUtils.showToast("此模块正在升级中...")
+                // this.gotoStroe()
                 break;
             case 11: //手机充值
                 DialogUtils.showToast("此模块正在升级中...")

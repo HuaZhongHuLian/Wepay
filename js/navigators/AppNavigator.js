@@ -72,6 +72,8 @@ import TeadeRecord from "../page/number/TeadeRecord"
 
 import PhoneBill from '../page/PhoneBill'
 import FuelUp from '../page/FuelUp'
+import GameAmuse from '../page/GameAmuse'
+import GameExchange from '../page/GameExchange'
 
 export default AppNavigator = createStackNavigator({
     // PassNumInput: {//密码输入
@@ -294,6 +296,10 @@ export default AppNavigator = createStackNavigator({
     // 加油
     FuelUp : {screen : FuelUp},
 
+    // 游戏娱乐
+    GameAmuse : {screen : GameAmuse},
+
+    GameExchange : {screen : GameExchange},
 
 
     Welcome: {//欢迎页 
