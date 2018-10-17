@@ -13,6 +13,7 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* WepayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* WepayTests.m */; };
+		041CF217217733D20015D107 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 041CF216217733740015D107 /* libSplashScreen.a */; };
 		046FA61021180F1100D770A9 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 046FA5EC21180E3B00D770A9 /* libRCTCameraRoll.a */; };
 		04829FD62143B2DE008ACA40 /* libFastImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04829FD52143B2D3008ACA40 /* libFastImage.a */; };
 		04A05FBE2122848800C46C6E /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 04A05FBC2122848800C46C6E /* assets */; };
@@ -43,7 +44,6 @@
 		2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E941DF850E9000B6D8A /* libRCTText-tvOS.a */; };
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
-		2DCBB5E5F58D4489BEF4E40D /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 794C9FF3DD1C46288CE0C63C /* libSplashScreen.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* WepayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* WepayTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		3ECAAAFC5A6745FDA8C96789 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F73003867A5429CA526CADA /* libz.tbd */; };
@@ -107,6 +107,13 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = Wepay;
 		};
+		041CF215217733740015D107 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 041CF211217733740015D107 /* SplashScreen.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D7682761D8E76B80014119E;
+			remoteInfo = SplashScreen;
+		};
 		04587C3E20FDA40900EA1D4C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5363B015C38943CA8ECB4F08 /* CodePush.xcodeproj */;
@@ -120,13 +127,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = F886647B1F4ADB500036D01B;
 			remoteInfo = "CodePush-tvOS";
-		};
-		04587C4320FDA40900EA1D4C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 28A4579FFD374C67BE563455 /* SplashScreen.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3D7682761D8E76B80014119E;
-			remoteInfo = SplashScreen;
 		};
 		04587C4820FDA40900EA1D4C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -412,6 +412,7 @@
 		00E356EE1AD99517003FC87E /* WepayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WepayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* WepayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WepayTests.m; sourceTree = "<group>"; };
+		041CF211217733740015D107 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		046FA5DE21180E3A00D770A9 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		04829FCF2143B2D3008ACA40 /* FastImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FastImage.xcodeproj; path = "../node_modules/react-native-fast-image/ios/FastImage.xcodeproj"; sourceTree = "<group>"; };
 		04A05FBC2122848800C46C6E /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = bundle/assets; sourceTree = "<group>"; };
@@ -431,7 +432,6 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1F68AE69AFEA4BD4B29E8974 /* libRNCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCamera.a; sourceTree = "<group>"; };
 		20FD1009D23F43FDB4AAB812 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		28A4579FFD374C67BE563455 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Wepay-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wepay-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Wepay-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Wepay-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -479,6 +479,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				041CF217217733D20015D107 /* libSplashScreen.a in Frameworks */,
 				04829FD62143B2DE008ACA40 /* libFastImage.a in Frameworks */,
 				046FA61021180F1100D770A9 /* libRCTCameraRoll.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
@@ -497,7 +498,6 @@
 				261307C7D3104919AEE0360E /* libCodePush.a in Frameworks */,
 				3ECAAAFC5A6745FDA8C96789 /* libz.tbd in Frameworks */,
 				631866D216C9442780586F1C /* libRCTBEEPickerManager.a in Frameworks */,
-				2DCBB5E5F58D4489BEF4E40D /* libSplashScreen.a in Frameworks */,
 				EEA2BB8188254F3AA46C7CE7 /* libRNVectorIcons.a in Frameworks */,
 				DA055FE1D73643DCA25D56AE /* libRCTCamera.a in Frameworks */,
 				E5CA89B44DCD5BE587197FD3 /* libPods-Wepay.a in Frameworks */,
@@ -589,19 +589,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		041CF212217733740015D107 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				041CF216217733740015D107 /* libSplashScreen.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		04587C3820FDA40900EA1D4C /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				04587C3F20FDA40900EA1D4C /* libCodePush.a */,
 				04587C4120FDA40900EA1D4C /* libCodePush.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		04587C3A20FDA40900EA1D4C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				04587C4420FDA40900EA1D4C /* libSplashScreen.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -760,6 +760,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				041CF211217733740015D107 /* SplashScreen.xcodeproj */,
 				04829FCF2143B2D3008ACA40 /* FastImage.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -776,7 +777,6 @@
 				DF9C8E025D484111BBC9ADBE /* RNSyanImagePicker.xcodeproj */,
 				5363B015C38943CA8ECB4F08 /* CodePush.xcodeproj */,
 				514919F7880546D3A2F6619C /* RCTBEEPickerManager.xcodeproj */,
-				28A4579FFD374C67BE563455 /* SplashScreen.xcodeproj */,
 				E151D2054EF444E989763BFD /* RNVectorIcons.xcodeproj */,
 				4AB9384633F047F799147B16 /* RCTCamera.xcodeproj */,
 			);
@@ -949,7 +949,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 8DKJELWVCF;
+						DevelopmentTeam = UA8H248KA6;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1059,8 +1059,8 @@
 					ProjectRef = E151D2054EF444E989763BFD /* RNVectorIcons.xcodeproj */;
 				},
 				{
-					ProductGroup = 04587C3A20FDA40900EA1D4C /* Products */;
-					ProjectRef = 28A4579FFD374C67BE563455 /* SplashScreen.xcodeproj */;
+					ProductGroup = 041CF212217733740015D107 /* Products */;
+					ProjectRef = 041CF211217733740015D107 /* SplashScreen.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1109,6 +1109,13 @@
 			remoteRef = 00C302E31ABCB9EE00DB3ED1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		041CF216217733740015D107 /* libSplashScreen.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSplashScreen.a;
+			remoteRef = 041CF215217733740015D107 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		04587C3F20FDA40900EA1D4C /* libCodePush.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1121,13 +1128,6 @@
 			fileType = archive.ar;
 			path = libCodePush.a;
 			remoteRef = 04587C4020FDA40900EA1D4C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		04587C4420FDA40900EA1D4C /* libSplashScreen.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSplashScreen.a;
-			remoteRef = 04587C4320FDA40900EA1D4C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		04587C4920FDA40900EA1D4C /* libRNVectorIcons.a */ = {
@@ -1720,7 +1720,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8DKJELWVCF;
+				DEVELOPMENT_TEAM = UA8H248KA6;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..",
@@ -1745,7 +1745,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay2;
 				PRODUCT_NAME = Wepay;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1905,7 +1905,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 8DKJELWVCF;
+				DEVELOPMENT_TEAM = UA8H248KA6;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..",
@@ -1930,7 +1930,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay2;
 				PRODUCT_NAME = Wepay;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1948,7 +1948,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8DKJELWVCF;
+				DEVELOPMENT_TEAM = UA8H248KA6;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..",
@@ -1973,7 +1973,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay2;
 				PRODUCT_NAME = Wepay;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
