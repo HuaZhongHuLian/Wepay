@@ -1892,4 +1892,93 @@ static getFuelUpApplyUrl(){
 
     }
 
+
+
+
+    /**
+     * 游戏首页
+    描述:	没有绑定账号应该提示用户去绑定账号
+    请求url ：/game/index
+    请求方式:post
+    请求参数
+    序号	参数名称	是否必须	描述	格式
+    1	sessionId	是	token	String
+    返回值(json格式)
+    序号	参数名称	一定会返回	描述
+    1	code	是	状态码 
+    2	msg	是	错误信息
+    3	data	是	数据(集合)
+    3.1	gold		金币数量
+    3.2	gameId		游戏代号1.wepay游戏，2.其他
+    3.3	isBinding		是否绑定账号0,没有。1.有
+     */
+    static getGameHomeUrl(){
+        return url + '/game/index';
+    }
+
+
+    /**
+     * 绑定游戏账号
+        描述:	
+        请求url ：/game/binding
+        请求方式:post
+        请求参数
+        序号	参数名称	是否必须	描述	格式
+        1	sessionId	是	token	String
+        2	gameId	是	游戏代号1.wepay，2.其他	int
+        3	amount	是	游戏账号	String
+        返回值(json格式)
+        序号	参数名称	一定会返回	描述
+        1	code	是	状态码 
+        2	msg	是	错误信息
+        3	data	是	数据(集合)
+     */
+    static getGameBindingUrl(){
+        return url + '/game/binding';
+    }
+
+
+    /**
+     * 余额兑换金币
+    描述:	兑换数量必须大于100并且是100的整数
+    请求url ：/game/balanceForGold
+    请求方式:post
+    请求参数
+    序号	参数名称	是否必须	描述	格式
+    1	sessionId	是	token	String
+    2	gameId	是	游戏代号1.wepay，2.其他	int
+    3	num	是	兑换数量	int
+    4	safetyPwd	是	交易密码	String
+    返回值(json格式)
+    序号	参数名称	一定会返回	描述
+    1	code	是	状态码 
+    2	msg	是	错误信息
+    3	data	是	数据(集合)
+     */
+    static getGameBalanceForGoldUrl(){
+        return url + '/game/balanceForGold';
+    }
+
+
+    /**
+     * 金币兑换余额
+        描述:	兑换数量必须大于100并且是100的整数
+        请求url ：/game/goldForBalance
+        请求方式:post
+        请求参数
+        序号	参数名称	是否必须	描述	格式
+        1	sessionId	是	token	String
+        2	gameId	是	游戏代号1.wepay，2.其他	int
+        3	num	是	兑换数量	int
+        4	safetyPwd	是	交易密码	String
+        返回值(json格式)
+        序号	参数名称	一定会返回	描述
+        1	code	是	状态码 
+        2	msg	是	错误信息
+        3	data	是	数据(集合)
+     */
+
+     static getGameGoldForBalanceUrl(){
+         return url + '/game/goldForBalance';
+     }
 }

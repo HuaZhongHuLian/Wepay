@@ -45,9 +45,8 @@ export default class StoreMall extends BaseComponent {
     componentDidMount() {
         SplashScreen.hide()
         this._refreshData()
-        this.getCateList()
         //加载商品的分类
-        // this.getCateList();
+        this.getCateList();
     }
     /**
      * 获取商品分类
@@ -181,6 +180,8 @@ export default class StoreMall extends BaseComponent {
         HttpUtils.getData(this.url)
             .then(result => {
                 if (result.code === 1) {
+                    // 测试闪退
+                    // alert(JSON.stringify(result.data))
                     if (isRefesh) {
                         this.refList.setData(result.data)
                         if (result.data.length < 1) {
@@ -213,6 +214,9 @@ export default class StoreMall extends BaseComponent {
      * @private
      */
     _getStore(data) {
+        // 测试闪退
+        // alert(JSON.stringify(this.getImgUrl(data.item.coverPlan)));
+        
         return <View
             style={{
                 backgroundColor: '#fff',
@@ -227,11 +231,15 @@ export default class StoreMall extends BaseComponent {
                 activeOpacity={0.8}
                 style={{width: window_w / 2 - 4, height: window_w / 2,}}
                 onPress={(item) => this.goDetails(data.item)}>
-                <FastImage
+                {DialogUtils.useFastImage ? <FastImage
                     style={{width: window_w / 2 - 4, height: window_w / 2,}}
                     source={{uri: this.getImgUrl(data.item.coverPlan)}}
                     resizeMode={FastImage.resizeMode.cover}
-                />
+                /> : 
+                <Image style={{width: window_w / 2 - 4, height: window_w / 2,}}
+                    source={{uri: this.getImgUrl(data.item.coverPlan)}} 
+                    resizeMode = {'cover'}
+                />}
             </TouchableOpacity>
 
             <View style={{
@@ -248,12 +256,12 @@ export default class StoreMall extends BaseComponent {
                     <Text style={{
                         color: "#d11",
                         fontSize: 15,
-                    }}>￥{data.item.goodsPrice}</Text>
+                    }}>￥{data.item ? data.item.goodsPrice : '???'}</Text>
                     <Text style={{
                         color: "#888",
                         fontSize: 15,
                         marginLeft: 30,
-                    }}>库存:{data.item.goodsStock}</Text>
+                    }}>库存:{data.item ? data.item.goodsStock : '???'}</Text>
                 </View>
             </View>
         </View>

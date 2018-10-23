@@ -18,6 +18,7 @@ import PassWordInput,{PayInfoView} from "../common/PassNumInput";
 
 export default class DialogUtils {
 
+    static useFastImage = false;
     /**
      * 消息对话框
      * @param {*} text 提示类容 

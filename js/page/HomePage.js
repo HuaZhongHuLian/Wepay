@@ -273,7 +273,7 @@ export default class HomePage extends BaseComponent {
                 DialogUtils.showToast("此模块正在升级中...")
                 break;
             case 8://游戏娱乐
-                // this.props.navigation.navigate('GameAmuse');
+                // this.gotoGame();
                 DialogUtils.showToast("此模块正在升级中...")
                 break;
             case 9://群员互动
@@ -298,8 +298,10 @@ export default class HomePage extends BaseComponent {
 
     gotoStroe(){
         let url = BaseUrl.getStoreCashInfo(this.props.AppStore.userInfo.sessionId)
+        DialogUtils.showLoading('', true);
         HttpUtils.getData(url)
             .then(result => {
+                DialogUtils.hideLoading();
                 if (result.code == 1) {
                     StoreCash.userData = result.data;
                     this.props.navigation.navigate('StoreCash', {requireData : result.data});
@@ -309,7 +311,23 @@ export default class HomePage extends BaseComponent {
                         this.goLogin(this.props.navigation)
                     }
                 }
-            })
+            }).catch(error => DialogUtils.hideLoading())
+    }
+
+    gotoGame(){
+        DialogUtils.showLoading('', true);
+        HttpUtils.postData(BaseUrl.getGameHomeUrl(), {sessionId : this.props.AppStore.userInfo.sessionId}).then(result => {
+            DialogUtils.hideLoading();
+            if(result.code == 1){
+                // alert(JSON.stringify(result.data));
+                this.props.navigation.navigate('GameAmuse', {gameDatas : result.data});
+            }else {
+                DialogUtils.showToast(result.msg);
+                if(result.code == 2 || result.code == 4){
+                    this.goLogin(this.props.navigation);
+                }
+            }
+        }).catch(error => DialogUtils.hideLoading())
     }
 
 }

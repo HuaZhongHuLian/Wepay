@@ -53,9 +53,12 @@ export default class ViewPager extends BaseComponent {
                 onPress={() => {
                 }}
                 activeOpacity={0.8}>
-                <FastImage
+                {DialogUtils.useFastImage ? <FastImage
                     style={{width: this.props.width, height: this.props.height}}
-                    source={{uri:this.getImgUrl(data)}}/>
+                    source={{uri:this.getImgUrl(data)}}/> : 
+                <Image 
+                style={{width: this.props.width, height: this.props.height}}
+                    source={{uri:this.getImgUrl(data)}}/>}
             </TouchableOpacity>
 
         return view
