@@ -35,7 +35,7 @@ export default class LoginPage extends BaseComponent {
             appVersion:"1.2.9"
         }
 
-        if(1){
+        if(0){
             this.versionName = '';
             this.buildType = '';
 
@@ -174,7 +174,7 @@ export default class LoginPage extends BaseComponent {
                 // PassWordInput.showPassWordInput((safetyPwd) => alert(safetyPwd))
                 // DialogUtils.showPay()
                 // alert(Utils.formatNumbers("116.00",3);
-                alert(this.buildType + ' ' + this.versionName + ' ' + this.isDebug + ' ' + this.isRelease + ' ' + this.isReleaseStaging);
+                // alert(this.buildType + ' ' + this.versionName + ' ' + this.isDebug + ' ' + this.isRelease + ' ' + this.isReleaseStaging);
                 if(this.state.text.length<1){
                     DialogUtils.showMsg("请输入UID或者手机号")
                 }else if(this.state.text.length<1){

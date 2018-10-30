@@ -19,6 +19,7 @@ import PassWordInput,{PayInfoView} from "../common/PassNumInput";
 export default class DialogUtils {
 
     static useFastImage = false;
+    static useImagePicker = (Platform.OS == 'ios')
     /**
      * 消息对话框
      * @param {*} text 提示类容 

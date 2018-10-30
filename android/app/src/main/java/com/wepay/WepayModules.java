@@ -43,57 +43,57 @@ public class WepayModules extends ReactContextBaseJavaModule {
      * @param callback  回调方法
      */
      // , String action, String account, String password
-    @ReactMethod
-    public void jumpApp(String packageName, String pageName, Callback callback) {
-        try{
-                // String name = getReactApplicationContext().getPackageName();
-                Intent intent = new Intent();
-                // intent.setComponent(new ComponentName("com.junrui.yhtd","com.junrui.yhtd.ui.record.MedicalRecordActivity"));   //第一个参数为app2的包名，第二个参数为app2的被调转界面activity
-                // 第一个参数为app2的包名，第二个参数为app2的被调转界面activity
-                intent.setComponent(new ComponentName(packageName,pageName));
-                // intent.putExtra("account",account);//携带参数
-                // intent.putExtra("password",password);//携带参数
-                // if (!"action".equals(action)){
-                //     intent.setAction(action);   //app2中被调转界面的action
-                // }
-                getCurrentActivity().startActivity(intent);
-            }catch (Exception e){
-                callback.invoke(packageName);
-            }
-    }
+    // @ReactMethod
+    // public void jumpApp(String packageName, String pageName, Callback callback) {
+    //     try{
+    //             // String name = getReactApplicationContext().getPackageName();
+    //             Intent intent = new Intent();
+    //             // intent.setComponent(new ComponentName("com.junrui.yhtd","com.junrui.yhtd.ui.record.MedicalRecordActivity"));   //第一个参数为app2的包名，第二个参数为app2的被调转界面activity
+    //             // 第一个参数为app2的包名，第二个参数为app2的被调转界面activity
+    //             intent.setComponent(new ComponentName(packageName,pageName));
+    //             // intent.putExtra("account",account);//携带参数
+    //             // intent.putExtra("password",password);//携带参数
+    //             // if (!"action".equals(action)){
+    //             //     intent.setAction(action);   //app2中被调转界面的action
+    //             // }
+    //             getCurrentActivity().startActivity(intent);
+    //         }catch (Exception e){
+    //             callback.invoke(packageName);
+    //         }
+    // }
 
-    // 安装apk
-    @ReactMethod
-    public void installApp(String apkName, Callback cb) {
-        try{
-            // Uri uri = Uri.parse("file://" + filePath)
-            Uri uri = Uri.fromFile(new File(apkName));
-            // 创建Intent意图
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            //启动新的activity
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-            //设置Uri和类型
-            intent.setDataAndType(uri, "application/vnd.android.package-archive");
-            //执行安装
-            getCurrentActivity().startActivity(intent);
+    // // 安装apk
+    // @ReactMethod
+    // public void installApp(String apkName, Callback cb) {
+    //     try{
+    //         // Uri uri = Uri.parse("file://" + filePath)
+    //         Uri uri = Uri.fromFile(new File(apkName));
+    //         // 创建Intent意图
+    //         Intent intent = new Intent(Intent.ACTION_VIEW);
+    //         //启动新的activity
+    //         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+    //         //设置Uri和类型
+    //         intent.setDataAndType(uri, "application/vnd.android.package-archive");
+    //         //执行安装
+    //         getCurrentActivity().startActivity(intent);
             
-            // finish();
-        } catch (Exception e){
-            cb.invoke(e);
-        }
-    }
+    //         // finish();
+    //     } catch (Exception e){
+    //         cb.invoke(e);
+    //     }
+    // }
 
 
-    @Override
-    public boolean canOverrideExistingModule() {
-        return true;
-    }
+    // @Override
+    // public boolean canOverrideExistingModule() {
+    //     return true;
+    // }
     
-    @ReactMethod
-    public void updateDialog (){
-        // MainActivity.getMainActivity()
-        UpdateChecker.checkForDialog(getCurrentActivity());
-    }
+    // @ReactMethod
+    // public void updateDialog (){
+    //     // MainActivity.getMainActivity()
+    //     UpdateChecker.checkForDialog(getCurrentActivity());
+    // }
 
     @ReactMethod
     public void getBuildType(Callback cb){

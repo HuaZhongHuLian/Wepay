@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "android": "react-native run-android",
+    "android": "react-native run-android --appIdSuffix=debug",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "bundle-ios": "node node_modules/react-native/local-cli/cli.js bundle --entry-file index.js --platform ios --dev false --bundle-output ./ios/bundle/index.ios.jsbundle --assets-dest ./ios/bundle",
     "bundle-android": "cd android && ./gradlew clean && ./gradlew assembleRelease",
@@ -15,6 +15,7 @@
     "release" : "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ../ && react-native run-android --variant=release",
     "cpfile" : "cp 项目说明/QRScanner.js node_modules/ac-qrcode/ && cp 项目说明/index.js node_modules/react-native-camera/index.js && cp 项目说明/折线图/index.js node_modules/native-echarts/src/components/Echarts/",
     "clean" : "cd android && ./gradlew clean && cd ../",
+    "log" : "react-native log-android",
     "hot-ios" : "code-push release-react 376368673/Wepay-IOS  ios   --t 1.2.9 --dev false --d Staging --des \"$DESC\" --m true",
     "hot-android" : "code-push release-react 376368673/Wepay-Android android --t 1.2.9 --dev false --d Staging --des \"$DESC\" --m true",
     "hot" : "code-push release-react 376368673/Wepay-IOS  ios   --t 1.2.9 --dev false --d Staging  --des \"$DESC\" --m true & code-push release-react 376368673/Wepay-Android android --t 1.2.9 --dev false --d Staging --des \"$DESC\" --m true",
