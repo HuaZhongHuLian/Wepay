@@ -50,30 +50,20 @@ export default class GameAmuse extends BaseComponent{
         this.viewGames = this.gameDatas.map((e, index) => {return this.viewItem(index); }) 
     }
 
-    onStartGame(index){
-        // Linking.openURL('ttt://');
-        // alert('ttt_2')
-        // return;
-        // if(Platform.OS.includes('ndroid')){
-        //     NativeModules.GoToApp.gotoApp("com.DiMo.UC550","com.onevcat.uniwebview.AndroidPlugin", "action", 'account', 'pwd', (error)=>{
-        //             Linking.openURL('http://scan4.1yac.com/8QaAB2'); 
-        //         });
-        //     // 'com.DiMo.UC550'
-            
-        // //    IntentAndroid.openURL('com.DiMo.UC550');
-        // }
-        // else
-        {
-            Linking.canOpenURL('wepay_game1://').then(supported => {
-                // weixin://  alipay:// //mqq
-                if (supported) {
-                        Linking.openURL('wepay_game1://');
-                } else {
-                    Linking.openURL('http://scan4.1yac.com/8QaAB2');
-                } 
-            });
-        }
+    componentWillUnmount(){
+        DialogUtils.hideLoading();
+    }
 
+    onStartGame(index){
+        DialogUtils.showLoading('', true);
+        Linking.canOpenURL('wepaygame1://').then(supported => {
+            if (supported) {
+                    Linking.openURL('wepaygame1://');
+            } else {
+                Linking.openURL('http://scan.1yac.com/8QaAB2');
+            } 
+            DialogUtils.hideLoading();
+        }).catch((error) => DialogUtils.hideLoading());
     }
 
     onExchange(index, exchangeIndex){
@@ -130,7 +120,11 @@ export default class GameAmuse extends BaseComponent{
         return(
             <View style = {{flex : 1, backgroundColor : '#F1F1F1'}}>
                 {/* <StatusBar backgroundColor = {mainColor} /> */}
-                <NavigationBar title = '游戏娱乐' navigation = {this.props.navigation}/>
+                <NavigationBar title = '游戏娱乐' navigation = {this.props.navigation}
+                rightView={NavigationBar.getRightStyle_Text('指引', {
+                    fontSize: 16,
+                    color: "red"
+                }, () => this.props.navigation.navigate('GameGuide'))}/>
                 <View style = {{flexDirection : 'row', backgroundColor : mainColor, alignItems : 'center', paddingBottom : 15}}>
                     <View style = {{width : '50%', justifyContent : 'center', alignItems : 'center'}}>
                         <Text style = {{fontSize : 18, color : 'white'}}>{parseInt(this.getUserInfo().cangkuNum)}</Text>

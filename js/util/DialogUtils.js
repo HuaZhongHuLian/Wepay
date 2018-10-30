@@ -135,7 +135,7 @@ export default class DialogUtils {
                         size={'large'}
                         animating={true}
                     />
-                    <Text style={{ fontSize: 16, color: "#fff" }}>{text ? text : "加载中..."}</Text>
+                    <Text style={{ fontSize: 16, color: "#fff" }}>{(text || text == '') ? text : "加载中..."}</Text>
                 </View>
             </Overlay.View>
         );
@@ -281,8 +281,10 @@ export default class DialogUtils {
     * 
     */
     static upDataApp() {
+        this.showLoading('', true);
         codePush.checkForUpdate()
             .then((update) => {
+                this.hideLoading();
                 if (!update) {
                     //热更新后添加这个代码 不然貌似热更新会自动回滚
                     Platform.OS ==="ios"? {}:codePush.sync()

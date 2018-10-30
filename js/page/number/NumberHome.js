@@ -128,7 +128,7 @@ export default class NumberHome extends BaseComponent {
                         <TouchableOpacity onPress={() => this.onClick(2)} style={{ flex: 1 }}>
                             <View style={{ alignItems: "center", justifyContent: "center" }}>
                                 <Image source={require("../../../res/images/zhongchou.png")} style={{ height: 50, width: 50, }} />
-                                <Text style={{ color: Colors.text3, fontSize: 15, marginTop: 5 }}>众筹</Text>
+                                <Text style={{ color: Colors.text3, fontSize: 15, marginTop: 5 }}>认购</Text>
                             </View></TouchableOpacity>
                         <TouchableOpacity onPress={() => this.onClick(3)} style={{ flex: 1 }}>
                             <View style={{ alignItems: "center", justifyContent: "center", }}>

@@ -13,7 +13,6 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* WepayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* WepayTests.m */; };
-		041CF2C0217745390015D107 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 041CF2BF217745220015D107 /* libSplashScreen.a */; };
 		046FA61021180F1100D770A9 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 046FA5EC21180E3B00D770A9 /* libRCTCameraRoll.a */; };
 		04829FD62143B2DE008ACA40 /* libFastImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04829FD52143B2D3008ACA40 /* libFastImage.a */; };
 		04A05FBE2122848800C46C6E /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 04A05FBC2122848800C46C6E /* assets */; };
@@ -31,6 +30,7 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1A9DBFF294CF4384AF8C35AA /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 20FD1009D23F43FDB4AAB812 /* MaterialCommunityIcons.ttf */; };
+		1C168F132186183600403CA3 /* WepayModules.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C168F122186183600403CA3 /* WepayModules.m */; };
 		22A5462F5423419B88CB19B5 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 074669B514AD441E8F44EE19 /* Zocial.ttf */; };
 		261307C7D3104919AEE0360E /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37DDC512520A4713A431DB1A /* libCodePush.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -44,6 +44,7 @@
 		2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E941DF850E9000B6D8A /* libRCTText-tvOS.a */; };
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
+		2DCBB5E5F58D4489BEF4E40D /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 794C9FF3DD1C46288CE0C63C /* libSplashScreen.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* WepayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* WepayTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		3ECAAAFC5A6745FDA8C96789 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F73003867A5429CA526CADA /* libz.tbd */; };
@@ -107,13 +108,6 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = Wepay;
 		};
-		041CF2BE217745220015D107 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 041CF2BA217745220015D107 /* SplashScreen.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3D7682761D8E76B80014119E;
-			remoteInfo = SplashScreen;
-		};
 		04587C3E20FDA40900EA1D4C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5363B015C38943CA8ECB4F08 /* CodePush.xcodeproj */;
@@ -127,6 +121,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = F886647B1F4ADB500036D01B;
 			remoteInfo = "CodePush-tvOS";
+		};
+		04587C4320FDA40900EA1D4C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 28A4579FFD374C67BE563455 /* SplashScreen.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D7682761D8E76B80014119E;
+			remoteInfo = SplashScreen;
 		};
 		04587C4820FDA40900EA1D4C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -190,6 +191,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		1C0C7AFD21797B7900781F79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = Wepay;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -412,7 +420,6 @@
 		00E356EE1AD99517003FC87E /* WepayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WepayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* WepayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WepayTests.m; sourceTree = "<group>"; };
-		041CF2BA217745220015D107 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		046FA5DE21180E3A00D770A9 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		04829FCF2143B2D3008ACA40 /* FastImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FastImage.xcodeproj; path = "../node_modules/react-native-fast-image/ios/FastImage.xcodeproj"; sourceTree = "<group>"; };
 		04A05FBC2122848800C46C6E /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = bundle/assets; sourceTree = "<group>"; };
@@ -430,8 +437,11 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Wepay/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Wepay/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1C168F11218617B800403CA3 /* WepayModules.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WepayModules.h; path = Wepay/WepayModules.h; sourceTree = "<group>"; };
+		1C168F122186183600403CA3 /* WepayModules.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WepayModules.m; path = Wepay/WepayModules.m; sourceTree = "<group>"; };
 		1F68AE69AFEA4BD4B29E8974 /* libRNCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCamera.a; sourceTree = "<group>"; };
 		20FD1009D23F43FDB4AAB812 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		28A4579FFD374C67BE563455 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Wepay-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wepay-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Wepay-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Wepay-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -479,7 +489,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				041CF2C0217745390015D107 /* libSplashScreen.a in Frameworks */,
 				04829FD62143B2DE008ACA40 /* libFastImage.a in Frameworks */,
 				046FA61021180F1100D770A9 /* libRCTCameraRoll.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
@@ -498,6 +507,7 @@
 				261307C7D3104919AEE0360E /* libCodePush.a in Frameworks */,
 				3ECAAAFC5A6745FDA8C96789 /* libz.tbd in Frameworks */,
 				631866D216C9442780586F1C /* libRCTBEEPickerManager.a in Frameworks */,
+				2DCBB5E5F58D4489BEF4E40D /* libSplashScreen.a in Frameworks */,
 				EEA2BB8188254F3AA46C7CE7 /* libRNVectorIcons.a in Frameworks */,
 				DA055FE1D73643DCA25D56AE /* libRCTCamera.a in Frameworks */,
 				E5CA89B44DCD5BE587197FD3 /* libPods-Wepay.a in Frameworks */,
@@ -589,19 +599,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		041CF2BB217745220015D107 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				041CF2BF217745220015D107 /* libSplashScreen.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		04587C3820FDA40900EA1D4C /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				04587C3F20FDA40900EA1D4C /* libCodePush.a */,
 				04587C4120FDA40900EA1D4C /* libCodePush.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		04587C3A20FDA40900EA1D4C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04587C4420FDA40900EA1D4C /* libSplashScreen.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -701,6 +711,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				1C168F11218617B800403CA3 /* WepayModules.h */,
+				1C168F122186183600403CA3 /* WepayModules.m */,
 			);
 			name = Wepay;
 			sourceTree = "<group>";
@@ -760,7 +772,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				041CF2BA217745220015D107 /* SplashScreen.xcodeproj */,
 				04829FCF2143B2D3008ACA40 /* FastImage.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -777,6 +788,7 @@
 				DF9C8E025D484111BBC9ADBE /* RNSyanImagePicker.xcodeproj */,
 				5363B015C38943CA8ECB4F08 /* CodePush.xcodeproj */,
 				514919F7880546D3A2F6619C /* RCTBEEPickerManager.xcodeproj */,
+				28A4579FFD374C67BE563455 /* SplashScreen.xcodeproj */,
 				E151D2054EF444E989763BFD /* RNVectorIcons.xcodeproj */,
 				4AB9384633F047F799147B16 /* RCTCamera.xcodeproj */,
 			);
@@ -928,6 +940,7 @@
 			);
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
+				1C0C7AFE21797B7900781F79 /* PBXTargetDependency */,
 			);
 			name = "Wepay-tvOSTests";
 			productName = "Wepay-tvOSTests";
@@ -945,11 +958,12 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = UA8H248KA6;
+						DevelopmentTeam = 8DKJELWVCF;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = UA8H248KA6;
+						DevelopmentTeam = 8DKJELWVCF;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -959,12 +973,12 @@
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = UA8H248KA6;
+						DevelopmentTeam = 8DKJELWVCF;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = UA8H248KA6;
+						DevelopmentTeam = 8DKJELWVCF;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
@@ -1059,8 +1073,8 @@
 					ProjectRef = E151D2054EF444E989763BFD /* RNVectorIcons.xcodeproj */;
 				},
 				{
-					ProductGroup = 041CF2BB217745220015D107 /* Products */;
-					ProjectRef = 041CF2BA217745220015D107 /* SplashScreen.xcodeproj */;
+					ProductGroup = 04587C3A20FDA40900EA1D4C /* Products */;
+					ProjectRef = 28A4579FFD374C67BE563455 /* SplashScreen.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1109,13 +1123,6 @@
 			remoteRef = 00C302E31ABCB9EE00DB3ED1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		041CF2BF217745220015D107 /* libSplashScreen.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSplashScreen.a;
-			remoteRef = 041CF2BE217745220015D107 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		04587C3F20FDA40900EA1D4C /* libCodePush.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1128,6 +1135,13 @@
 			fileType = archive.ar;
 			path = libCodePush.a;
 			remoteRef = 04587C4020FDA40900EA1D4C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04587C4420FDA40900EA1D4C /* libSplashScreen.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSplashScreen.a;
+			remoteRef = 04587C4320FDA40900EA1D4C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		04587C4920FDA40900EA1D4C /* libRNVectorIcons.a */ = {
@@ -1459,7 +1473,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1527,6 +1541,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				1C168F132186183600403CA3 /* WepayModules.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1556,6 +1571,11 @@
 			target = 13B07F861A680F5B00A75B9A /* Wepay */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
+		1C0C7AFE21797B7900781F79 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* Wepay */;
+			targetProxy = 1C0C7AFD21797B7900781F79 /* PBXContainerItemProxy */;
+		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2D02E47A1E0B4A5D006451C7 /* Wepay-tvOS */;
@@ -1580,16 +1600,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
-					"$(SRCROOT)..\node_modules\neact-native-image-crop-pickerios/**",
-					"$(SRCROOT)..\node_modules\neact-native-syan-image-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-cameraios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-image-crop-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-syan-image-pickerios/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
@@ -1626,12 +1652,18 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
-					"$(SRCROOT)..\node_modules\neact-native-image-crop-pickerios/**",
-					"$(SRCROOT)..\node_modules\neact-native-syan-image-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-cameraios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-image-crop-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-syan-image-pickerios/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
@@ -1666,7 +1698,9 @@
 		0476EDE0211D885100DC2E31 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				APP_NAME = Test;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1691,8 +1725,12 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODEPUSH_KEY = "FFv7wkh-fism-vMuvqkyuPfptUjrfdf2b04e-456b-420f-8acd-58a99c8306be";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1715,12 +1753,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DEB59B0B1AE415AC6030847 /* Pods-Wepay.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"STAGING=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..",
@@ -1732,20 +1775,22 @@
 					"$(SRCROOT)..",
 					ode_modules,
 					"eact-native-syan-image-pickerios/**",
-					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
 				);
 				INFOPLIST_FILE = Wepay/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay4;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay.Staging;
 				PRODUCT_NAME = Wepay;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1758,12 +1803,18 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
-					"$(SRCROOT)..\node_modules\neact-native-image-crop-pickerios/**",
-					"$(SRCROOT)..\node_modules\neact-native-syan-image-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-cameraios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-image-crop-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-syan-image-pickerios/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
@@ -1806,13 +1857,19 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
-					"$(SRCROOT)..\node_modules\neact-native-image-crop-pickerios/**",
-					"$(SRCROOT)..\node_modules\neact-native-syan-image-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-cameraios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-image-crop-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-syan-image-pickerios/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
@@ -1855,13 +1912,19 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
-					"$(SRCROOT)..\node_modules\neact-native-image-crop-pickerios/**",
-					"$(SRCROOT)..\node_modules\neact-native-syan-image-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-cameraios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-image-crop-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-syan-image-pickerios/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
@@ -1905,7 +1968,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..",
@@ -1917,20 +1980,21 @@
 					"$(SRCROOT)..",
 					ode_modules,
 					"eact-native-syan-image-pickerios/**",
-					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
 				);
 				INFOPLIST_FILE = Wepay/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay4;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay.Debug;
 				PRODUCT_NAME = Wepay;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1943,12 +2007,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DEB59B0B1AE415AC6030847 /* Pods-Wepay.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..",
@@ -1960,20 +2026,21 @@
 					"$(SRCROOT)..",
 					ode_modules,
 					"eact-native-syan-image-pickerios/**",
-					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
 				);
 				INFOPLIST_FILE = Wepay/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay4;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay;
 				PRODUCT_NAME = Wepay;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1991,14 +2058,20 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
-					"$(SRCROOT)..\node_modules\neact-native-image-crop-pickerios/**",
-					"$(SRCROOT)..\node_modules\neact-native-syan-image-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-cameraios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-image-crop-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-syan-image-pickerios/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
@@ -2042,13 +2115,19 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
-					"$(SRCROOT)..\node_modules\neact-native-image-crop-pickerios/**",
-					"$(SRCROOT)..\node_modules\neact-native-syan-image-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-cameraios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-image-crop-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-syan-image-pickerios/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
@@ -2090,14 +2169,20 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
-					"$(SRCROOT)..\node_modules\neact-native-image-crop-pickerios/**",
-					"$(SRCROOT)..\node_modules\neact-native-syan-image-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-cameraios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-image-crop-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-syan-image-pickerios/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
@@ -2140,13 +2225,19 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
-					"$(SRCROOT)..\node_modules\neact-native-image-crop-pickerios/**",
-					"$(SRCROOT)..\node_modules\neact-native-syan-image-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-cameraios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-image-crop-pickerios/**",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-syan-image-pickerios/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
@@ -2182,7 +2273,9 @@
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				APP_NAME = Debug;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -2206,9 +2299,12 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODEPUSH_KEY = "_WI56vjwcQkFTgHCXVCM7V8q-M3Ofdf2b04e-456b-420f-8acd-58a99c8306be";
+				CODEPUSH_KEY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2237,7 +2333,9 @@
 		83CBBA211A601CBA00E9B192 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				APP_NAME = Wepay;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -2262,8 +2360,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODEPUSH_KEY = "_WI56vjwcQkFTgHCXVCM7V8q-M3Ofdf2b04e-456b-420f-8acd-58a99c8306be";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

@@ -386,7 +386,7 @@ export default class TradeHome extends BaseComponent {
                     <View style={{backgroundColor:'rgba(0,0,0,0.4)',flex:1,height:Utils.getHeight(),justifyContent:"center"}}>
                     <View style={{backgroundColor: "#fff",marginLeft:20,marginRight:20, padding: 20, borderRadius: 8,justifyContent:"center", alignItems: 'center'}}>
 
-                        <Text style={{fontSize:15,color:Colors.text6, alignSelf:"center"}}>像[{this.data?this.data.item.username:"xx"}]{!this.state.activeIndex?"购买":"出售"}{this.state.title}</Text>
+                        <Text style={{fontSize:15,color:Colors.text6, alignSelf:"center"}}>向[{this.data?this.data.item.username:"xx"}]{!this.state.activeIndex?"购买":"出售"}{this.state.title}</Text>
 
                         <View style={{flexDirection:"row",width: Utils.getWidth()-80}}>
                             <Text style={{fontSize:15,color:Colors.text6, alignSelf:"center"}}>限 额:</Text>

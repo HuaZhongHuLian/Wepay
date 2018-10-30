@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     RefreshControl,
     StatusBar,
-    Platform
+    Platform,
 } from 'react-native';
 import BaseComponent, { BaseStyles, integralRelease, upDataUserInfo } from "./BaseComponent";
 import ViewUtils from "../util/ViewUtils";
@@ -273,8 +273,8 @@ export default class HomePage extends BaseComponent {
                 DialogUtils.showToast("此模块正在升级中...")
                 break;
             case 8://游戏娱乐
-                // this.gotoGame();
-                DialogUtils.showToast("此模块正在升级中...")
+                this.gotoGame();
+                // DialogUtils.showToast("此模块正在升级中...")
                 break;
             case 9://群员互动
                 DialogUtils.showToast("此模块正在升级中...")

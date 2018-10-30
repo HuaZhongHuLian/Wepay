@@ -166,7 +166,7 @@ export default class AddShop extends BaseComponent {
         //alert(JSON.stringify(this.state.photos))
        deleShop=()=>{
            let url = BaseUrl.deleteShopUrl(this.userInfo.sessionId,this.state.goodsId)
-           alert(url)
+        //    alert(url)
            /** sessionId   contents  file */
            HttpUtils.getData(url)
                .then(result => {

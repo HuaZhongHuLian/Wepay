@@ -44,7 +44,7 @@ export default class ZhongChouRecord extends BaseComponent {
         return (
             <View style={BaseStyles.container_column}>
                 <NavigationBar
-                    title={"众筹项目记录"}
+                    title={"认购项目记录"}
                     navigation={this.props.navigation} />
                 <View style={{ flexDirection: "row", backgroundColor: Colors.white, justifyContent: "center", padding: 10 }}>
                     <TouchableOpacity

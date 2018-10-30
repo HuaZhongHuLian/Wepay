@@ -20,15 +20,15 @@ import com.tencent.bugly.crashreport.CrashReport;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class MainApplication extends Application implements ReactApplication {
 
-
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+    private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
 
         @Override
         protected String getJSBundleFile() {
         return CodePush.getJSBundleFile();
-        }
+    }
     
     @Override
     public boolean getUseDeveloperSupport() {
@@ -38,6 +38,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
+            new WepayModulesPackage(),
             new MainReactPackage(),
             new FastImageViewPackage(),
             new RCTCameraPackage(),
@@ -45,7 +46,9 @@ public class MainApplication extends Application implements ReactApplication {
             new RNSyanImagePickerPackage(),
             new SplashScreenReactPackage(),
             new PickerViewPackage(),
-            new CodePush("v-5TDPSESydQj-n9alBgCVEab3Mefdf2b04e-456b-420f-8acd-58a99c8306be", getApplicationContext(), BuildConfig.DEBUG)
+            // Production "v-5TDPSESydQj-n9alBgCVEab3Mefdf2b04e-456b-420f-8acd-58a99c8306be"
+            // Siging 测试 "rDOo0zulXVYp1xx5ub7fBKU1L9_tfdf2b04e-456b-420f-8acd-58a99c8306be"
+            new CodePush(com.wepay.BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG)
       );
     }
 

@@ -217,7 +217,7 @@ export default class YueOrIntegralRecord extends BaseComponent {
                 typeValue = "+" + yue
                 break;
             case 7:
-                typeText = "购买众筹"
+                typeText = "认购扣除"
                 typeValue = "-" + yue
                 break;
             case 8:
@@ -291,6 +291,14 @@ export default class YueOrIntegralRecord extends BaseComponent {
             case 36:
                 typeText = '油卡充值\n获得';
                 typeValue = '+' + yue;
+                break;
+            case 50 : 
+                typeText = '金币兑换\n余额获得';
+                typeValue = '+' + yue;
+                break;
+            case 51 : 
+                typeText = '余额兑换\n金币扣除';
+                typeValue = '-' + yue;
                 break;
         }
         return [typeText, typeValue];

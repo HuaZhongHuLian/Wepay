@@ -1,5 +1,5 @@
-const url = 'http://wp.wepay168.com/wepay'  //正式服务器
-// const url = 'http://192.168.0.10:8081/wepay'
+// const url = 'http://wp.wepay168.com/wepay'  //正式服务器
+const url = 'http://192.168.0.10:8081/wepay'
 // const url = 'http://121.201.46.206/wepay'      //测试服务器
 //const url = 'http://103.206.121.128:8080/wepay'
 
@@ -284,7 +284,7 @@ export default class BaseUrl {
      * @param {*} pageIndex 分页码
      * @returns
      *  "id": 90,
-     "title": "众筹公告1",
+     "title": "系统公告1",
      "addtime": 1526389977
      */
     static getSystemNews(sessionId, pageIndex) {
@@ -1694,6 +1694,20 @@ static getFuelUpApplyUrl(){
     static zhongchouRecord(sessionId, pageIndex, recordType) {
         return url + "/crowdsDetail/record?sessionId=" + sessionId
             + "&pageIndex=" + pageIndex + "&recordType=" + recordType;
+    }
+
+    /**
+     * 认购项目中心(众筹)
+     */
+    static getCrowdFundingUrl(){
+        return url + '/crowdFunding/index';
+    }
+
+     /**
+     * 认 购买购(众筹)
+     */
+    static getCrowdFundingBuyUrl(){
+        return url + '/crowdFunding/buy';
     }
 
     /**

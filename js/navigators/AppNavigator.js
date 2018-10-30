@@ -74,6 +74,7 @@ import PhoneBill from '../page/PhoneBill'
 import FuelUp from '../page/FuelUp'
 import GameAmuse from '../page/GameAmuse'
 import GameExchange from '../page/GameExchange'
+import GameGuide from '../page/GameGuide'
 
 export default AppNavigator = createStackNavigator({
     // PassNumInput: {//密码输入
@@ -300,6 +301,8 @@ export default AppNavigator = createStackNavigator({
     GameAmuse : {screen : GameAmuse},
 
     GameExchange : {screen : GameExchange},
+
+    GameGuide : {screen : GameGuide},
 
 
     Welcome: {//欢迎页 

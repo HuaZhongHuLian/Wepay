@@ -5,7 +5,10 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    Image, Platform,Linking
+    Image, 
+    Platform,
+    Linking,
+    NativeModules,
 } from 'react-native';
 import BaseComponent, { BaseStyles, mainColor } from "../BaseComponent";
 import NavigationBar from "../../common/NavigationBar";
@@ -29,9 +32,29 @@ export default class LoginPage extends BaseComponent {
         this.state = {
             text: '',
             pwd: '',
-            appVersion:"1.2.8"
+            appVersion:"1.2.9"
+        }
+
+        if(1){
+            this.versionName = '';
+            this.buildType = '';
+
+            this.setState({appVersion : ''});
+            let m = NativeModules.WepayModules;
+            let cb = function(e){this.versionName = e}.bind(this);
+            let cb2 = function(e){this.buildType = e}.bind(this);
+            let cb3 = function(e){ this.isDebug = e }.bind(this);
+            let cb4 = function(e){ this.isRelease = e }.bind(this);
+            let cb5 = function(e){ this.isReleaseStaging = e }.bind(this);
+            m.getVersionName(cb);
+            m.getBuildType(cb2);
+            m.isDebug(cb3);
+            m.isRelease(cb4);
+            m.isReleaseStaging(cb5);
         }
     }
+
+
     componentDidMount() {
         SplashScreen.hide();
         AsySorUtils.getAccountPwd((result)=>{
@@ -43,8 +66,8 @@ export default class LoginPage extends BaseComponent {
             }
         })
         //热更新后添加这个代码 不然貌似热更新会自动回滚
-        codePush.sync()
-       // Platform.OS ==="ios"? {}:codePush.sync()
+        // codePush.sync()
+        // Platform.OS ==="ios"? {}:codePush.sync()
     }
     render() {
         return (
@@ -147,10 +170,11 @@ export default class LoginPage extends BaseComponent {
                 })
                 break
             case 2://登陆
-               //PassWordInput.showPassWordInput((safetyPwd) => alert(safetyPwd),"支付描述内容",100)
-               // PassWordInput.showPassWordInput((safetyPwd) => alert(safetyPwd))
-                //DialogUtils.showPay()
-                //alert(Utils.formatNumbers("116.00",3))
+                // PassWordInput.showPassWordInput((safetyPwd) => alert(safetyPwd),"支付描述内容",100)
+                // PassWordInput.showPassWordInput((safetyPwd) => alert(safetyPwd))
+                // DialogUtils.showPay()
+                // alert(Utils.formatNumbers("116.00",3);
+                alert(this.buildType + ' ' + this.versionName + ' ' + this.isDebug + ' ' + this.isRelease + ' ' + this.isReleaseStaging);
                 if(this.state.text.length<1){
                     DialogUtils.showMsg("请输入UID或者手机号")
                 }else if(this.state.text.length<1){

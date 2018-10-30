@@ -19,11 +19,16 @@ import PassWordInput from '../common/PassNumInput';
 import BaseUrl from '../util/BaseUrl';
 import HttpUtils from '../util/HttpUtils';
 
-
+const c_rate = 1000;
+const c_integer = 100;
 const c_titles = ['余额兑金币', '金币兑余额', '绑定账号'];
-const c_placeholders = ['请输入您要兑换的余额(100的倍数)', '请输入您要兑换的金币(100的倍数)', '请输入游戏账号'];
-const c_descs = ['余额:金币 = 1:1000', '金币:余额= 1000:1', ''];
-const c_btnTexts = ['兑换', '兑换', '绑定'];
+const c_placeholders = [
+    '请输入用于兑换的余额(' + c_integer + '的倍数)', 
+    '请输入您要兑回的余额(' + c_integer + '的倍数)', 
+    '请输入游戏账号'
+];
+const c_descs = ['余额:金币 = 1:' + c_rate, '金币:余额= ' + c_rate + ':1', ''];
+const c_btnTexts = ['兑换', '兑回', '绑定'];
 
 // uptate AppStroe 用到
 @inject('AppStore')
@@ -91,11 +96,10 @@ export default class GameExchange extends BaseComponent{
                     <Text style={{ fontSize: 20, color: 'white', fontWeight: '900' }}>{this.btnText}</Text>
                 </TouchableHighlight>
                 {
-                    this.exchangeType == 2 ? 
+                    this.exchangeIndex == 1 ? 
                     <View style = {{paddingLeft : 20}}>
                         <Text style = {{color : '#F73636'}}>兑换说明：</Text>
-                        <Text style = {{color : '#F73636'}}>1.每个月只能兑换一次</Text>
-                        <Text style = {{color : '#F73636'}}>2.兑换额度不超过1000000</Text>
+                        <Text style = {{color : '#F73636'}}>1.每天有兑换限额</Text>
                     </View> : null
                 }
             </View>
@@ -134,17 +138,21 @@ export default class GameExchange extends BaseComponent{
             });
         }else{
             if(this.state.amount < 100 || (this.state.amount % 100 != 0)){
-                DialogUtils.showMsg('请输入100的倍数');
+                DialogUtils.showMsg('请输入' + c_integer + '的倍数');
                 return;
             }
             if(this.state.amount > this.amount){
                 DialogUtils.showMsg(exchangeIndex == 0 ? '余额不足' : '金币不足');
                 return;
             }
-            if(exchangeIndex == 1 && this.state.amount > 1000000){
-                DialogUtils.showMsg('输入数值不能超过1000000');
+            if(exchangeIndex == 1 && this.state.amount * c_rate > this.amount){
+                DialogUtils.showMsg('金币不足');
                 return;
-            }          
+            }      
+            if(exchangeIndex == 1 && this.state.amount * c_rate == this.amount){
+                DialogUtils.showMsg('不能兑完所有金币');
+                return;
+            }                
             PassWordInput.showPassWordInput((safetyPwd) => this.apply(safetyPwd));
         }
     }

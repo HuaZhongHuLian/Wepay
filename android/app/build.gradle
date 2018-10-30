@@ -105,9 +105,11 @@ android {
     defaultConfig {
         applicationId "com.wepay"
         minSdkVersion 16
+        // 拍照权限
+        // 设置defaultConfig里面的targetSdkVersion>=23
         targetSdkVersion 22
         versionCode 27
-        versionName "1.2.8"
+        versionName "1.2.9"
 
         ndk {
             abiFilters "armeabi-v7a", "x86",'armeabi'
@@ -125,13 +127,6 @@ android {
     }
 
     signingConfigs {
-        release {
-            storeFile file("Rn_wepay.keystore")
-            storePassword "wepaywepay"
-            keyAlias "wepay"
-            keyPassword "wepaywepay"
-        }
-
         debug {
             storeFile file("Rn_wepay.keystore")
             storePassword "wepaywepay"
@@ -141,17 +136,29 @@ android {
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            resValue 'string', 'app_name', 'Wepay'
+            signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-           // buildConfigField "String", "CODEPUSH_KEY", '"v-5TDPSESydQj-n9alBgCVEab3Mefdf2b04e-456b-420f-8acd-58a99c8306be"'
+            buildConfigField "String", "CODEPUSH_KEY", '"v-5TDPSESydQj-n9alBgCVEab3Mefdf2b04e-456b-420f-8acd-58a99c8306be"'
+            buildConfigField "String", "buildType", '"release"'
         }
-//        releaseStaging {
-//            buildConfigField "String", "CODEPUSH_KEY", '"rDOo0zulXVYp1xx5ub7fBKU1L9_tfdf2b04e-456b-420f-8acd-58a99c8306be"'
-//        }
-//        debug {
-//            buildConfigField "String", "CODEPUSH_KEY", '"rDOo0zulXVYp1xx5ub7fBKU1L9_tfdf2b04e-456b-420f-8acd-58a99c8306be"'
-//        }
+
+        releaseStaging {
+            resValue 'string', 'app_name', 'Test'
+            applicationIdSuffix ".releaseStaging"
+            signingConfig signingConfigs.debug
+            buildConfigField "String", "CODEPUSH_KEY", '"rDOo0zulXVYp1xx5ub7fBKU1L9_tfdf2b04e-456b-420f-8acd-58a99c8306be"'
+            buildConfigField "String", "buildType", '"releaseStaging"'
+            matchingFallbacks = ['releaseStaging', 'release']
+        }
+
+        debug{
+            resValue 'string', 'app_name', 'Debug'
+            applicationIdSuffix ".debug"
+            buildConfigField "String", "CODEPUSH_KEY", '""'
+            buildConfigField "String", "buildType", '"debug"'
+        }
     }
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
