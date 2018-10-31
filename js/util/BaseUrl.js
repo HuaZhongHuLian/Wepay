@@ -1704,12 +1704,22 @@ static getFuelUpApplyUrl(){
     }
 
      /**
-     * 认 购买购(众筹)
+     * 认购买购(众筹)
      */
     static getCrowdFundingBuyUrl(){
         return url + '/crowdFunding/buy';
     }
 
+    /**
+     * 认购买购记录(众筹)
+     */
+    static getCrowdConsumeBuyRecordUrl(){
+        return url + '/crowdConsume/buyRecord';
+    }
+
+    static getCrowdConsumeReleaseRecordUrl(){
+        return url + '/crowdConsume/releaseRecord';
+    }
     /**
      * 数字资产交易中心数据
      * @param sessionId

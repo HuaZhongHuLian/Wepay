@@ -46,6 +46,7 @@ export default class CheckMoney extends Component {
             borderColor: "#48b1a3",
             alignItems: 'center', justifyContent: 'center',
             margin: 10,
+            ...this.props.styleItem,
         }
         var views = [];
         for (let i = 0; i < arrText.length; i++) {

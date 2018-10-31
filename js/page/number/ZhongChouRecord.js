@@ -14,6 +14,8 @@ import BaseUrl from '../../util/BaseUrl';
 import RefreshFlatList from '../../common/RefreshFlatList';
 import DialogUtils from '../../util/DialogUtils';
 import Colors from "../../util/Colors"
+import ZhongChou from './ZhongChou'
+import CheckMoney from '../../common/CheckMoney';
 
 /**
  * 众筹记录
@@ -29,6 +31,7 @@ export default class ZhongChouRecord extends BaseComponent {
         }
         this.userInfo = this.getUserInfo()
         this.activeIndex = 0;
+        this.currencySelect = 0;
     }
     //界面加载完成
     componentDidMount() {
@@ -44,15 +47,15 @@ export default class ZhongChouRecord extends BaseComponent {
         return (
             <View style={BaseStyles.container_column}>
                 <NavigationBar
-                    title={"认购项目记录"}
+                    title={"认购记录"}
                     navigation={this.props.navigation} />
-                <View style={{ flexDirection: "row", backgroundColor: Colors.white, justifyContent: "center", padding: 10 }}>
+                <View style={{ flexDirection: "row", backgroundColor: Colors.white, justifyContent: "center", alignItems : 'center' }}>
                     <TouchableOpacity
                         onPress={() => this.selectIndex(0)}
                         style={{
                             borderColor: Colors.r1, borderWidth: 1, borderTopLeftRadius: 18, borderBottomLeftRadius: 18,
                             justifyContent: "center", alignItems: "center", backgroundColor: activeIndex ? Colors.white : Colors.red,
-                            paddingLeft:15
+                            marginVertical : 10, width : '35%'
                         }}>
                         <Text style={{ padding: 8, fontSize: 16, marginLeft: 10, marginRight: 10, color: activeIndex ? Colors.red : Colors.white }}>购买记录</Text>
                     </TouchableOpacity>
@@ -62,7 +65,7 @@ export default class ZhongChouRecord extends BaseComponent {
                         style={{
                             borderColor: Colors.r1, borderWidth: 1, borderTopRightRadius: 18, borderBottomRightRadius: 18,
                             justifyContent: "center", alignItems: "center", backgroundColor: activeIndex ? Colors.red : Colors.white,
-                            paddingRight: 15
+                            marginVertical : 10, width : '35%'
                         }} >
                         <Text style={{ padding: 8, fontSize: 16, marginLeft: 10, marginRight: 10, color: activeIndex ? Colors.white : Colors.red }}>释放记录</Text>
                     </TouchableOpacity>
@@ -81,52 +84,84 @@ export default class ZhongChouRecord extends BaseComponent {
         );
     }
 
+    static CurrencyNames = ['Wepay', '比特币', '莱特币', '以太坊', '狗狗币']
     renderItemTitle() {
-        let view1 = <View style={{flexDirection: "row", padding: 5, marginTop: 1,backgroundColor:Colors.bgColor ,paddingTop:10,paddingBottom:10}}>
-            <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
-                <Text style={{ fontSize: 14, color: Colors.text6, flex: 1,textAlign:"center" }}>数量</Text>
+        if(0){
+            let view1 = <View style={{flexDirection: "row", padding: 5, marginTop: 1,backgroundColor:Colors.bgColor ,paddingTop:10,paddingBottom:10}}>
+                <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
+                    <Text style={{ fontSize: 14, color: Colors.text6, flex: 1,textAlign:"center" }}>数量</Text>
+                </View>
+                <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
+                    <Text style={{ fontSize: 14, color: Colors.text6, flex: 1,textAlign:"center" }}>总价</Text>
+                </View>
+                <View style={{ flexDirection: "row", flex: 2, alignItems: "center"}}>
+                    <Text style={{ fontSize: 14, color: Colors.text6, flex: 1 ,textAlign:"center"}}>时间</Text>
+                </View>
             </View>
-            <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
-                <Text style={{ fontSize: 14, color: Colors.text6, flex: 1,textAlign:"center" }}>总价</Text>
-            </View>
-            <View style={{ flexDirection: "row", flex: 2, alignItems: "center"}}>
-                <Text style={{ fontSize: 14, color: Colors.text6, flex: 1 ,textAlign:"center"}}>时间</Text>
-            </View>
-        </View>
 
-        let view2 = <View style={{flexDirection: "row", padding: 5, marginTop: 1,backgroundColor:Colors.bgColor ,paddingTop:10,paddingBottom:10}}>
-            <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
-                <Text style={{ fontSize: 14, color: Colors.text6, flex: 1,textAlign:"center" }}>数量</Text>
+            let view2 = <View style={{flexDirection: "row", padding: 5, marginTop: 1,backgroundColor:Colors.bgColor ,paddingTop:10,paddingBottom:10}}>
+                <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
+                    <Text style={{ fontSize: 14, color: Colors.text6, flex: 1,textAlign:"center" }}>数量</Text>
+                </View>
+                <View style={{ flexDirection: "row", flex: 1, alignItems: "center"}}>
+                    <Text style={{ fontSize: 14, color: Colors.text6, flex: 1 ,textAlign:"center"}}>时间</Text>
+                </View>
             </View>
-            <View style={{ flexDirection: "row", flex: 1, alignItems: "center"}}>
-                <Text style={{ fontSize: 14, color: Colors.text6, flex: 1 ,textAlign:"center"}}>时间</Text>
-            </View>
-        </View>
-        return this.state.activeIndex===0?view1:view2
+        }
+
+        return this.state.activeIndex===0?<View />:<CheckMoney
+        //selectWidth = {120}
+        //selectHeight = {50}
+        //unselectedColor = {'#AAA'}
+        //fontStyle = {{fontSize :20, fontWeight :'900'}}
+        //fontDesc = {(t)=>{return (t + '元')}}
+        styleItem = {{marginVertical : 5}}
+        viewStyle = {{paddingVertical : 0}}
+        arrText={ZhongChouRecord.CurrencyNames}
+        onSelected={(index, value) => {this.currencySelect = index; this.selectIndex(1);}}
+        seleIndex = {this.currencySelect}
+        selectedValue = {ZhongChouRecord.CurrencyNames[this.currencySelect]}/>
     }
 
-    renderItem(data) {
-        let view1 = <View style={{flexDirection: "row", padding: 5, marginTop: 1,backgroundColor:Colors.white ,paddingTop:15,paddingBottom:15}}>
-            <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
-                <Text style={{ fontSize: 14, color: Colors.text6, flex: 1,textAlign:"center" }}>{data.item.num}</Text>
+    
+    renderItem(items) {
+        /**
+         * "buyNum": 25,
+            "createTime": "1540558829",
+            "consume": 50,
+            "currency": 1,
+            "projectName": "vpay"
+         */
+        let data =  items.item;
+        let view1 = <View style={{flexDirection: "row", justifyContent:'space-between', alignItems:'center', paddingHorizontal : 10, paddingVertical : 5,backgroundColor:Colors.white, borderTopWidth : 0.5, borderBottomWidth:0.5, borderColor : '#DDD'}}>
+            <View style={{}}>
+                <Text style={{ color: 'black' }}>购买 {data.buyNum} {data.projectName}</Text>
+                <Text style={{ fontSize : 13, color: 'gray', marginTop : 5 }}>{Utils.formatDateTime(data.createTime*1000, '-')}</Text>
             </View>
-            <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
-                <Text style={{ fontSize: 14, color: Colors.text6, flex: 1,textAlign:"center" }}>{data.item.tprice}</Text>
-            </View>
-            <View style={{ flexDirection: "row", flex: 2, alignItems: "center"}}>
-                <Text style={{ fontSize: 14, color: Colors.text6, flex: 1 ,textAlign:"center"}}>{Utils.formatDateTime(data.item.createTime*1000)}</Text>
-            </View>
+            <Text style={{ color: 'black'}}>- {data.consume} {ZhongChou.CurrencyNames[data.currency]}</Text>
         </View>
 
-        let view2 = <View style={{flexDirection: "row", padding: 5, marginTop: 1,backgroundColor:Colors.white ,paddingTop:15,paddingBottom:15}}>
-            <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
-                <Text style={{ fontSize: 14, color: Colors.text6, flex: 1,textAlign:"center" }}>{data.item.num}</Text>
-            </View>
-            <View style={{ flexDirection: "row", flex: 1, alignItems: "center"}}>
-                <Text style={{ fontSize: 14, color: Colors.text6, flex: 1 ,textAlign:"center"}}>{Utils.formatDateTime(data.item.createTime*1000)}</Text>
-            </View>
+        /**
+         * "releaseNum": 1,
+        "createTime": "1540559104",
+        "cid": 1
+        */
+        let view2 = <View style={{flexDirection: "row", justifyContent:'space-between', alignItems:'center', paddingHorizontal : 10, paddingVertical : 5,backgroundColor:Colors.white, borderTopWidth : 0.5, borderBottomWidth:0.5, borderColor : '#DDD'}}>
+        <View style={{}}>
+            <Text style={{ color: 'black' }}>释放 {data.releaseNum} {ZhongChouRecord.CurrencyNames[data.cid - 1]}</Text>
+            <Text style={{ fontSize: 13, color: 'gray', marginTop : 5 }}>{Utils.formatDateTime(data.createTime*1000, '-')}</Text>
         </View>
-        return this.state.activeIndex===0?view1:view2
+        <Text style={{ color: 'black'}}>+ {data.releaseNum} {ZhongChouRecord.CurrencyNames[data.cid - 1]}</Text>
+        </View>
+        // let view2 = <View style={{flexDirection: "row", padding: 5, marginTop: 1,backgroundColor:Colors.white ,paddingTop:15,paddingBottom:15}}>
+        //     <View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
+        //         <Text style={{ fontSize: 14, color: Colors.text6, flex: 1,textAlign:"center" }}>{data.buyNum}</Text>
+        //     </View>
+        //     <View style={{ flexDirection: "row", flex: 1, alignItems: "center"}}>
+        //         <Text style={{ fontSize: 14, color: Colors.text6, flex: 1 ,textAlign:"center"}}>{Utils.formatDateTime(data.createTime*1000)}</Text>
+        //     </View>
+        // </View>
+        return this.state.activeIndex===0 ? view1 : view2
     }
 
     //刷新数据
@@ -146,11 +181,67 @@ export default class ZhongChouRecord extends BaseComponent {
      * @param {*} pageIndex 
      */
     getData(isRefesh) {
-        if (this.activeIndex === 0) { //购买记录
-            this.url = BaseUrl.zhongchouRecord(this.userInfo.sessionId, this.pageIndex,1)
-        } else if (this.activeIndex === 1) {//释放记录
-            this.url = BaseUrl.zhongchouRecord(this.userInfo.sessionId, this.pageIndex,2)
+        if(isRefesh){
+            this.refList.setData([]);
         }
+        if (this.activeIndex === 0) { //购买记录
+            DialogUtils.showLoading('', true);
+            HttpUtils.postData(BaseUrl.getCrowdConsumeBuyRecordUrl(), {
+                sessionId: this.userInfo.sessionId,
+                pageIndex : this.pageIndex,
+            }).then(result => {
+                DialogUtils.hideLoading();
+                if (result.code == 1) {
+                    if (result.data.length < 1) {
+                        DialogUtils.showToast("暂无记录")
+                    } else{
+                        this.pageIndex += 1;
+                        if (isRefesh) {
+                            this.refList.setData(result.data)
+                        } else {
+                            this.refList.addData(result.data)
+                        }
+                    }
+                } else {
+                    DialogUtils.showToast(result.msg);
+                    if(result.code == 2 || result.code == 4){
+                        this.goLogin(this.props.navigation);
+                    }
+                }
+            }).catch(error => {
+                DialogUtils.hideLoading()
+            });
+        } else if (this.activeIndex === 1) {//释放记录
+            HttpUtils.postData(BaseUrl.getCrowdConsumeReleaseRecordUrl(), {
+                sessionId: this.userInfo.sessionId,
+                pageIndex : this.pageIndex,
+                cid : this.currencySelect + 1,
+            }).then(result => {
+                DialogUtils.hideLoading();
+                if (result.code == 1) {
+                    if (result.data.length < 1) {
+                        DialogUtils.showToast("暂无记录")
+                    } else{
+                        this.pageIndex += 1;
+                        if (isRefesh) {
+                            this.refList.setData(result.data)
+                        } else {
+                            this.refList.addData(result.data)
+                        }
+                    }
+                } else {
+                    DialogUtils.showToast(result.msg);
+                    if(result.code == 2 || result.code == 4){
+                        this.goLogin(this.props.navigation);
+                    }
+                }
+            }).catch(error => {
+                DialogUtils.hideLoading()
+            });
+            
+        }
+
+        return;``
         HttpUtils.getData(this.url)
             .then(result => {
                 if (result.code === 1) {

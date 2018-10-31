@@ -30,7 +30,7 @@ export default class GameGuide extends BaseComponent{
                     <View style = {{marginTop : 20, marginBottom : 100}}>
                         <Text style = {styleFont}>      开始游戏之前,Wepay会自动判断是否已经安装游戏,如果未安装,Wepay会自动跳转到游戏下载地址进行在线安装:</Text>
                         <Image style = {styleImageV} source = {require('../../res/pictures/gameguide1.png')}/>
-                        <Text style = {styleFont}>      第一次进入游戏之后进行账号注册:(注册账号长度至少6位)</Text>
+                        <Text style = {styleFont}>      第一次进入游戏之后进行账号注册:(注册账号长度6-8位)</Text>
                         <Image style = {styleImageH} source = {require('../../res/pictures/gameguide2.png')}/>
                         <Text style = {styleFont}>      Wepay与游戏账号进行绑定关联:</Text>
                         <Image style = {styleImageV} source = {require('../../res/pictures/gameguide3.png')}/>
