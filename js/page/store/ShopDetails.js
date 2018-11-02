@@ -86,7 +86,7 @@ export default class ShopDetails extends BaseComponent {
             onPress={() => {
             }}
             activeOpacity={0.8}>
-            {DialogUtils.useFastImage ? <FastImage
+            {Utils.useFastImage ? <FastImage
                 style={{width:width_w, height: width_w+80}}
                 //source={{uri:this.getImgUrl(data)}}
             source={require("../../../res/images/lianmeng-bg.png")}/> : 

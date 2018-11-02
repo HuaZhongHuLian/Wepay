@@ -139,7 +139,7 @@ export default class StoreCommon extends BaseComponent {
                 activeOpacity={0.8}
                 style={{ width: window_w / 2 - 4, height: window_w / 2, }}
                 onPress={(item) => this.goDetails(data.item)}>
-                {DialogUtils.useFastImage ? <FastImage
+                {Utils.useFastImage ? <FastImage
                     style={{ width: window_w / 2 - 4, height: window_w / 2, }}
                     source={{ uri: this.getImgUrl(data.item.coverPlan) }}
                     resizeMode={FastImage.resizeMode.cover}

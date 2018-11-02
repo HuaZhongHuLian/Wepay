@@ -13,6 +13,7 @@ import DialogUtils from '../util/DialogUtils';
 import FastImage from 'react-native-fast-image'
 import {Carousel, Theme} from 'teaset';
 import Colors from "../util/Colors";
+import Utils from '../util/Utils';
 
 
 //订单公用类（相当于Fragment）
@@ -53,7 +54,7 @@ export default class ViewPager extends BaseComponent {
                 onPress={() => {
                 }}
                 activeOpacity={0.8}>
-                {DialogUtils.useFastImage ? <FastImage
+                {Utils.useFastImage ? <FastImage
                     style={{width: this.props.width, height: this.props.height}}
                     source={{uri:this.getImgUrl(data)}}/> : 
                 <Image 

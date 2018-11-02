@@ -205,7 +205,7 @@ export default class StoreList extends BaseComponent {
                     style={{width: window_w , height: window_w,marginLeft:2,marginRight:2,borderRadius:10}}
                     onPress={() => this.goDetails(value)}
                 >
-                { DialogUtils.useFastImage ? <FastImage
+                { Utils.useFastImage ? <FastImage
                         style={{width: window_w , height: window_w ,borderRadius:10}}
                         source={img}
                         resizeMode={FastImage.resizeMode.cover}

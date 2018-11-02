@@ -4,6 +4,7 @@ import React from 'react';
 import { Platform, CameraRoll } from 'react-native';
 
 export default class Utils {
+    static useFastImage = true;
 
     static getWidth() {
         return require('Dimensions').get('window').width
