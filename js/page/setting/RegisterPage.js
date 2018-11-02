@@ -14,6 +14,7 @@ import BaseUrl from '../../util/BaseUrl';
 import DialogUtils from '../../util/DialogUtils';
 import HttpUtils from '../../util/HttpUtils';
 import CountDownView from '../../common/CountDownView';
+import You from '../../util/You'
 
 /**
  * 注册页面
@@ -69,6 +70,7 @@ export default class RegisterPage extends BaseComponent {
 
 
     onClicks(type) {
+        // alert(++You.temp);
         switch (type) {
             case 1://确定
                 if (this.state.nickName.length < 1) {

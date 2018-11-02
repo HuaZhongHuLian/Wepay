@@ -13,7 +13,7 @@ import DialogUtils from '../../util/DialogUtils';
 import CountDownView from '../../common/CountDownView';
 import BaseUrl from '../../util/BaseUrl';
 import HttpUtils from '../../util/HttpUtils';
-
+import You from '../../util/You'
 
 /**
  * 修改密码
@@ -33,6 +33,7 @@ export default class ModifyPassWord extends BaseComponent {
     }
 
     onClicks(type) {
+        // alert(++You.temp);
         switch (type) {
             case 1://确定
                 if (this.state.code.length < 6) {
