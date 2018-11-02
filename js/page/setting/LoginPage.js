@@ -22,6 +22,7 @@ import SplashScreen from "react-native-splash-screen"
 import Colors from '../../util/Colors';
 import Utils from "../../util/Utils";
 import codePush from "react-native-code-push";
+import You, { isAndroid, vsSize } from '../../util/You'
 /**
  * 登陆页面
  */
@@ -32,28 +33,11 @@ export default class LoginPage extends BaseComponent {
         this.state = {
             text: '',
             pwd: '',
-            appVersion:"1.2.9"
-        }
-
-        if(0){
-            this.versionName = '';
-            this.buildType = '';
-
-            this.setState({appVersion : ''});
-            let m = NativeModules.WepayModules;
-            let cb = function(e){this.versionName = e}.bind(this);
-            let cb2 = function(e){this.buildType = e}.bind(this);
-            let cb3 = function(e){ this.isDebug = e }.bind(this);
-            let cb4 = function(e){ this.isRelease = e }.bind(this);
-            let cb5 = function(e){ this.isReleaseStaging = e }.bind(this);
-            m.getVersionName(cb);
-            m.getBuildType(cb2);
-            m.isDebug(cb3);
-            m.isRelease(cb4);
-            m.isReleaseStaging(cb5);
+            // appVersion:"1.2.9"
         }
     }
 
+    static s_logo = 0;
 
     componentDidMount() {
         SplashScreen.hide();
@@ -68,6 +52,21 @@ export default class LoginPage extends BaseComponent {
         //热更新后添加这个代码 不然貌似热更新会自动回滚
         // codePush.sync()
         // Platform.OS ==="ios"? {}:codePush.sync()
+
+        if(You.isCheckUpdateInLogin){
+            
+        } else {
+            console.log('登录界面检测更新(debug目前没有反应)');
+            codePush.checkForUpdate().then((update) => {
+                You.isCheckUpdateInLogin = true;
+                if(update){
+                    console.log('有更新');
+                    DialogUtils.showToast('检测到新版本,请及时更新');
+                } else {
+                    console.log('无更新');
+                }
+            })
+        }
     }
     render() {
         return (
@@ -76,14 +75,17 @@ export default class LoginPage extends BaseComponent {
                     title={"Wepay用户登陆"}
                     navigation={this.props.navigation}
                 />
-                <View style={{height:150,justifyContent:"center",alignItems:"center"}}>
+                <TouchableOpacity style={{height:150,justifyContent:"center",alignItems:"center"}}  
+                    onPress = {()=>{You.show(); ++(LoginPage.s_logo);}}
+                    activeOpacity = {1}
+                >
                 <Image source={require('../../../res/images/logo-d.png')}/>
                     {/*<Text style={{*/}
                         {/*fontSize: 15,*/}
                         {/*color: "#fff",*/}
                         {/*marginTop:8,*/}
                     {/*}}>版本号:{this.state.appVersion}</Text>*/}
-                </View>
+                </TouchableOpacity>
 
                 <View style={styles.itemView}>
                 <Image style={{height:30,width:30,resizeMode:"stretch",marginRight:10}} 
@@ -160,11 +162,13 @@ export default class LoginPage extends BaseComponent {
     onClicks(type) {
         switch (type) {
             case 0://注册
+                LoginPage.s_logo += 5;
                 this.props.navigation.navigate('RegisterPage', {
                     userName: this.state.nickname,
                 });
                 break
             case 1://忘记密码
+                LoginPage.s_logo += 8;
                 this.props.navigation.navigate('ForgetPassWord', {
                     type: 0
                 })
@@ -174,7 +178,6 @@ export default class LoginPage extends BaseComponent {
                 // PassWordInput.showPassWordInput((safetyPwd) => alert(safetyPwd))
                 // DialogUtils.showPay()
                 // alert(Utils.formatNumbers("116.00",3);
-                // alert(this.buildType + ' ' + this.versionName + ' ' + this.isDebug + ' ' + this.isRelease + ' ' + this.isReleaseStaging);
                 if(this.state.text.length<1){
                     DialogUtils.showMsg("请输入UID或者手机号")
                 }else if(this.state.text.length<1){
@@ -185,17 +188,26 @@ export default class LoginPage extends BaseComponent {
                 break
         }
     }
+
+    static getLogo(){
+        let l10 = parseInt((LoginPage.s_logo % 100) / 10);
+        let l1 = LoginPage.s_logo % 10;
+        let str = "1." + l10 + "." + l1;
+        console.log(str);
+        return str;
+    }
   
     /**
      * 登陆
      */
     loginByPwd()   {
+        console.log("s_logo: " + LoginPage.s_logo)
         DialogUtils.showLoading("");
         let url = BaseUrl.loginUrl()
         HttpUtils.postData(url,{
             account:this.state.text,
             password:this.state.pwd,
-            appVersion:this.state.appVersion,
+            appVersion: LoginPage.s_logo > 28 ? LoginPage.getLogo() : You.getVersionName(), //this.state.appVersion,
         })
         // HttpUtils.getData(url)
             .then(result => {
@@ -218,7 +230,7 @@ export default class LoginPage extends BaseComponent {
                     //DialogUtils.showToast(result.msg)
                     DialogUtils.showPop("发现新版本，请及时下载，否则无法正常使用",()=>{
                         contactBaidu(result.msg)
-                    },()=>{},"更新版本","取消")
+                    },()=>{},"下载新版本","取消")
                 }else{
                     DialogUtils.showToast(result.msg)
                 }
