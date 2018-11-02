@@ -17,9 +17,6 @@ import {mainColor} from "../page/BaseComponent";
 import PassWordInput,{PayInfoView} from "../common/PassNumInput";
 
 export default class DialogUtils {
-
-    static useFastImage = false;
-    static useImagePicker = (Platform.OS == 'ios')
     /**
      * 消息对话框
      * @param {*} text 提示类容 
@@ -288,7 +285,7 @@ export default class DialogUtils {
                 this.hideLoading();
                 if (!update) {
                     //热更新后添加这个代码 不然貌似热更新会自动回滚
-                    Platform.OS ==="ios"? {}:codePush.sync()
+                    // Platform.OS ==="ios"? {}:codePush.sync()
                     DialogUtils.showToast("已是最新版本")
                 } else {
                     codePush.sync({
