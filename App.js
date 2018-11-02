@@ -3,11 +3,26 @@ import React, { Component } from 'react';
 import { Provider } from 'mobx-react';
 import AppStore from './js/AppStore';
 import codePush from "react-native-code-push";
+import You from './js/util/You'
 
 const stores ={
     AppStore,
 } 
  class App extends Component {
+    constructor(props){
+        super(props);
+        console.log("App初始化,明显是在启动图之后");
+        You.init();
+    }
+
+    componentWillMount(){
+        console.log("App准备Mount");
+    }
+
+    componentDidMount(){
+        console.log("App已经Mount");
+    }
+
     render() {
         return (
             //配置mobx 的 Store 
