@@ -52,8 +52,16 @@
 -keepclassmembers class *  { @com.facebook.react.uimanager.UIProp <fields>; }
 -keepclassmembers class *  { @com.facebook.react.uimanager.annotations.ReactProp <methods>; }
 -keepclassmembers class *  { @com.facebook.react.uimanager.annotations.ReactPropGroup <methods>; }
-
+# 能略就略
+-keep class com.facebook.** { *; }
+#
 -dontwarn com.facebook.react.**
+
+# image-picker
+-keep class com.luck.picture.lib.** { *; }
+# fast-image
+-keep class com.bumptech.glide.** { *; }
+#
 
 # TextLayoutBuilder uses a non-public Android constructor within StaticLayout.
 # See libs/proxy/src/main/java/com/facebook/fbui/textlayoutbuilder/proxy for details.
@@ -73,3 +81,7 @@
 -dontwarn java.nio.file.*
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 -dontwarn okio.**
+
+
+
+
