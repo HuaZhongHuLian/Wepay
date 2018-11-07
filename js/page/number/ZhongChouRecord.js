@@ -54,20 +54,30 @@ export default class ZhongChouRecord extends BaseComponent {
                         onPress={() => this.selectIndex(0)}
                         style={{
                             borderColor: Colors.r1, borderWidth: 1, borderTopLeftRadius: 18, borderBottomLeftRadius: 18,
-                            justifyContent: "center", alignItems: "center", backgroundColor: activeIndex ? Colors.white : Colors.red,
-                            marginVertical : 10, width : '35%'
+                            justifyContent: "center", alignItems: "center", backgroundColor: activeIndex != 0 ? Colors.white : Colors.red,
+                            marginVertical : 10, width : '30%'
                         }}>
-                        <Text style={{ padding: 8, fontSize: 16, marginLeft: 10, marginRight: 10, color: activeIndex ? Colors.red : Colors.white }}>购买记录</Text>
+                        <Text style={{ padding: 8, fontSize: 16, marginLeft: 10, marginRight: 10, color: activeIndex != 0 ? Colors.red : Colors.white }}>购买记录</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress={() => this.selectIndex(2)}
+                        style={{
+                            borderColor: Colors.r1, borderWidth: 1, 
+                            justifyContent: "center", alignItems: "center", backgroundColor: activeIndex != 2 ? Colors.white : Colors.red,
+                            marginVertical : 10, width : '30%'
+                        }}>
+                        <Text style={{ padding: 8, fontSize: 16, marginLeft: 10, marginRight: 10, color: activeIndex != 2 ? Colors.red : Colors.white }}>认购数量</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         onPress={() => this.selectIndex(1)}
                         style={{
                             borderColor: Colors.r1, borderWidth: 1, borderTopRightRadius: 18, borderBottomRightRadius: 18,
-                            justifyContent: "center", alignItems: "center", backgroundColor: activeIndex ? Colors.red : Colors.white,
-                            marginVertical : 10, width : '35%'
+                            justifyContent: "center", alignItems: "center", backgroundColor: activeIndex == 1 ? Colors.red : Colors.white,
+                            marginVertical : 10, width : '30%'
                         }} >
-                        <Text style={{ padding: 8, fontSize: 16, marginLeft: 10, marginRight: 10, color: activeIndex ? Colors.white : Colors.red }}>释放记录</Text>
+                        <Text style={{ padding: 8, fontSize: 16, marginLeft: 10, marginRight: 10, color: activeIndex == 1 ? Colors.white : Colors.red }}>释放记录</Text>
                     </TouchableOpacity>
                 </View>
                 {this.renderItemTitle()}
@@ -109,9 +119,11 @@ export default class ZhongChouRecord extends BaseComponent {
             </View>
         }
 
-        return this.state.activeIndex===0?<View />:<CheckMoney
-        //selectWidth = {120}
-        //selectHeight = {50}
+        let styleTitle = {textAlign : "center", color : "black", width : (Utils.getWidth() - 20) / 3 - 1, paddingVertical : 10};
+        let viewLine = <View style = {{width : 1, height : 30, backgroundColor : "#F1F1F1"}}/>;
+        return this.state.activeIndex===0?<View />: (this.state.activeIndex===1 ? <CheckMoney
+        // selectWidth = {120}
+        // selectHeight = {null}
         //unselectedColor = {'#AAA'}
         //fontStyle = {{fontSize :20, fontWeight :'900'}}
         //fontDesc = {(t)=>{return (t + '元')}}
@@ -120,7 +132,14 @@ export default class ZhongChouRecord extends BaseComponent {
         arrText={ZhongChouRecord.CurrencyNames}
         onSelected={(index, value) => {this.currencySelect = index; this.selectIndex(1);}}
         seleIndex = {this.currencySelect}
-        selectedValue = {ZhongChouRecord.CurrencyNames[this.currencySelect]}/>
+        selectedValue = {ZhongChouRecord.CurrencyNames[this.currencySelect]}/> : 
+        <View style = {{flexDirection : "row", paddingHorizontal : 10, justifyContent : "center", alignItems : "center"}}>
+            <Text style = {styleTitle}>认购数量</Text>
+            {viewLine}
+            <Text style = {styleTitle}>剩余数量</Text>
+            {viewLine}
+            <Text style = {styleTitle}>日释放量</Text>
+        </View>)
     }
 
     
@@ -161,7 +180,14 @@ export default class ZhongChouRecord extends BaseComponent {
         //         <Text style={{ fontSize: 14, color: Colors.text6, flex: 1 ,textAlign:"center"}}>{Utils.formatDateTime(data.createTime*1000)}</Text>
         //     </View>
         // </View>
-        return this.state.activeIndex===0 ? view1 : view2
+
+        let styleTitle = {textAlign : "center", color : "black", width : (Utils.getWidth() - 20) / 3 - 1, paddingVertical : 10};
+        let view3 = <View style = {{flexDirection : "row", paddingHorizontal : 10, justifyContent : "center", alignItems : "center", backgroundColor:Colors.white, borderTopWidth : 0.5, borderBottomWidth:0.5, borderColor : '#DDD'}}>
+            <Text style = {styleTitle}>{data.buyNum}</Text>
+            <Text style = {styleTitle}>{data.remainingNum}</Text>
+            <Text style = {styleTitle}>{data.dayRelease}</Text>
+        </View>;
+        return (this.state.activeIndex===0) ? view1 : ((this.state.activeIndex===1) ? view2 : view3);
     }
 
     //刷新数据
@@ -184,64 +210,37 @@ export default class ZhongChouRecord extends BaseComponent {
         if(isRefesh){
             this.refList.setData([]);
         }
-        if (this.activeIndex === 0) { //购买记录
-            DialogUtils.showLoading('', true);
-            HttpUtils.postData(BaseUrl.getCrowdConsumeBuyRecordUrl(), {
-                sessionId: this.userInfo.sessionId,
-                pageIndex : this.pageIndex,
-            }).then(result => {
-                DialogUtils.hideLoading();
-                if (result.code == 1) {
-                    if (result.data.length < 1) {
-                        DialogUtils.showToast("暂无记录")
-                    } else{
-                        this.pageIndex += 1;
-                        if (isRefesh) {
-                            this.refList.setData(result.data)
-                        } else {
-                            this.refList.addData(result.data)
-                        }
-                    }
-                } else {
-                    DialogUtils.showToast(result.msg);
-                    if(result.code == 2 || result.code == 4){
-                        this.goLogin(this.props.navigation);
-                    }
-                }
-            }).catch(error => {
-                DialogUtils.hideLoading()
-            });
-        } else if (this.activeIndex === 1) {//释放记录
-            HttpUtils.postData(BaseUrl.getCrowdConsumeReleaseRecordUrl(), {
-                sessionId: this.userInfo.sessionId,
-                pageIndex : this.pageIndex,
-                cid : this.currencySelect + 1,
-            }).then(result => {
-                DialogUtils.hideLoading();
-                if (result.code == 1) {
-                    if (result.data.length < 1) {
-                        DialogUtils.showToast("暂无记录")
-                    } else{
-                        this.pageIndex += 1;
-                        if (isRefesh) {
-                            this.refList.setData(result.data)
-                        } else {
-                            this.refList.addData(result.data)
-                        }
-                    }
-                } else {
-                    DialogUtils.showToast(result.msg);
-                    if(result.code == 2 || result.code == 4){
-                        this.goLogin(this.props.navigation);
-                    }
-                }
-            }).catch(error => {
-                DialogUtils.hideLoading()
-            });
-            
+        let url = (this.activeIndex === 0) ? BaseUrl.getCrowdConsumeBuyRecordUrl() : 
+        ((this.activeIndex === 1) ? BaseUrl.getCrowdConsumeReleaseRecordUrl() : 
+        BaseUrl.getCrowdConsumeCrowdRecordUrl())
+        let obj = (this.activeIndex == 1) ? 
+        {
+            sessionId: this.userInfo.sessionId,
+            pageIndex : this.pageIndex,
+            cid : this.currencySelect + 1
+        } :  {
+            sessionId: this.userInfo.sessionId,
+            pageIndex : this.pageIndex,
         }
-
-        return;``
+        HttpUtils.postData(url, obj).then(result => {
+            if (result.code == 1) {
+                if (isRefesh) {
+                    this.refList.setData(result.data)
+                    if (result.data.length < 1) {
+                        DialogUtils.showToast("暂无记录")
+                    } 
+                } else {
+                    this.refList.addData(result.data)
+                }
+                this.pageIndex += 1;
+            } else {
+                DialogUtils.showToast(result.msg);
+                if(result.code == 2 || result.code == 4){
+                    this.goLogin(this.props.navigation);
+                }
+            }
+        });
+        return;
         HttpUtils.getData(this.url)
             .then(result => {
                 if (result.code === 1) {
