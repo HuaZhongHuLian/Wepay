@@ -1,13 +1,13 @@
 {
   "name": "Wepay",
-  "version": "0.0.1",
+  "version": "1.3.0",
   "private": true,
   "scripts": {
     "test": "jest",
     "android": "react-native run-android --appIdSuffix=debug",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "bundle-ios": "node node_modules/react-native/local-cli/cli.js bundle --entry-file index.js --platform ios --dev false --bundle-output ./ios/bundle/index.ios.jsbundle --assets-dest ./ios/bundle",
-    "bundle-android": "cd android && ./gradlew clean && ./gradlew assembleRelease",
+    "bundle-android": "node node_modules/react-native/local-cli/cli.js bundle --platform android --dev true --reset-cache --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle —sourcemap-output android/app/src/main/assets/index.android.map —assets-dest android/app/src/main/res/",
     "release-android": "react-native run-android --variant=release",
     "iosx": "react-native run-ios --simulator 'iPhone X'",
     "bundle": "cd ios/ && rm -rf bundle && mkdir bundle/ && cd ../ && node node_modules/react-native/local-cli/cli.js bundle --entry-file index.js --platform ios --dev false --bundle-output ./ios/bundle/index.ios.jsbundle --assets-dest ./ios/bundle",
