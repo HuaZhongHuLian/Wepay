@@ -75,6 +75,7 @@ import FuelUp from '../page/FuelUp'
 import GameAmuse from '../page/GameAmuse'
 import GameExchange from '../page/GameExchange'
 import GameGuide from '../page/GameGuide'
+import GameMining from "../page/GameMining"
 
 export default AppNavigator = createStackNavigator({
     // PassNumInput: {//密码输入
@@ -304,6 +305,7 @@ export default AppNavigator = createStackNavigator({
 
     GameGuide : {screen : GameGuide},
 
+    GameMining : {screen : GameMining},
 
     Welcome: {//欢迎页 
         screen: Welcome,

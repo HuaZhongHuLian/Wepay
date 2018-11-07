@@ -37,6 +37,6 @@ export default class You{
         }
         // alert(str);
     }
-    // 夸js可以全局
+œ    // 跨js可以全局
     // static temp = 0;
 }

@@ -158,6 +158,7 @@ export default class StoreMall extends BaseComponent {
 
     //刷新数据
     _refreshData() {
+        console.log("刷新商品");
         //获取经纬度 并赋值给全局变量
         this.refList.refreshStar()
         this.pageIndex = 1;
@@ -166,6 +167,7 @@ export default class StoreMall extends BaseComponent {
 
     //加载更多数据
     _onLoadData() {
+        console.log("加载商品");
         this.getData(false)
     }
 
