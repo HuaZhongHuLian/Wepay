@@ -59,3 +59,6 @@ buck-out/
 .vscode/.react/index.map
 .vscode/.react/index.map
 .vscode/.react/debuggerWorker.js
+
+android/app/src/main/assets/index.android.bundle
+android/app/src/main/assets/index.android.bundle.meta
