@@ -40,12 +40,14 @@ export default class OrderCommon extends BaseComponent {
     }
     //刷新数据
     _refreshData() {
+        console.log("刷新订单")
         this.refList.refreshStar()
         this.pageIndex = 1;
         this.getData(true)
     }
     //加载更多数据
     _onLoadData() {
+        console.log("加载订单")
         this.getData(false)
     }
 
@@ -60,6 +62,7 @@ export default class OrderCommon extends BaseComponent {
         } else {
             this.url = BaseUrl.getStoreOrderBy(this.userInfo.sessionId, this.pageIndex, this.orderStatus)
         }
+        console.log(JSON.stringify({pageIndex:this.pageIndex, orderStatus : this.orderStatus}))
         HttpUtils.getData(this.url)
             .then(result => {
                 if (result.code === 1) {
@@ -71,6 +74,7 @@ export default class OrderCommon extends BaseComponent {
                     } else {
                         this.refList.addData(result.data)
                     }
+                    console.log("result.data.length: " + result.data.length);
                     this.pageIndex += 1
                 } else if(result.code === 2||result.code === 4){
                     DialogUtils.showToast(result.msg)
@@ -91,8 +95,8 @@ export default class OrderCommon extends BaseComponent {
                 <RefreshFlatList
                     ref={refList => this.refList = refList}
                     numColumns={this.numColumns}
-                    onRefreshs={() => this._refreshData()}
-                    onLoadData={() => this._onLoadData()}
+                    onRefreshs={()=>this._refreshData()}
+                    onLoadData={()=>this._onLoadData()}
                     isDownLoad={true}
                     renderItem={(data) => this.type === 1 ? this._getOrder1(data) : this._getOrder2(data)} />
             </View>
@@ -109,11 +113,11 @@ export default class OrderCommon extends BaseComponent {
     }
 
     //加载更多数据
-    _onLoadData() {
-        setTimeout(() => {
-            this.refList.addData(this.state.dataArray)
-        }, 2000)
-    }
+    // _onLoadData() {
+    //     setTimeout(() => {
+    //         this.refList.addData(this.state.dataArray)
+    //     }, 2000)
+    // }
 
     //修改订单状态
     confirmBtn(data, status) {
