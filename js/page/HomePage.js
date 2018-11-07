@@ -225,7 +225,7 @@ export default class HomePage extends BaseComponent {
                             {this._itemView(() => this.onClicks(6), require('../../res/images/shangcheng.png'), "超级商城")}
                             {this._itemView(() => this.onClicks(7), require('../../res/images/gongyi.png'), "爱心公益")}
                             {this._itemView(() => this.onClicks(8), require('../../res/images/youxi.png'), "游戏娱乐")}
-                            {this._itemView(() => this.onClicks(9), require('../../res/images/hudong.png'), "群员互动")}
+                            {this._itemView(() => this.onClicks(9), require('../../res/images/hudong.png'), "大卫金矿")}
                             {this._itemView(() => this.onClicks(10), require('../../res/images/duixian.png'), "商家兑现")}
                             {this._itemView(() => this.onClicks(11), require('../../res/images/huafei.png'), "话费充值")}
                             {this._itemView(() => this.onClicks(12), require('../../res/images/jiayou.png'), "余额加油")}
@@ -273,11 +273,12 @@ export default class HomePage extends BaseComponent {
                 DialogUtils.showToast("此模块正在升级中...")
                 break;
             case 8://游戏娱乐
-                this.gotoGame();
+                this.gotoGame(0);
                 // DialogUtils.showToast("此模块正在升级中...")
                 break;
             case 9://群员互动
-                DialogUtils.showToast("此模块正在升级中...")
+                this.gotoGame(1);
+                // DialogUtils.showToast("此模块正在升级中...")
                 break;
             case 10://商家兑现
                 DialogUtils.showToast("此模块正在升级中...")
@@ -314,13 +315,16 @@ export default class HomePage extends BaseComponent {
             }).catch(error => DialogUtils.hideLoading())
     }
 
-    gotoGame(){
+    gotoGame(amuse_mining){
         DialogUtils.showLoading('', true);
-        HttpUtils.postData(BaseUrl.getGameHomeUrl(), {sessionId : this.props.AppStore.userInfo.sessionId}).then(result => {
+        let htp = amuse_mining == 0 ? 
+        HttpUtils.postData(BaseUrl.getGameHomeUrl(),{sessionId : this.props.AppStore.userInfo.sessionId}) : 
+        HttpUtils.getData(BaseUrl.numberIndex(this.getUserInfo().sessionId));
+        htp.then(result => {
             DialogUtils.hideLoading();
             if(result.code == 1){
                 // alert(JSON.stringify(result.data));
-                this.props.navigation.navigate('GameAmuse', {gameDatas : result.data});
+                this.props.navigation.navigate('GameAmuse', {gameDatas : amuse_mining == 0 ? result.data : [result.data], amuse_mining : amuse_mining});
             }else {
                 DialogUtils.showToast(result.msg);
                 if(result.code == 2 || result.code == 4){
