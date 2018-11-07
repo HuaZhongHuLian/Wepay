@@ -1,11 +1,27 @@
-const url = 'http://wp.wepay168.com/wepay'  //正式服务器
-// const url = 'http://192.168.0.10:8081/wepay'
-// const url = 'http://121.201.46.206/wepay'      //测试服务器
-//const url = 'http://103.206.121.128:8080/wepay'
+const url2 = 'http://wp.wepay168.com/wepay'  //正式服务器
+// const url2 = 'http://192.168.0.10:8081/wepay'
+// const url2 = 'http://192.168.1.4:8080/wepay'  
+// const url2 = 'http://121.201.46.206/wepay'      //测试服务器
+//const url2 = 'http://103.206.121.128:8080/wepay'
 
 
+var url = url2;
 export default class BaseUrl {
 
+    static geturl(){
+        return url;
+    }
+
+    static seturl(u){
+        if(u.length < 1){
+            url = url2;
+        }else if(u == "0"){
+            url = 'http://192.168.0.10:8081/wepay';
+        }else if(u == "1"){
+            url = "http://" + u + "/wepay";
+        }
+        console.log(url);
+    }
     /**
      * 登陆接口
      *
@@ -1720,6 +1736,13 @@ static getFuelUpApplyUrl(){
     static getCrowdConsumeReleaseRecordUrl(){
         return url + '/crowdConsume/releaseRecord';
     }
+
+
+    static getCrowdConsumeCrowdRecordUrl(){
+        return url + '/crowdFunding/crowdRecord';
+    }
+
+
     /**
      * 数字资产交易中心数据
      * @param sessionId

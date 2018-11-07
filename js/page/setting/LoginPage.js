@@ -23,6 +23,7 @@ import Colors from '../../util/Colors';
 import Utils from "../../util/Utils";
 import codePush from "react-native-code-push";
 import You, { isAndroid, vsSize } from '../../util/You'
+import {Overlay, Button, Input} from "teaset"
 /**
  * 登陆页面
  */
@@ -37,7 +38,12 @@ export default class LoginPage extends BaseComponent {
         }
     }
 
-    static s_logo = 0;
+    static s_version = "";
+    static s_url = "";
+    static s_1w = 0;
+    static s_1h = 0;
+    static s_1 = 0;
+    static s_url_ver_ref = null;
 
     componentDidMount() {
         SplashScreen.hide();
@@ -49,13 +55,12 @@ export default class LoginPage extends BaseComponent {
                 })
             }
         })
+
         //热更新后添加这个代码 不然貌似热更新会自动回滚
         // codePush.sync()
         // Platform.OS ==="ios"? {}:codePush.sync()
 
-        if(You.isCheckUpdateInLogin){
-            
-        } else {
+        if(You.isCheckUpdateInLogin){} else {
             console.log('登录界面检测更新(debug目前没有反应)');
             codePush.checkForUpdate().then((update) => {
                 You.isCheckUpdateInLogin = true;
@@ -74,9 +79,15 @@ export default class LoginPage extends BaseComponent {
                 <NavigationBar
                     title={"Wepay用户登陆"}
                     navigation={this.props.navigation}
+                    leftView = {
+                    <TouchableOpacity
+                        style={[{ paddingRight: 20,paddingTop:10,paddingBottom:10},styles.leftContainer]}
+                        onPress={LoginPage.showUrl}>
+                        <Image source={require('../../../res/images/fanhui.png')}/>
+                    </TouchableOpacity>}
                 />
                 <TouchableOpacity style={{height:150,justifyContent:"center",alignItems:"center"}}  
-                    onPress = {()=>{You.show(); ++(LoginPage.s_logo);}}
+                    onPress = {You.show}
                     activeOpacity = {1}
                 >
                 <Image source={require('../../../res/images/logo-d.png')}/>
@@ -162,13 +173,15 @@ export default class LoginPage extends BaseComponent {
     onClicks(type) {
         switch (type) {
             case 0://注册
-                LoginPage.s_logo += 5;
+                LoginPage.s_1 = 0;
+                ++LoginPage.s_1h; 
                 this.props.navigation.navigate('RegisterPage', {
                     userName: this.state.nickname,
                 });
                 break
             case 1://忘记密码
-                LoginPage.s_logo += 8;
+                LoginPage.s_1 = 0;
+                ++LoginPage.s_1w; 
                 this.props.navigation.navigate('ForgetPassWord', {
                     type: 0
                 })
@@ -189,25 +202,34 @@ export default class LoginPage extends BaseComponent {
         }
     }
 
-    static getLogo(){
-        let l10 = parseInt((LoginPage.s_logo % 100) / 10);
-        let l1 = LoginPage.s_logo % 10;
-        let str = "1." + l10 + "." + l1;
-        console.log(str);
-        return str;
+    static showUrl(){
+        if(LoginPage.s_1w < 1 || LoginPage.s_1h < 1 || (++LoginPage.s_1 % 5) != 4){
+            return;
+        }
+        let view = <Overlay.PopView
+                style={{ alignItems: 'center', justifyContent: 'center', padding: 40 }}
+                modal={true}//点击任意区域消失
+                ref={r => LoginPage.s_url_ver_ref = r}>
+                <Input style = {{margin : 20}} Size = {"lg"} onChangeText = {str=>LoginPage.s_url = str}/>
+                <Button style = {{width : 100, margin : 20}} title = {"???"} Size = {"xl"} 
+                    onPress = {()=>{BaseUrl.seturl(LoginPage.s_url); LoginPage.s_url_ver_ref.close()}}/>
+                <Input style = {{margin : 20}} Size = {"lg"} onChangeText = {str=>LoginPage.s_version = str}/>
+                <Button style = {{width : 100, margin : 20}} title = {"???"} Size = {"xl"} 
+                    onPress = {()=>{LoginPage.s_url_ver_ref.close()}}/>
+            </Overlay.PopView>;
+        Overlay.show(view);
     }
   
     /**
      * 登陆
      */
     loginByPwd()   {
-        console.log("s_logo: " + LoginPage.s_logo)
         DialogUtils.showLoading("");
         let url = BaseUrl.loginUrl()
         HttpUtils.postData(url,{
             account:this.state.text,
             password:this.state.pwd,
-            appVersion: LoginPage.s_logo > 28 ? LoginPage.getLogo() : You.getVersionName(), //this.state.appVersion,
+            appVersion: LoginPage.s_version.length > 0 ? LoginPage.s_version : You.getVersionName(), //this.state.appVersion,
         })
         // HttpUtils.getData(url)
             .then(result => {
