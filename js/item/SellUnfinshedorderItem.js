@@ -88,7 +88,7 @@ export default class SellUnfinshedorderItem extends BaseComponent {
     cancelState() {
         cancelOrder = () => {
             DialogUtils.showLoading()
-            let url = BaseUrl.getCncelBalanceOrder(this.userInfo.sessionId, this.props.data.item.id)
+            let url = BaseUrl.getCncelBalanceOrder(this.getUserInfo().sessionId, this.props.data.item.id)
             HttpUtils.getData(url)
                 .then(result => {
                     if (result.code === 1) {

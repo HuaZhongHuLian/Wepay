@@ -42,7 +42,7 @@ export default class NumberHome extends BaseComponent {
     */
    _refreshData() {
        this.setState({isRefresh:true})
-        this.url = BaseUrl.numberIndex(this.userInfo.sessionId)
+        this.url = BaseUrl.numberIndex(this.getUserInfo().sessionId)
         HttpUtils.getData(this.url)
             .then(result => {
                 this.setState({isRefresh:false})
@@ -200,7 +200,10 @@ export default class NumberHome extends BaseComponent {
             <View style={{ flexDirection: "row" ,marginTop:5}}>
                 <Text style={{ color: Colors.text6, fontSize: 14, marginLeft: 5, flex: 1 }}>{data.item.coinName}</Text>
                 <Text style={{ color: Colors.text6, fontSize: 14, marginLeft: 5, flex: 1 }}>当前价格</Text>
-                <TouchableOpacity style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 5, backgroundColor: Colors.mainColor }}>
+                <TouchableOpacity 
+                    style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 5, backgroundColor: Colors.mainColor }}
+                    onPress = {()=>{this.props.navigation.navigate('CashTransactions',{cid:cid})}}
+                >
                     <Text style={{ color: Colors.white, fontSize: 14, }}>现金交易</Text>
                 </TouchableOpacity>
             </View>
