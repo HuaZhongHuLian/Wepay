@@ -105,7 +105,7 @@ export default class GameExchange extends BaseComponent{
                             }
                             this.setState({ 
                                 amount: str,
-                                flag: ++ZhongChouBuy.s_flag,
+                                // flag: ++ZhongChouBuy.s_flag,
                              });
                         }}
                     />

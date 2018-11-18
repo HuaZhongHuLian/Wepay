@@ -14,6 +14,7 @@ import {
     ActivityIndicator,
 } from 'react-native';
 import DialogUtils from '../util/DialogUtils';
+import { Dialog } from '../utils/Component';
 
 export default class RefreshFlatList extends Component {
     constructor(props) {
@@ -75,7 +76,7 @@ export default class RefreshFlatList extends Component {
         this.setState({
             dataArray: [],
         });
-        console.log("this.props.minLength: " + this.props.minLength)
+        // console.log("this.props.minLength: " + this.props.minLength)
         this.setState({
             isFrist: false,
             isRefresh: false,
@@ -97,7 +98,7 @@ export default class RefreshFlatList extends Component {
                 isOver : true,
                 isShowFoot : false,
             });
-            DialogUtils.showToast("已加载全部");
+            Dialog.toast("已加载全部");
             return;
         }
         let arr = []
