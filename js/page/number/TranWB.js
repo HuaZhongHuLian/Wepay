@@ -111,7 +111,7 @@ export default class TranWB extends BaseComponent {
         DialogUtils.showLoading();
         HttpUtils.postData(this.url,
             {
-                sessionId: this.userInfo.sessionId,
+                sessionId: this.getUserInfo().sessionId,
                 num: transferAddress,
                 safetyPwd: safetyPwd
             })

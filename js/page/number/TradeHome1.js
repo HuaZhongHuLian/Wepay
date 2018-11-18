@@ -72,7 +72,7 @@ export default class TradeHome1 extends BaseComponent {
     }
 
     geTopData(){
-        let url = BaseUrl.coinDeal(this.userInfo.sessionId,this.cid)
+        let url = BaseUrl.coinDeal(this.getUserInfo().sessionId,this.cid)
         HttpUtils.getData(url)
             .then(result => {
                 this.setState({isRefresh:false,})
@@ -542,7 +542,7 @@ export default class TradeHome1 extends BaseComponent {
              this.url = !this.state.activeIndex ?BaseUrl.dealBuy():BaseUrl.dealSell();
              // alert(this.data.item.id)
             HttpUtils.postData(this.url,
-                {   sessionId: this.userInfo.sessionId,
+                {   sessionId: this.getUserInfo().sessionId,
                     id: this.data.item.id,
                     num: num,
                     safetyPwd: safetyPwd,
@@ -574,9 +574,9 @@ export default class TradeHome1 extends BaseComponent {
 
     getData(isRefesh) {
         if (this.activeIndex === 0) { //购买
-            this.url = BaseUrl.dealOrder(this.userInfo.sessionId, this.pageIndex,1,this.cid)
+            this.url = BaseUrl.dealOrder(this.getUserInfo().sessionId, this.pageIndex,1,this.cid)
         } else if (this.activeIndex === 1) {//出售
-            this.url = BaseUrl.dealOrder(this.userInfo.sessionId, this.pageIndex,2,this.cid)
+            this.url = BaseUrl.dealOrder(this.getUserInfo().sessionId, this.pageIndex,2,this.cid)
         }
         //alert(this.url)
         HttpUtils.getData(this.url)

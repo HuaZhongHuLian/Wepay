@@ -58,7 +58,8 @@ export default class BankCardList extends BaseComponent {
     //刷新数据
     _refreshData() {
         this.refList.refreshStar()
-        let url =  BaseUrl.getUserBankListUrl(this.userInfo.sessionId)
+        // Dialog.toast(this.getUserInfo().sessionId);
+        let url =  BaseUrl.getUserBankListUrl(this.getUserInfo().sessionId)
         HttpUtils.getData(url)
             .then(result => {
                 //alert(JSON.stringify(result))
@@ -189,7 +190,7 @@ export default class BankCardList extends BaseComponent {
      */
     delBankCard(id){
         DialogUtils.showLoading()
-        let url =  BaseUrl.delBankCardUrl(this.userInfo.sessionId,id)
+        let url =  BaseUrl.delBankCardUrl(this.getUserInfo().sessionId,id)
         HttpUtils.getData(url)
         .then(result => {
             DialogUtils.hideLoading();

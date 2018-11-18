@@ -45,7 +45,7 @@ export default class ZhuanChuNext extends BaseComponent {
      */
     getOtherUserInfo() {
         DialogUtils.showLoading()
-        let url = BaseUrl.getUserBy(this.userInfo.sessionId, this.account)
+        let url = BaseUrl.getUserBy(this.getUserInfo().sessionId, this.account)
         HttpUtils.getData(url)
             .then(result => {
                 DialogUtils.hideLoading()
@@ -76,8 +76,8 @@ export default class ZhuanChuNext extends BaseComponent {
         DialogUtils.showLoading()
         let url = BaseUrl.tranOutMoney()
         HttpUtils.postData(url, {
-            sessionId: this.userInfo.sessionId,
-            payId: this.userInfo.userid,
+            sessionId: this.getUserInfo().sessionId,
+            payId: this.getUserInfo().userid,
             getId: this.state.userid,
             getNums: this.state.tranMoney,
             mobile: this.state.mobile4,
@@ -101,7 +101,7 @@ export default class ZhuanChuNext extends BaseComponent {
         this.setState({
             moneyType: type
         })
-        alert(this.state.moneyType)
+        // alert(this.state.moneyType)
     }
 
 

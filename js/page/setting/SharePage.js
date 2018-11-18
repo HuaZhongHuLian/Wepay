@@ -23,7 +23,7 @@ export default class SharePage extends BaseComponent {
     constructor(props) {
         super(props);
         this.userInfo = this.getUserInfo();
-        let sharedUrl = this.getSharedUrl(this.userInfo.userid);
+        let sharedUrl = this.getSharedUrl(this.getUserInfo().userid);
         let json = { type: "url", data: sharedUrl }
         this.state = {
             text: sharedUrl,
@@ -112,7 +112,7 @@ export default class SharePage extends BaseComponent {
             case "save_img":
                 break
             case 1:
-                Clipboard.setString(this.getSharedUrl(this.userInfo.userid));
+                Clipboard.setString(this.getSharedUrl(this.getUserInfo().userid));
                 DialogUtils.showToast("已复制到剪贴板")
                 break
             case 2:

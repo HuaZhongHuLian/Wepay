@@ -60,9 +60,9 @@ export default class BuyOrSellCentre extends BaseComponent {
     getData(isRefesh) {
      
         if (this.type === 0) { //买入 
-            this.url = BaseUrl.getCallCenter(this.userInfo.sessionId, this.pageIndex, this.selectedValue)
+            this.url = BaseUrl.getCallCenter(this.getUserInfo().sessionId, this.pageIndex, this.selectedValue)
         } else if (this.type == 1) { //卖出 
-            this.url = BaseUrl.getOutSalesCenter(this.userInfo.sessionId, this.pageIndex, this.selectedValue)
+            this.url = BaseUrl.getOutSalesCenter(this.getUserInfo().sessionId, this.pageIndex, this.selectedValue)
         }
         HttpUtils.getData(this.url)
             .then(result => {
@@ -206,7 +206,7 @@ export default class BuyOrSellCentre extends BaseComponent {
             }
             HttpUtils.postData(this.url,
                 {
-                    sessionId: this.userInfo.sessionId,
+                    sessionId: this.getUserInfo().sessionId,
                     id: data.item.id,
                     safetyPwd: safetyPwd,
                 })

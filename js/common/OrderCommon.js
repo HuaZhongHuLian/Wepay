@@ -58,9 +58,9 @@ export default class OrderCommon extends BaseComponent {
     */
     getData(isRefesh) {
         if (this.type === 1) {
-            this.url = BaseUrl.getMyOrderBy(this.userInfo.sessionId, this.pageIndex, this.orderStatus)
+            this.url = BaseUrl.getMyOrderBy(this.getUserInfo().sessionId, this.pageIndex, this.orderStatus)
         } else {
-            this.url = BaseUrl.getStoreOrderBy(this.userInfo.sessionId, this.pageIndex, this.orderStatus)
+            this.url = BaseUrl.getStoreOrderBy(this.getUserInfo().sessionId, this.pageIndex, this.orderStatus)
         }
         console.log(JSON.stringify({pageIndex:this.pageIndex, orderStatus : this.orderStatus}))
         HttpUtils.getData(this.url)
@@ -129,7 +129,7 @@ export default class OrderCommon extends BaseComponent {
         }
         editOrder = () => {
             DialogUtils.showLoading()
-            let url = BaseUrl.updateOrderStatus(this.userInfo.sessionId, data.item.id, status)
+            let url = BaseUrl.updateOrderStatus(this.getUserInfo().sessionId, data.item.id, status)
             HttpUtils.getData(url)
                 .then(result => {
                     DialogUtils.hideLoading()
@@ -319,9 +319,9 @@ export default class OrderCommon extends BaseComponent {
         let conten = "您确认要取消订单？"
         cancelOrder = () => {
             DialogUtils.showLoading('', true)
-            let url = BaseUrl.cancelShopOrder(this.userInfo.sessionId, data.item.id)
+            let url = BaseUrl.cancelShopOrder(this.getUserInfo().sessionId, data.item.id)
             HttpUtils.postData(url,{
-                sessionId:this.userInfo.sessionId,
+                sessionId:this.getUserInfo().sessionId,
                 orderId:data.item.id,
             })
                 .then(result => {

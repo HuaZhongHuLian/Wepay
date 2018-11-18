@@ -104,7 +104,7 @@ export default class SellOrderItem extends BaseComponent {
     confirmButton(){
         confirmState = () => {
             DialogUtils.showLoading()
-            let url = BaseUrl.getOutAPUpdate(this.userInfo.sessionId,this.props.data.item.id)
+            let url = BaseUrl.getOutAPUpdate(this.getUserInfo().sessionId,this.props.data.item.id)
             HttpUtils.getData(url)
                 .then(result => {
                    // alert(JSON.stringify(result))

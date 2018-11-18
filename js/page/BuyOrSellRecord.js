@@ -103,9 +103,9 @@ export default class BuyOrSellRecord extends BaseComponent {
     */
     getData(isRefesh) {
         if (this.type === 0) { //买入 
-            this.url = BaseUrl.getInBuyRecords(this.userInfo.sessionId, this.pageIndex)
+            this.url = BaseUrl.getInBuyRecords(this.getUserInfo().sessionId, this.pageIndex)
         } else if (this.type == 1) { //卖出 
-            this.url = BaseUrl.getOutSellRecords(this.userInfo.sessionId, this.pageIndex)
+            this.url = BaseUrl.getOutSellRecords(this.getUserInfo().sessionId, this.pageIndex)
         }
         HttpUtils.getData(this.url)
             .then(result => {

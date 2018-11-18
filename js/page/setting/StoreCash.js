@@ -263,7 +263,7 @@ export default class StoreCash extends BaseComponent {
         HttpUtils.uploadImage(
             url,
             {
-                sessionId: this.userInfo.sessionId,
+                sessionId: this.getUserInfo().sessionId,
                 amount: this.state.count,
                 cardId: this.state.bankCard.id,
                 describe: this.state.desc,

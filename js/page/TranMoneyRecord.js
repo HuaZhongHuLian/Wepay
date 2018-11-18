@@ -68,9 +68,9 @@ export default class TranMoneyRecord extends BaseComponent {
      */
     getData(isRefesh) {
         if (this.tranType === "out") {
-            this.url = BaseUrl.getOutRecord(this.userInfo.sessionId, this.pageIndex)
+            this.url = BaseUrl.getOutRecord(this.getUserInfo().sessionId, this.pageIndex)
         } else {
-            this.url = BaseUrl.getInRecord(this.userInfo.sessionId, this.pageIndex)
+            this.url = BaseUrl.getInRecord(this.getUserInfo().sessionId, this.pageIndex)
         }
         HttpUtils.getData(this.url)
             .then(result => {

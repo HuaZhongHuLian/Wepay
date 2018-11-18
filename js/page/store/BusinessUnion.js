@@ -52,7 +52,7 @@ export default class BusinessUnion extends BaseComponent {
      * 获取商品信息 by id
      */
     getInfo() {
-        let url = BaseUrl.getUnion(this.userInfo.sessionId)
+        let url = BaseUrl.getUnion(this.getUserInfo().sessionId)
         HttpUtils.getData(url)
             .then(result => {
                 DialogUtils.hideLoading()
@@ -256,7 +256,7 @@ export default class BusinessUnion extends BaseComponent {
             DialogUtils.showToast("请选择区域")
             return
         }else {
-        this.url = BaseUrl.searchUnion(this.userInfo.sessionId, this.pageIndex,this.state.address+this.state.townName)
+        this.url = BaseUrl.searchUnion(this.getUserInfo().sessionId, this.pageIndex,this.state.address+this.state.townName)
        // alert(this.url)
             HttpUtils.getData(this.url)
             .then(result => {

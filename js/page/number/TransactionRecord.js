@@ -118,9 +118,9 @@ export default class TransactionRecord extends BaseComponent {
      */
     getData(isRefesh) {
         if (this.activeIndex === 0) { //转出
-            this.url = BaseUrl.tradingRecord(this.userInfo.sessionId, this.pageIndex,this.activeIndex +1)
+            this.url = BaseUrl.tradingRecord(this.getUserInfo().sessionId, this.pageIndex,this.activeIndex +1)
         } else if (this.activeIndex === 1) {//转入
-            this.url = BaseUrl.tradingRecord(this.userInfo.sessionId, this.pageIndex,this.activeIndex +1)
+            this.url = BaseUrl.tradingRecord(this.getUserInfo().sessionId, this.pageIndex,this.activeIndex +1)
         }
 
         HttpUtils.getData(this.url)

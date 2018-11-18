@@ -156,11 +156,11 @@ export default class ZhongChou extends BaseComponent {
         // .catch(error => DialogUtils.hideLoading())
 
         // if (this.action === 1) {
-        //     this.url = BaseUrl.getOutUndoneUnselectedUrl(this.userInfo.sessionId, this.pageIndex)
+        //     this.url = BaseUrl.getOutUndoneUnselectedUrl(this.getUserInfo().sessionId, this.pageIndex)
         // } else if (this.action === 2) {
-        //     this.url = BaseUrl.getOutUndoneUnselectedUrl(this.userInfo.sessionId, this.pageIndex)
+        //     this.url = BaseUrl.getOutUndoneUnselectedUrl(this.getUserInfo().sessionId, this.pageIndex)
         // } else {
-        //     this.url = BaseUrl.getOutUndoneUnselectedUrl(this.userInfo.sessionId, this.pageIndex)
+        //     this.url = BaseUrl.getOutUndoneUnselectedUrl(this.getUserInfo().sessionId, this.pageIndex)
         // }
         // HttpUtils.getData(this.url)
         //     .then(result => {
@@ -380,6 +380,10 @@ export default class ZhongChou extends BaseComponent {
     }
 
     onBuy(index, data){
+        // this.buyRef.current.show(this.getUserInfo().sessionId, data.crowdId, data.quota, 
+        // ZhongChou.CurrencyNames[data.currency], data.dprice, 10000000);
+        // return;
+
         if(data.status != 2 || this.buyRef == null){
             return;
         }

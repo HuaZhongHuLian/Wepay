@@ -70,7 +70,7 @@ export default class StoreList extends BaseComponent {
     * @param {*} pageIndex 
     */
     getData(isRefesh) {
-        this.url = BaseUrl.getStoreList(this.userInfo.sessionId,
+        this.url = BaseUrl.getStoreList(this.getUserInfo().sessionId,
             this.pageIndex, this.longitude, this.latitude)
        // alert(JSON.stringify(this.url))
         HttpUtils.getData(this.url)

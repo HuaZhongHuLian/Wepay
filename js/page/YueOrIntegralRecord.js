@@ -105,9 +105,9 @@ export default class YueOrIntegralRecord extends BaseComponent {
      */
     getData(isRefesh) {
         if (this.type === 0) {
-            this.url = BaseUrl.getExchangeRecordY(this.userInfo.sessionId, this.pageIndex)
+            this.url = BaseUrl.getExchangeRecordY(this.getUserInfo().sessionId, this.pageIndex)
         } else {
-            this.url = BaseUrl.getExchangeRecordJ(this.userInfo.sessionId, this.pageIndex)
+            this.url = BaseUrl.getExchangeRecordJ(this.getUserInfo().sessionId, this.pageIndex)
         }
         HttpUtils.getData(this.url)
             .then(result => {

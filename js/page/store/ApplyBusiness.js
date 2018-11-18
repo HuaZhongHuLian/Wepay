@@ -345,7 +345,7 @@ export default class ApplyBusiness extends BaseComponent {
         photos.push(this.state.licencePhotos)
         HttpUtils.uploadImage(url,
             {
-                sessionId: this.userInfo.sessionId,
+                sessionId: this.getUserInfo().sessionId,
                 realname: this.state.name,
                 phone: this.state.phone,
                 agencyArea: this.state.region+" "+this.state.townName,

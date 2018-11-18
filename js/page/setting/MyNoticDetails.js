@@ -36,7 +36,7 @@ export default class NoticDetails extends BaseComponent {
    */
     getData(id) {
         DialogUtils.showLoading()
-        this.url = BaseUrl.getNewsDetails(this.userInfo.sessionId, id)
+        this.url = BaseUrl.getNewsDetails(this.getUserInfo().sessionId, id)
         HttpUtils.getData(this.url)
             .then(result => {
                 DialogUtils.hideLoading();

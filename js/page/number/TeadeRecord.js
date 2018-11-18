@@ -159,7 +159,7 @@ export default class TeadeRecord extends BaseComponent {
      * @param {*} pageIndex
      */
     getData(isRefesh) {
-        this.url = BaseUrl.teadeRecord(this.userInfo.sessionId, this.pageIndex,this.cid)
+        this.url = BaseUrl.teadeRecord(this.getUserInfo().sessionId, this.pageIndex,this.cid)
         HttpUtils.getData(this.url)
             .then(result => {
                 if (result.code === 1) {

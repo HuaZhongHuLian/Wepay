@@ -57,7 +57,7 @@ export default class ZhongChouRecord extends BaseComponent {
                             justifyContent: "center", alignItems: "center", backgroundColor: activeIndex != 0 ? Colors.white : Colors.red,
                             marginVertical : 10, width : '30%'
                         }}>
-                        <Text style={{ padding: 8, fontSize: 16, marginLeft: 10, marginRight: 10, color: activeIndex != 0 ? Colors.red : Colors.white }}>购买记录</Text>
+                        <Text style={{ paddingVertical: 8, fontSize: 16, marginLeft: 10, marginRight: 10, color: activeIndex != 0 ? Colors.red : Colors.white }}>购买记录</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -67,7 +67,7 @@ export default class ZhongChouRecord extends BaseComponent {
                             justifyContent: "center", alignItems: "center", backgroundColor: activeIndex != 2 ? Colors.white : Colors.red,
                             marginVertical : 10, width : '30%'
                         }}>
-                        <Text style={{ padding: 8, fontSize: 16, marginLeft: 10, marginRight: 10, color: activeIndex != 2 ? Colors.red : Colors.white }}>认购数量</Text>
+                        <Text style={{ paddingVertical: 8, fontSize: 16, marginLeft: 10, marginRight: 10, color: activeIndex != 2 ? Colors.red : Colors.white }}>认购数量</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -77,7 +77,7 @@ export default class ZhongChouRecord extends BaseComponent {
                             justifyContent: "center", alignItems: "center", backgroundColor: activeIndex == 1 ? Colors.red : Colors.white,
                             marginVertical : 10, width : '30%'
                         }} >
-                        <Text style={{ padding: 8, fontSize: 16, marginLeft: 10, marginRight: 10, color: activeIndex == 1 ? Colors.white : Colors.red }}>释放记录</Text>
+                        <Text style={{ paddingVertical: 8, fontSize: 16, marginLeft: 10, marginRight: 10, color: activeIndex == 1 ? Colors.white : Colors.red }}>释放记录</Text>
                     </TouchableOpacity>
                 </View>
                 {this.renderItemTitle()}
@@ -215,11 +215,11 @@ export default class ZhongChouRecord extends BaseComponent {
         BaseUrl.getCrowdConsumeCrowdRecordUrl())
         let obj = (this.activeIndex == 1) ? 
         {
-            sessionId: this.userInfo.sessionId,
+            sessionId: this.getUserInfo().sessionId,
             pageIndex : this.pageIndex,
             cid : this.currencySelect + 1
         } :  {
-            sessionId: this.userInfo.sessionId,
+            sessionId: this.getUserInfo().sessionId,
             pageIndex : this.pageIndex,
         }
         HttpUtils.postData(url, obj).then(result => {

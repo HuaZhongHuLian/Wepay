@@ -47,7 +47,7 @@ export default class StroeDetails extends BaseComponent {
     * 获取商品信息 by id 
     */
     getStoreDetail() {
-        let url = BaseUrl.getStoreDetail(this.userInfo.sessionId, this.storeId)
+        let url = BaseUrl.getStoreDetail(this.getUserInfo().sessionId, this.storeId)
         this.refList.refreshStar()
         HttpUtils.getData(url)
             .then(result => {

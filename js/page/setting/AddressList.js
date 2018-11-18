@@ -80,7 +80,7 @@ export default class AddressList extends BaseComponent {
     //刷新数据
     _refreshData() {
         this.refList.refreshStar()
-        let url =  BaseUrl.getAddressList(this.userInfo.sessionId)
+        let url =  BaseUrl.getAddressList(this.getUserInfo().sessionId)
         HttpUtils.getData(url)
             .then(result => {
                 //alert(JSON.stringify(result))
@@ -201,7 +201,7 @@ export default class AddressList extends BaseComponent {
      */
     delCallBack(address){
         DialogUtils.showLoading()
-        let url =  BaseUrl.delAddressUrl(this.userInfo.sessionId,address.addressId)
+        let url =  BaseUrl.delAddressUrl(this.getUserInfo().sessionId,address.addressId)
         HttpUtils.getData(url)
         .then(result => {
             DialogUtils.hideLoading();

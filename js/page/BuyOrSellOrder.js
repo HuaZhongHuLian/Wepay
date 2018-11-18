@@ -95,13 +95,13 @@ export default class BuyOrSellOrde extends BaseComponent {
      */
     getData(isRefesh) {
         if (this.type == 0 && this.orderType == 2) { //买入 确认打款
-            this.url = BaseUrl.getInAffirmProceeds(this.userInfo.sessionId, this.pageIndex)
+            this.url = BaseUrl.getInAffirmProceeds(this.getUserInfo().sessionId, this.pageIndex)
         } else if (this.type == 0 && this.orderType == 3) {//买入 完成订单
-            this.url = BaseUrl.getInCompleteOrder(this.userInfo.sessionId, this.pageIndex)
+            this.url = BaseUrl.getInCompleteOrder(this.getUserInfo().sessionId, this.pageIndex)
         } else if (this.type == 1 && this.orderType == 2) { //卖出 确认打款
-            this.url = BaseUrl.getOutAffirmProceeds(this.userInfo.sessionId, this.pageIndex)
+            this.url = BaseUrl.getOutAffirmProceeds(this.getUserInfo().sessionId, this.pageIndex)
         } else if (this.type == 1 && this.orderType == 3) { //卖出 完成订单
-            this.url = BaseUrl.getOutCompleteOrder(this.userInfo.sessionId, this.pageIndex)
+            this.url = BaseUrl.getOutCompleteOrder(this.getUserInfo().sessionId, this.pageIndex)
         }
         HttpUtils.getData(this.url)
             .then(result => {

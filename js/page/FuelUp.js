@@ -198,7 +198,7 @@ export default class PhoneBill extends BaseComponent {
         DialogUtils.showLoading(''. true);
         let url = BaseUrl.getFuelUpApplyUrl()
         let postPartDatas = {                
-            sessionId: this.userInfo.sessionId,
+            sessionId: this.getUserInfo().sessionId,
             amount: this.amount,
             safetyPwd: safetyPwd,
         };

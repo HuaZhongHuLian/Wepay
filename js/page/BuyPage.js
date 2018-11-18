@@ -41,7 +41,7 @@ export default class BuyPage extends BaseComponent {
         this.url = BaseUrl.createInOrder()
         HttpUtils.postData(this.url,
             {
-                sessionId: this.userInfo.sessionId,
+                sessionId: this.getUserInfo().sessionId,
                 exchangeMoney: this.state.selectedValue,
                 describe: this.state.describe,
                 bankId: this.state.bankCard.id,

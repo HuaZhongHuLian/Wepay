@@ -48,7 +48,7 @@ export default class ShopDetails extends BaseComponent {
      * 获取商品信息 by id
      */
     getShopDetail(shopId) {
-        let url = BaseUrl.getShopDetail(this.userInfo.sessionId, shopId)
+        let url = BaseUrl.getShopDetail(this.getUserInfo().sessionId, shopId)
         HttpUtils.getData(url)
             .then(result => {
                 if (result.code === 1) {

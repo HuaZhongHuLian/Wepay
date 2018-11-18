@@ -68,7 +68,7 @@ export default class ModifyPassWord extends BaseComponent {
         DialogUtils.showLoading();
         HttpUtils.postData(this.url,
             {
-                sessionId: this.userInfo.sessionId,
+                sessionId: this.getUserInfo().sessionId,
                 oldPwd: this.state.pwd,
                 newPwd: this.state.pwdAgain
             })
@@ -90,7 +90,7 @@ export default class ModifyPassWord extends BaseComponent {
         return (
             <View style={[BaseStyles.container_column, { backgroundColor: "#f1f1f1" }]}>
                 <NavigationBar
-                    title={this.state.type === 0 ? "修改登陆密码" : "修改支付密码"}
+                    title={this.state.type === 0 ? "修改登录密码" : "修改支付密码"}
                     navigation={this.props.navigation}
                 />
                 <View style={styles.itemView}>
@@ -125,7 +125,7 @@ export default class ModifyPassWord extends BaseComponent {
                             fontSize: 15,
                             color: "#d11",
                             marginRight: 20
-                        }}> 忘记{this.state.type === 0 ? "登陆" : "支付"}密码</Text></View>
+                        }}> 忘记{this.state.type === 0 ? "登录" : "支付"}密码</Text></View>
                 </TouchableOpacity>
                 <TouchableOpacity
                     activeOpacity={0.8}

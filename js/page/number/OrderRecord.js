@@ -244,7 +244,7 @@ export default class OrderRecord extends BaseComponent {
     cancelOrder(data) {
         action = () => {
             DialogUtils.showLoading()
-            let url = BaseUrl.cancelOrder(this.userInfo.sessionId,data.item.id)
+            let url = BaseUrl.cancelOrder(this.getUserInfo().sessionId,data.item.id)
             HttpUtils.getData(url)
                 .then(result => {
                     //alert(JSON.stringify(result))
@@ -283,9 +283,9 @@ export default class OrderRecord extends BaseComponent {
      */
     getData(isRefesh) {
         if (this.activeIndex === 0) { //进行中
-            this.url = BaseUrl.orderRecord(this.userInfo.sessionId, this.pageIndex,0,this.cid)
+            this.url = BaseUrl.orderRecord(this.getUserInfo().sessionId, this.pageIndex,0,this.cid)
         } else if (this.activeIndex === 1) {//已完成
-            this.url = BaseUrl.orderRecord(this.userInfo.sessionId, this.pageIndex,1,this.cid)
+            this.url = BaseUrl.orderRecord(this.getUserInfo().sessionId, this.pageIndex,1,this.cid)
         }
         HttpUtils.getData(this.url)
             .then(result => {

@@ -129,7 +129,7 @@ export default class BuyOrderItem extends BaseComponent {
     cancelState() {
         cancelOrder = () => {
             DialogUtils.showLoading()
-            let url = BaseUrl.getCncelBalanceOrder(this.userInfo.sessionId, this.props.data.item.id)
+            let url = BaseUrl.getCncelBalanceOrder(this.getUserInfo().sessionId, this.props.data.item.id)
             HttpUtils.getData(url)
                 .then(result => {
                     //alert(JSON.stringify(result))
@@ -156,7 +156,7 @@ export default class BuyOrderItem extends BaseComponent {
      */
     uploadImage(imgs) {
         let url = BaseUrl.getInAPUpdateUrl()
-        HttpUtils.uploadImage(url, { sessionId: this.userInfo.sessionId, id: this.props.data.item.id }, imgs, (result) => {
+        HttpUtils.uploadImage(url, { sessionId: this.getUserInfo().sessionId, id: this.props.data.item.id }, imgs, (result) => {
             if (result.code === 1) {
                 //this._onPress(this.props.data.item.payState)
                 this.props.delBack(this.props.data.index)

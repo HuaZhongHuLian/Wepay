@@ -64,7 +64,7 @@ export default class NoticeList extends BaseComponent {
      * @param {*} pageIndex 
      */
     getData(isRefesh) {
-        let url = BaseUrl.getSystemNews(this.userInfo.sessionId, this.pageIndex)
+        let url = BaseUrl.getSystemNews(this.getUserInfo().sessionId, this.pageIndex)
         HttpUtils.getData(url)
             .then(result => {
                 //alert(JSON.stringify(result))

@@ -71,7 +71,7 @@ export default class ShopingType extends BaseComponent {
     * @param {*} pageIndex 
     */
     getData(isRefesh) {
-        this.url = BaseUrl.getShopByType(this.userInfo.sessionId, this.pageIndex,this.Type)
+        this.url = BaseUrl.getShopByType(this.getUserInfo().sessionId, this.pageIndex,this.Type)
         //alert(JSON.stringify(this.url))
         HttpUtils.getData(this.url)
             .then(result => {

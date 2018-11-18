@@ -100,7 +100,7 @@ export default class ExcinttegralRecord extends BaseComponent {
      * @param {*} pageIndex 
      */
     getData(isRefesh) {
-        this.url = BaseUrl.getExchangeRecord(this.userInfo.sessionId, this.pageIndex)
+        this.url = BaseUrl.getExchangeRecord(this.getUserInfo().sessionId, this.pageIndex)
         HttpUtils.getData(this.url)
             .then(result => {
                 if (result.code === 1) {

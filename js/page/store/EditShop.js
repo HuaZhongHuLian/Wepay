@@ -160,7 +160,7 @@ export default class EditShop extends BaseComponent {
         /** sessionId   contents  file */
         HttpUtils.uploadImage(url,
             {
-                sessionId: this.userInfo.sessionId,
+                sessionId: this.getUserInfo().sessionId,
                 goodsName: this.state.shopName,
                 goodsPrice: this.state.shopPrice,
                 goodsStock: this.state.shopNum,
@@ -190,10 +190,10 @@ export default class EditShop extends BaseComponent {
             editIndexs.push(index)
             editps.push(value)
         })
-        alert(editIndexs.toString()+"   "+editps.toString())
+        // alert(editIndexs.toString()+"   "+editps.toString())
         HttpUtils.uploadImage(url,
             {
-                sessionId: this.userInfo.sessionId,
+                sessionId: this.getUserInfo().sessionId,
                 id: this.data.item.id,
                 goodsName: this.state.shopName,
                 goodsPrice: this.state.shopPrice,

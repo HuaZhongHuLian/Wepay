@@ -35,7 +35,7 @@ export default class NoticDetails extends BaseComponent {
    */
     getData(id) {
         DialogUtils.showLoading()
-        this.url = BaseUrl.getSystemgNewsDetails(this.userInfo.sessionId, id)
+        this.url = BaseUrl.getSystemgNewsDetails(this.getUserInfo().sessionId, id)
         HttpUtils.getData(this.url)
             .then(result => {
                 DialogUtils.hideLoading();

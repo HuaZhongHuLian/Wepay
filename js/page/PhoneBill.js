@@ -106,7 +106,7 @@ export default class PhoneBill extends BaseComponent {
         let url = BaseUrl.getPhoneBillApplyUrl()
         HttpUtils.postData(url,
             {
-                sessionId: this.userInfo.sessionId,
+                sessionId: this.getUserInfo().sessionId,
                 amount: this.amount,
                 safetyPwd: safetyPwd,
                 phone: this.state.phone,

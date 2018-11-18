@@ -350,7 +350,7 @@ export default class ApplyStore extends BaseComponent {
         let url =  BaseUrl.applyStore()
         /** sessionId   contents  file */
         HttpUtils.uploadImage(url,
-            {sessionId:this.userInfo.sessionId,
+            {sessionId:this.getUserInfo().sessionId,
                 typeId:this.state.selectedId,
                 realname:this.state.userName,
                 idcard:this.state.idcard,

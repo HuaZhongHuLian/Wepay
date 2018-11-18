@@ -93,7 +93,7 @@ export default class SharedRecord extends BaseComponent {
      * @param {*} pageIndex 
      */
     getData(isRefesh) {
-        this.url = BaseUrl.shareRecord(this.userInfo.sessionId, this.pageIndex, this.state.keyword)
+        this.url = BaseUrl.shareRecord(this.getUserInfo().sessionId, this.pageIndex, this.state.keyword)
         // alert(this.url)
         HttpUtils.getData(this.url)
             .then(result => {

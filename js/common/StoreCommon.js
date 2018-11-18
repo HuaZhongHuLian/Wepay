@@ -71,9 +71,9 @@ export default class StoreCommon extends BaseComponent {
     */
     getData(isRefesh) {
         if (this.tabLabel === '商品列表') {
-            this.url = BaseUrl.getShopBySearch(this.userInfo.sessionId, this.pageIndex)
+            this.url = BaseUrl.getShopBySearch(this.getUserInfo().sessionId, this.pageIndex)
         } else {
-            this.url = BaseUrl.getStoreList(this.userInfo.sessionId,
+            this.url = BaseUrl.getStoreList(this.getUserInfo().sessionId,
                 this.pageIndex, UserInfo.longitude, UserInfo.latitude)
         }
         HttpUtils.getData(this.url)

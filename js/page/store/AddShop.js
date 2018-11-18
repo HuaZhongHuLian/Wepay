@@ -165,7 +165,7 @@ export default class AddShop extends BaseComponent {
     onDelete(){
         //alert(JSON.stringify(this.state.photos))
        deleShop=()=>{
-           let url = BaseUrl.deleteShopUrl(this.userInfo.sessionId,this.state.goodsId)
+           let url = BaseUrl.deleteShopUrl(this.getUserInfo().sessionId,this.state.goodsId)
         //    alert(url)
            /** sessionId   contents  file */
            HttpUtils.getData(url)
@@ -228,7 +228,7 @@ export default class AddShop extends BaseComponent {
         /** sessionId   contents  file */
         HttpUtils.uploadImage(url,
             {
-                sessionId: this.userInfo.sessionId,
+                sessionId: this.getUserInfo().sessionId,
                 goodsName: this.state.shopName,
                 goodsPrice: this.state.shopPrice,
                 goodsStock: this.state.shopNum,
@@ -266,7 +266,7 @@ export default class AddShop extends BaseComponent {
         //alert(editIndexs)
         HttpUtils.uploadImage(url,
             {
-                sessionId: this.userInfo.sessionId,
+                sessionId: this.getUserInfo().sessionId,
                 id: this.data.item.id,
                 goodsName: this.state.shopName,
                 goodsPrice: this.state.shopPrice,

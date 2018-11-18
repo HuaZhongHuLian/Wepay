@@ -40,7 +40,7 @@ export default class BusinessUnionInfo extends BaseComponent {
      * @param {*} pageIndex
      */
     getData() {
-        this.url = BaseUrl.agency(this.userInfo.sessionId)
+        this.url = BaseUrl.agency(this.getUserInfo().sessionId)
         //alert(this.url)
         HttpUtils.getData(this.url)
             .then(result => {

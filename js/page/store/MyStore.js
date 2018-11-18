@@ -37,7 +37,7 @@ export default class MyStore extends BaseComponent {
      * 店铺收益
      */
     getMyStoreEarnings() {
-        let url = BaseUrl.getMyStoreEarnings(this.userInfo.sessionId)
+        let url = BaseUrl.getMyStoreEarnings(this.getUserInfo().sessionId)
         HttpUtils.getData(url)
             .then(result => {
                 if (result.code === 1) {
@@ -70,7 +70,7 @@ export default class MyStore extends BaseComponent {
     * @param {*} pageIndex 
     */
     getData(isRefesh) {
-        this.url = BaseUrl.getMyStoreShop(this.userInfo.sessionId, this.pageIndex)
+        this.url = BaseUrl.getMyStoreShop(this.getUserInfo().sessionId, this.pageIndex)
         HttpUtils.getData(this.url)
             .then(result => {
                 if (result.code === 1) {
@@ -95,10 +95,10 @@ export default class MyStore extends BaseComponent {
     editShopState(data) {
         let content;
         if (data.item.goodsStatus === 2) {
-            this.url = BaseUrl.updateStatus(this.userInfo.sessionId, data.item.id, 1)
+            this.url = BaseUrl.updateStatus(this.getUserInfo().sessionId, data.item.id, 1)
             content = "您确认要下架此商品？"
         } else {
-            this.url = BaseUrl.updateStatus(this.userInfo.sessionId, data.item.id, 2)
+            this.url = BaseUrl.updateStatus(this.getUserInfo().sessionId, data.item.id, 2)
             content = "您确认要上架此商品？"
         }
         //console.warn(this.url)

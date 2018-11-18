@@ -56,7 +56,7 @@ export default class CreatOrder extends BaseComponent {
         // let goodsNum = counter
          let goodsNum = counter.get()
         let data = {
-            sessionId: this.userInfo.sessionId,
+            sessionId: this.getUserInfo().sessionId,
             addressId: this.state.addressData.addressId,
              goodsId: this.data.id,
              goodsNum: goodsNum,
@@ -84,7 +84,7 @@ export default class CreatOrder extends BaseComponent {
      * 获取默认地址
      */
     getAddress() {
-        let url = BaseUrl.getDefaultAddressUrl(this.userInfo.sessionId)
+        let url = BaseUrl.getDefaultAddressUrl(this.getUserInfo().sessionId)
         HttpUtils.getData(url)
             .then(result => {
                 if (result.code === 1) {
@@ -106,7 +106,7 @@ export default class CreatOrder extends BaseComponent {
     * 获取商品信息 by id 
     */
    getStoreDetail() {
-    let url = BaseUrl.getStoreDetail(this.userInfo.sessionId, this.data.shopId)
+    let url = BaseUrl.getStoreDetail(this.getUserInfo().sessionId, this.data.shopId)
     HttpUtils.getData(url)
         .then(result => {
             if (result.code === 1) {

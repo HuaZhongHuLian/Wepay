@@ -124,7 +124,7 @@ export default class TranWepay extends BaseComponent {
         DialogUtils.showLoading();
         HttpUtils.postData(this.url,
             {
-                sessionId: this.userInfo.sessionId,
+                sessionId: this.getUserInfo().sessionId,
                 transferNum: this.state.wepayNum,
                 transferAddress: transferAddress,
                 safetyPwd: safetyPwd

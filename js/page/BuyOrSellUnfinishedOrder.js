@@ -134,13 +134,13 @@ export default class BuyOrSellUnfinishedOrder extends BaseComponent {
      */
     getData(isRefesh) {
         if (this.activeIndex === 0&&this.type===1) { //卖出 未选择付款人
-            this.url = BaseUrl.getOutUndoneUnselectedUrl(this.userInfo.sessionId, this.pageIndex)
+            this.url = BaseUrl.getOutUndoneUnselectedUrl(this.getUserInfo().sessionId, this.pageIndex)
         }else  if (this.activeIndex === 1&&this.type===1) {//卖出 已选择付款人
-            this.url = BaseUrl.getOutUndoneSelectedUrl(this.userInfo.sessionId, this.pageIndex)
+            this.url = BaseUrl.getOutUndoneSelectedUrl(this.getUserInfo().sessionId, this.pageIndex)
         }else  if (this.activeIndex === 0&&this.type===0) {//卖入 未选择付款人
-            this.url = BaseUrl.getInUndoneUnselectedUrl(this.userInfo.sessionId, this.pageIndex)
+            this.url = BaseUrl.getInUndoneUnselectedUrl(this.getUserInfo().sessionId, this.pageIndex)
         }else  if (this.activeIndex === 1&&this.type===0) {//卖入 已选择付款人
-            this.url = BaseUrl.getInUndoneSelectedUrl(this.userInfo.sessionId, this.pageIndex)
+            this.url = BaseUrl.getInUndoneSelectedUrl(this.getUserInfo().sessionId, this.pageIndex)
         }
         HttpUtils.getData(this.url)
             .then(result => {
