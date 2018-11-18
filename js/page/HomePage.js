@@ -317,6 +317,15 @@ export default class HomePage extends BaseComponent {
 
     gotoGame(amuse_mining){
         DialogUtils.showLoading('', true);
+        let fet = (amuse_mining == 0) ? 
+            HttpUtils.postData(BaseUrl.getGameHomeUrl(), {sessionId : this.props.AppStore.userInfo.sessionId}) :
+            HttpUtils.getData(BaseUrl.numberIndex(this.getUserInfo().sessionId));
+        fet.then(result=>{
+            if(this.isNotLogin(result)){
+                this.props.navigation.navigate('GameAmuse', {gameDatas : amuse_mining == 0 ? result.data : [result.data], amuse_mining : amuse_mining});
+            }
+        }).catch(DialogUtils.hideLoading)
+        return;
         let htp = amuse_mining == 0 ? 
         HttpUtils.postData(BaseUrl.getGameHomeUrl(),{sessionId : this.props.AppStore.userInfo.sessionId}) : 
         HttpUtils.getData(BaseUrl.numberIndex(this.getUserInfo().sessionId));
