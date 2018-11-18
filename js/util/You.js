@@ -1,6 +1,7 @@
 import { Platform,  Dimensions, NativeModules} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
+// 只适用于(不支持横竖屏切换)
 export const vsSize = {width : width, height : height};
 export const isAndroid = (Platform.OS != 'ios');
 
@@ -12,7 +13,7 @@ class BuildType{
 }
 
 export default class You{
-    static isCheckUpdateInLogin = false;
+    // BuildType 与 Version
     static isDebug(){return BuildType.isDebug;}
     static isRelease(){return BuildType.isRelease;}
     static isReleaseStaging(){return BuildType.isReleaseStaging;}
@@ -37,6 +38,8 @@ export default class You{
         }
         // alert(str);
     }
-œ    // 跨js可以全局
-    // static temp = 0;
+
+
+    // -1 未检测   0 无    1 有
+    static hadUpdate = -1;
 }
