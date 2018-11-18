@@ -193,9 +193,8 @@ export default class SettingView extends BaseComponent {
                 this.props.navigation.navigate('Complaint');
                 break
             case "version"://版本管理
-                // DialogUtils.showPop("您已经是最新版本了", () => {
-                //     DialogUtils.showToast("检查完毕");
-                // });
+                DialogUtils.checkUpdate();
+                break;
                 DialogUtils.upDataApp()
                 break
             case "about"://关于
@@ -203,7 +202,7 @@ export default class SettingView extends BaseComponent {
                 break
             case 66://退出登录
                 //异步保存到本地文件
-                AsySorUtils.saveAccountPwd(["", ""])
+                // AsySorUtils.saveAccountPwd(["", ""])
                 this.goLogin(this.props.navigation)
                 break
         }
@@ -257,7 +256,7 @@ export default class SettingView extends BaseComponent {
                         {ViewUtils.getSettingItem1(require('../../../res/images/fenxiang.png'), '分享', false,
                             () => this.onClicks("share"))}
                         <View style={[BaseStyles.container_center, { marginTop: 12 }]} />
-                        {ViewUtils.getSettingItem(require('../../../res/images/denglumima.png'), '登陆密码', '点击修改',
+                        {ViewUtils.getSettingItem(require('../../../res/images/denglumima.png'), '登录密码', '点击修改',
                             () => this.onClicks("password1"))}
                         {ViewUtils.getSettingItem(require('../../../res/images/zhifumima.png'), '支付密码', '点击修改',
                             () => this.onClicks("password2"))}
@@ -276,8 +275,8 @@ export default class SettingView extends BaseComponent {
                         <View style={[BaseStyles.container_center, { marginTop: 12 }]} />
                         {ViewUtils.getSettingItem1(require('../../../res/images/tousujianyi.png'), '投诉建议', false,
                             () => this.onClicks("Complaint"))}
-                        {ViewUtils.getSettingItem(require('../../../res/images/banben.png'), '版本检测', 
-                        You.getVersionName() + (You.isDebug() ? '调试版' : (You.isRelease() ? "" : "测试版")),
+                        {ViewUtils.getSettingItem2(require('../../../res/images/banben.png'), '版本检测', 
+                        You.getVersionName() + (You.isDebug() ? '调试版' : (You.isRelease() ? "" : "测试版")),You.hadUpdate == 1,
                             () => this.onClicks("version"))}
                         {ViewUtils.getSettingItem1(require('../../../res/images/guanyu.png'), '关于', false,
                             () => this.onClicks("about"))}
@@ -287,7 +286,7 @@ export default class SettingView extends BaseComponent {
                             style={styles.logoutView}
                             onPress={() => this.onClicks(66)}
                         >
-                            <Text style={{ fontSize: 18, color: mainColor, }}>退出登陆</Text>
+                            <Text style={{ fontSize: 18, color: mainColor, }}>退出登录</Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>

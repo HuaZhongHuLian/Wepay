@@ -24,6 +24,7 @@ import Utils from "../../util/Utils";
 import codePush from "react-native-code-push";
 import You, { isAndroid, vsSize } from '../../util/You'
 import {Overlay, Button, Input} from "teaset"
+import { Net } from '../../utils/Component';
 /**
  * 登陆页面
  */
@@ -36,6 +37,7 @@ export default class LoginPage extends BaseComponent {
             pwd: '',
             // appVersion:"1.2.9"
         }
+        console.log("登录界面");
     }
 
     static s_version = "";
@@ -60,29 +62,34 @@ export default class LoginPage extends BaseComponent {
         // codePush.sync()
         // Platform.OS ==="ios"? {}:codePush.sync()
 
-        if(You.isCheckUpdateInLogin){} else {
-            console.log('登录界面检测更新(debug目前没有反应)');
-            codePush.checkForUpdate().then((update) => {
-                You.isCheckUpdateInLogin = true;
+        if(You.hadUpdate == -1){
+            console.log('检测更新');
+            codePush.checkForUpdate()
+            .then((update) => {
                 if(update){
+                    You.hadUpdate = 1;
                     console.log('有更新');
-                    DialogUtils.showToast('检测到新版本,请及时更新');
+                    let cb = ()=>DialogUtils.showMsg("请->设置->版本检测->点击更新")
+                    DialogUtils.showPop("检测到新版本,是否更新?", DialogUtils.checkUpdate, null, "更新", "稍后", true);
                 } else {
+                    You.hadUpdate = 0;
                     console.log('无更新');
                 }
             })
+            .catch(err=>{})
         }
     }
+
     render() {
         return (
             <View style={[BaseStyles.container_column, { backgroundColor: mainColor }]}>
                 <NavigationBar
-                    title={"Wepay用户登陆"}
+                    title={"Wepay用户登录"}
                     navigation={this.props.navigation}
                     leftView = {
                     <TouchableOpacity
                         style={[{ paddingRight: 20,paddingTop:10,paddingBottom:10},styles.leftContainer]}
-                        onPress={LoginPage.showUrl}>
+                        onLongPress={LoginPage.showUrl}>
                         <Image source={require('../../../res/images/fanhui.png')}/>
                     </TouchableOpacity>}
                 />
@@ -125,7 +132,10 @@ export default class LoginPage extends BaseComponent {
                         onChangeText={(pwd) => this.setState({ pwd: pwd })} />
                 </View>
                 <View style={{ flexDirection: "row", }}>
-                    <TouchableOpacity onPress={() => this.onClicks(1)} style={{ height: 50, justifyContent: 'center' }}>
+                    <TouchableOpacity 
+                    onPress={() => this.onClicks(1)} 
+                    onLongPress={()=>{LoginPage.s_1 = 0;++LoginPage.s_1h; }}
+                    style={{ height: 50, justifyContent: 'center' }}>
                         <Text style={{
                             fontSize: 15,
                             color: "#f82929",
@@ -133,7 +143,10 @@ export default class LoginPage extends BaseComponent {
                         }}>忘记密码?</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => this.onClicks(0)} style={{ flex: 1, height: 50, justifyContent:"center",alignItems:"flex-end" }}>
+                    <TouchableOpacity 
+                        onPress={() => this.onClicks(0)} 
+                        onLongPress={()=>{LoginPage.s_1 = 0;++LoginPage.s_1w; }}
+                        style={{ flex: 1, height: 50, justifyContent:"center",alignItems:"flex-end" }}>
                         <Text style={{
                             fontSize: 15,
                             color: "#fff",
@@ -160,7 +173,7 @@ export default class LoginPage extends BaseComponent {
                         color: '#FFF',
                         fontSize: 20,
                         fontWeight:"900",
-                    }}>登 陆</Text>
+                    }}>登 录</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -173,15 +186,21 @@ export default class LoginPage extends BaseComponent {
     onClicks(type) {
         switch (type) {
             case 0://注册
-                LoginPage.s_1 = 0;
-                ++LoginPage.s_1h; 
+                // LoginPage.s_1 = 0;
+                // ++LoginPage.s_1h; 
+                // DialogUtils.showLoading(LoginPage.s_1h, true);
+                // DialogUtils.showLoading("   " + (LoginPage.s_1h + 1), true);
+                // DialogUtils.showLoading("        " + (LoginPage.s_1h + 2), true);
+                // DialogUtils.showLoading("             " + (LoginPage.s_1h + 3), true);
+                // setInterval(()=>{DialogUtils.hideLoading(); DialogUtils.showToast(Math.random() * 1000000)}, 2000);
+                // break;
                 this.props.navigation.navigate('RegisterPage', {
                     userName: this.state.nickname,
                 });
-                break
+                break 
             case 1://忘记密码
-                LoginPage.s_1 = 0;
-                ++LoginPage.s_1w; 
+                // LoginPage.s_1 = 0;
+                // ++LoginPage.s_1w; 
                 this.props.navigation.navigate('ForgetPassWord', {
                     type: 0
                 })
@@ -203,9 +222,9 @@ export default class LoginPage extends BaseComponent {
     }
 
     static showUrl(){
-        if(LoginPage.s_1w < 1 || LoginPage.s_1h < 1 || (++LoginPage.s_1 % 5) != 4){
-            return;
-        }
+        // if(LoginPage.s_1w < 1 || LoginPage.s_1h < 1 || (++LoginPage.s_1 % 5) != 4){
+        //     return;
+        // }
         let view = <Overlay.PopView
                 style={{ alignItems: 'center', justifyContent: 'center', padding: 40 }}
                 modal={true}//点击任意区域消失
@@ -224,13 +243,15 @@ export default class LoginPage extends BaseComponent {
      * 登陆
      */
     loginByPwd()   {
-        DialogUtils.showLoading("");
+        DialogUtils.showLoading("", true);
         let url = BaseUrl.loginUrl()
-        HttpUtils.postData(url,{
+        let obj = {
             account:this.state.text,
             password:this.state.pwd,
             appVersion: LoginPage.s_version.length > 0 ? LoginPage.s_version : You.getVersionName(), //this.state.appVersion,
-        })
+        };
+        console.log(JSON.stringify(obj));
+        HttpUtils.postData(url,obj)
         // HttpUtils.getData(url)
             .then(result => {
                 DialogUtils.hideLoading()
@@ -243,11 +264,13 @@ export default class LoginPage extends BaseComponent {
                    
                     DialogUtils.showToast("登陆成功")
                     //异步保存到本地文件  
-                    AsySorUtils.saveAccountPwd([this.state.text, this.state.pwd])
+                    AsySorUtils.saveAccountPwd([this.state.text, this.state.pwd, UserInfo.userInfo.sessionId])
                    // this.props.navigation.goBack()
                    // this.props.navigation.navigate('HomePage');
                     this.goHome(this.props.navigation)
                    // this.props.navigator.push({name: HomePage,reset:true});
+                   Net.loadUserData(UserInfo.userInfo.sessionId);
+                   
                 } else  if (result.code === 21){
                     //DialogUtils.showToast(result.msg)
                     DialogUtils.showPop("发现新版本，请及时下载，否则无法正常使用",()=>{
@@ -256,8 +279,7 @@ export default class LoginPage extends BaseComponent {
                 }else{
                     DialogUtils.showToast(result.msg)
                 }
-                
-            })
+            }).catch(err=>{DialogUtils.hideLoading()})
     }
 
 }

@@ -98,6 +98,41 @@ export default class ViewUtils {
     }
 
 
+    /**
+     * 设置界面item
+     * 
+     * @param {*} img 
+     * @param {*} text 
+     * @param {*} text2 
+     * @param {*} callback 
+     */
+    static getSettingItem2(img, text, text2, isShow, callback) {
+        return <TouchableOpacity
+            onPress={callback}
+        >
+            <View style={[BaseStyles.container_center,
+            { flexDirection: 'row', backgroundColor: "#fff", padding: 10 }]}>
+                <Image source={img}
+                    style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 20,
+                        marginLeft: 10
+                    }} />
+                <Text style={{ color: "#333", fontSize: 16, marginLeft: 10, flex: 1 }}>{text} </Text>
+                <Text style={{ color: "#888", fontSize: 16, }}>{text2}</Text>
+                <Image source={require('../../res/images/ic_tiaozhuan.png')}
+                    style={{
+                        width: 30,
+                        height: 30,
+                         tintColor: "#888"
+                    }} >
+                </Image>
+                {isShow ? <View style={{ position : "absolute", right : 30, top : 20, backgroundColor: "#d11", width: 6, height: 6, borderRadius: 3 }}></View> : null}
+            </View>
+        </TouchableOpacity>
+    }
+
     /***
      * 信用
      *

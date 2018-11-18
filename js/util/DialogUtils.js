@@ -1,20 +1,44 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
     TouchableHighlight,
     Image,
     TouchableOpacity,
-    StyleSheet,
     Text,
     View,
     ActivityIndicator,
-    TextInput, Platform, StatusBar,
+    TextInput, StatusBar,
 } from 'react-native';
-import {Overlay, Toast, ActionSheet, Theme, Label, Button, AlbumView} from "teaset";
+import {Overlay, Toast, ActionSheet, AlbumView} from "teaset";
 import codePush from "react-native-code-push"
-import Colors from "./Colors";
-import Utils from "./Utils";
-import {mainColor} from "../page/BaseComponent";
-import PassWordInput,{PayInfoView} from "../common/PassNumInput";
+import You from "./You"
+
+class TextUpdate extends Component{
+    constructor(props){
+        super(props);
+        this.state = {percent : 0};
+    }
+    setPercent(percent, total){
+        if(percent == 0){
+            return;
+        }
+        total = total / 100;
+        percent =  percent / total;
+        percent = parseInt(percent) - 1;
+        if(percent < 1){
+            return;
+        }
+        this.setState({percent : percent});
+    }
+    render(){
+        return <View style={{ backgroundColor: '#333', width : "80%", padding: 25, borderRadius: 15, alignItems: 'center' }}>
+            <ActivityIndicator size={'large'} animating={true}/>
+            <Text style={{ fontSize: 16, color: "white", textAlign : "center" }}>
+                {this.state.percent == 0 ? "下载中..." : ("更新中...\n" + this.state.percent + "%")}
+            </Text>
+        </View>       
+    }
+}
+
 
 export default class DialogUtils {
     /**
@@ -25,12 +49,12 @@ export default class DialogUtils {
      * @param {*} Text1 确定按钮文字
      * @param {*} Text2 取消按钮文字
      */
-    static showPop(text, confirm, cancel, Text1, Text2) {
+    static showPop(text, confirm, cancel, Text1, Text2, modal) {
         let overlayView = (
             <Overlay.PopView
                 style={{ alignItems: 'center', justifyContent: 'center', padding: 40 }}
                 type={"zoomIn"}//动画效果
-                modal={false}//点击任意区域消失 
+                modal={modal || false}//点击任意区域消失 
                 ref={v => this.PopView = v}
             >
                 <View style={{ backgroundColor: "#fff", minWidth: 300, minHeight: 100, flexDirection: 'column', borderRadius: 15 }}>
@@ -76,7 +100,7 @@ export default class DialogUtils {
      * @param {*} confirm  按钮回调
      * @param {*} confirmText  按钮文字
      */
-    static showMsg(text, confirmText, confirm, ) {
+    static showMsg(text, confirmText, confirm) {
         let overlayView = (
             <Overlay.PopView
                 style={{ alignItems: 'center', justifyContent: 'center', padding: 40 }}
@@ -142,7 +166,7 @@ export default class DialogUtils {
     /**
      * 关闭加载动画
      */
-    static hideLoading() {
+    static hideLoading(err) {
         if (this.loadingView){
             this.loadingView.close();
         }
@@ -259,7 +283,6 @@ export default class DialogUtils {
     }
 
 
-
     /** 热更新
     * 
     * sync方法，提供了如下属性以允许你定制sync方法的默认行为
@@ -317,6 +340,97 @@ export default class DialogUtils {
                     });
                 }
             });
+    }
+
+
+    static checkUpdate(){
+        if(You.hadUpdate != 1){
+            DialogUtils.showToast("最新版本");
+            return;
+        }
+        let dialog = {
+            appendReleaseDescription: true,//是否显示更新description，默认false
+            //要显示的更新通知的标题. Defaults to “Update available”.
+            title: '',
+            //强制更新时，更新通知. Defaults to “An update is available that must be installed.”.
+            mandatoryUpdateMessage: '', 
+            //强制更新的按钮文字. 默认 to “Continue”.
+            mandatoryContinueButtonLabel: '更新',
+            //非强制更新时，取消按钮文字. Defaults to “Ignore”.
+            optionalIgnoreButtonLabel: "忽略",
+            //非强制更新时，确认文字. Defaults to “Install”.
+            optionalInstallButtonLabel: "更新",
+            //更新说明的前缀。 默认是” Description: “
+           // descriptionPrefix: '更新内容：\n', 
+            descriptionPrefix: '',
+            //非强制更新时，更新通知. Defaults to “An update is available. Would you like to install it?”.
+            optionalUpdateMessage: "发现新的更新，您是否要安装最新版本"
+        };
+        //可选的，更新的对话框，默认是null,包含以下属性
+        codePush.sync({
+            updateDialog: dialog,
+            //(codePush.InstallMode)： 安装模式，用在向CodePush推送更新时没有设置强制更新(mandatory为true)的情况下，默认codePush.InstallMode.ON_NEXT_RESTART即下一次启动的时候安装。
+            //installMode :codePush.InstallMode.ON_NEXT_RESTART
+            // (codePush.InstallMode):强制更新,默认codePush.InstallMode.IMMEDIATE。
+            mandatoryInstallMode: codePush.InstallMode.IMMEDIATE,
+            //指定那个环境下 直接填写key 就行    但是不建议使用 因为 苹果和Android的是分开的 无法做到同时更新 Android 和 IOS
+            //deploymentKey: "v-5TDPSESydQj-n9alBgCVEab3Mefdf2b04e-456b-420f-8acd-58a99c8306be",
+        }, 
+        (status) => {
+            switch (status) {
+                case codePush.SyncStatus.CHECKING_FOR_UPDATE:
+                console.log("检测呼出对话框");
+                // this.hideLoading();
+                // this.showLoading("检测中...", true);
+                break;
+            case codePush.SyncStatus.DOWNLOADING_PACKAGE:
+                console.log("下载更新包...");
+                DialogUtils.showUpdating(0, 0);
+                // this.hideLoading();
+                // this.showLoading("更新包下载中...", true);
+                break;
+            case codePush.SyncStatus.INSTALLING_UPDATE:
+                console.log("Installing update.");
+                // this.hideLoading();
+                // this.showLoading("更新包载入中...", true);
+                break;
+            case codePush.SyncStatus.UP_TO_DATE:
+                console.log("UP_TO_DATE.");
+                // this.hideLoading();
+                // this.showLoading("更新中...", true);
+                break;
+            case codePush.SyncStatus.UPDATE_INSTALLED:
+                // console.log("更新包载入中...");
+                break;
+            }
+        },
+        (progress) => {
+            console.log(progress.receivedBytes + " of " + progress.totalBytes + " received.");
+            DialogUtils.showUpdating(progress.receivedBytes, progress.totalBytes);
+        });
+    }
+
+    static showUpdating(percent, total) {
+        if(!DialogUtils.updateFlag){
+            DialogUtils.updateFlag = true;
+            console.log("创建更新提示");
+            // Overlay.show(<TextUpdate2 
+            //     total = {total}
+            //     ref={r => this.updatingView = r} 
+            // />)
+            // return;
+            Overlay.show(<Overlay.View
+                style={{ alignItems: 'center', justifyContent: 'center' }}
+                modal={true}
+                overlayOpacity={0}>
+                <TextUpdate
+                    total = {total}
+                    ref={r => DialogUtils.updatingView = r} 
+                />
+            </Overlay.View>);
+        }
+        console.log("刷新更新提示");
+        DialogUtils.updatingView.setPercent(percent, total);
     }
 
 
