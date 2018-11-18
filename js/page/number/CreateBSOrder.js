@@ -3,17 +3,19 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
+    TouchableHighlight,
     Image,
     ScrollView,
     Platform,
     View,
     TextInput,
+    Slider,
 } from 'react-native';
 import BaseComponent, {mainColor, upDataUserInfo} from "../BaseComponent";
 import RefreshFlatList2 from "../../common/RefreshFlatList2"
 import SliderView from "../../common/SliderView"
 import Colors from "../../util/Colors"
-import { Overlay } from 'teaset';
+import { Overlay, Stepper } from 'teaset';
 import Echarts from 'native-echarts';
 import Dimensions from 'Dimensions';
 const { width } = Dimensions.get('window');
@@ -43,10 +45,14 @@ export default class TradeHome extends BaseComponent {
 
             myPrice:Values.coinPrice, //我的定价
             num: 0, //购买数量
+            numShow : "",
+            sliderValue : 0,
         }
         this.type = this.props.navigation.state.params.type // 1 出售， 2 购买
         this.userInfo = this.getUserInfo();
-
+        this.addValue = this.addValue.bind(this);
+        this.subValue = this.subValue.bind(this);
+        this.onAddSub = false;
     }
     getTitleByCid(cid){
         let title
@@ -69,6 +75,52 @@ export default class TradeHome extends BaseComponent {
     }
     componentDidMount() {
         this._refreshData()
+    }
+
+    addValue(){
+        let v = this.state.sliderValue;
+        let i = parseInt(v);
+        if(i == v){
+            v = i + 1;
+        } else if(i >= 0){
+            v = i + 1;
+        } else {
+            v = i;
+        }
+        if(v < -10){
+            v = -10;
+        } else if(v > 10){
+            v = 10;
+        }
+        i = this.state.price + this.state.price * v / 100;
+        this.setState({
+            sliderValue : v,
+            myPrice:Utils.formatNumBer(i,4),
+        });     
+        this.onAddSub = true;                       
+    }
+
+    subValue(){
+        let v = this.state.sliderValue;
+        let i = parseInt(v);
+        if(i == v){
+            v = i - 1;
+        } else if(i <= 0){
+            v = i - 1;
+        } else {
+            v = i;
+        }
+        if(v < -10){
+            v = -10;
+        } else if(v > 10){
+            v = 10;
+        }
+        i = this.state.price + this.state.price * v / 100;
+        this.setState({
+            sliderValue : v,
+            myPrice:Utils.formatNumBer(i,4),
+        }); 
+        this.onAddSub = true;
     }
 
     render() {
@@ -119,14 +171,14 @@ export default class TradeHome extends BaseComponent {
                             borderColor: Colors.lineColor, borderWidth: 0.5, margin: 15,
                         }}>
                             <View style={{ flexDirection: "row", flex: 1, alignItems: "center", padding: 12 }}>
-                                <Text style={{ fontSize: 14, color: Colors.text6, }}>当前价格:</Text>
+                                <Text style={{ fontSize: 14, color: Colors.text6, }}>当前价格: </Text>
                                 <Text style={{ fontSize: 14, color: Colors.blue, }}> {price}</Text>
                             </View>
                             <View style={{ backgroundColor: Colors.lineColor, height: 0.5 }} />
-                            <View style={{ flexDirection: "row", flex: 1, alignItems: "center", paddingLeft: 12, }}>
-                                <Text style={{ fontSize: 14, color: Colors.text6, }}>{this.type===1?"出售":"购买"}价格:</Text>
+                            <View style={{ flexDirection: "row", flex: 1, alignItems: "center", padding: 12, }}>
+                                <Text style={{ fontSize: 14, color: Colors.text6, }}>{this.type===1?"出售":"购买"}价格: </Text>
                                 <TextInput
-                                    style={{ flex: 1,height:40, top : 5}}
+                                    style={{flex: 1}}
                                     placeholder={this.state.price+""}
                                     placeholderTextColor={'#666'}
                                     underlineColorAndroid='transparent'
@@ -137,40 +189,66 @@ export default class TradeHome extends BaseComponent {
                                         this.setState({ myPrice: Utils.chkCurrency(text,4) })
                                     }}
                                 />
-                                <View style={{flexDirection:'row', justifyContent:'center', alignItems:'center', }}>
-                                    <Text style = {{fontSize : 30,  marginTop : 3}}>-</Text>
-                                    <SliderView
-                                        style={{width: 150, margin: -10}}
-                                        maximumTrackTintColor={Colors.mainColor}
-                                        minimumTrackTintColor={Colors.mainColor}
-                                        minimumValue={-10} maximumValue={10}
-                                        //value={Number(this.state.myPrice)}
-                                        onValueChanges={(value)=>{
-                                            const num = this.state.price+this.state.price*value/100
-                                            this.setState({myPrice:Utils.formatNumBer(num,4)})
-                                        }}
-                                    />
-                                    <Text style = {{fontSize : 20,  marginTop : 3}}>+</Text>
-                                </View>
+                                <Text style={{color:"#333", alignSelf:"flex-end", paddingRight:5}}>{new Number(this.state.sliderValue).toFixed(2)}%</Text>
                             </View>
-                            <View style={{ backgroundColor: Colors.lineColor, height: 0.5 }} />
-                            <View style={{ flexDirection: "row", flex: 1, alignItems: "center", padding: 12 ,height:40}}>
-                                <Text style={{ fontSize: 14, color: Colors.text6, }}>{this.type===1?"出售":"购买"}数量:</Text>
+                            <View style={{flexDirection:'row', justifyContent:"flex-end", alignItems:'center', }}>
+                                <TouchableHighlight style = {{
+                                        justifyContent:"center",alignItems:"center",
+                                        width:30,height:30,borderRadius:4, borderColor:mainColor, borderWidth:1
+                                    }} 
+                                    onPress={this.subValue}>
+                                    <Text style = {{fontSiz:32,color:mainColor}}>-</Text>
+                                </TouchableHighlight>
+                                <Slider
+                                    style={{width: 180, marginHorizontal:10}}
+                                    maximumTrackTintColor={Colors.mainColor}
+                                    minimumTrackTintColor={Colors.mainColor}
+                                    minimumValue={-10} maximumValue={10}
+                                    value={this.onAddSub ? this.state.sliderValue : null}
+                                    onValueChange={(value)=>{
+                                        const num = this.state.price + this.state.price * value / 100
+                                        this.setState({
+                                            myPrice:Utils.formatNumBer(num,4),
+                                            sliderValue : value,
+                                        })
+                                        this.onAddSub = false;
+                                    }}
+                                />
+                                <TouchableHighlight style = {{
+                                        justifyContent:"center",alignItems:"center",
+                                        width:30,height:30,borderRadius:4, borderColor:mainColor, borderWidth:1
+                                    }} 
+                                    onPress={this.addValue}>
+                                    <Text style = {{fontSiz:32,color:mainColor}}>+</Text>
+                                </TouchableHighlight>
+                            </View>
+                            <View style={{ marginTop:1, backgroundColor: Colors.lineColor, height: 0.5 }} />
+                            <View style={{ flexDirection: "row", flex: 1, alignItems: "center", padding: 12}}>
+                                <Text style={{ fontSize: 14, color: Colors.text6, }}>{this.type===1?"出售":"购买"}数量: </Text>
                                 <TextInput
-                                    style={{ height : 40, flex : 1, top : 5 }}
+                                    style={{flex : 1}}
                                     underlineColorAndroid='transparent'
                                     keyboardType={"numeric"}
-                                    value={this.state.num+""}
+                                    value={this.state.numShow}
                                     maxLength={8}
                                     onChangeText={(text) => {
-                                        this.setState({ num: Utils.chkPrice(text) })
+                                        if(text.length < 1){
+                                            text = "0";
+                                        }
+                                        this.setState({ 
+                                            num: Utils.chkPrice(text),
+                                            numShow : (text == "0") ? "" : text,
+                                         })
                                     }}
                                 />
                             </View>
                             <View style={{ backgroundColor: Colors.lineColor, height: 0.5 }} />
                             <View style={{ flexDirection: "row", flex: 1, alignItems: "center", padding: 12 }}>
-                                <Text style={{ fontSize: 14, color: Colors.text6, }}>{this.type===1?"购买":"支付"}金额:</Text>
-                                <Text style={{ fontSize: 14, color: Colors.text3, }}>{Utils.formatNumBer(this.state.num*this.state.myPrice,4)}</Text>
+                                <Text style={{ fontSize: 14, color: Colors.text6, }}>{this.type===1?"购买":"支付"}金额: </Text>
+                                <Text style={{ fontSize: 14, color: Colors.text3, }}>{
+                                    Utils.formatNumBer(this.state.num*this.state.myPrice,4) == "0.0000" ? "" :
+                                    Utils.formatNumBer(this.state.num*this.state.myPrice,4) 
+                                }</Text>
                             </View>
                             <View style={{ backgroundColor: Colors.lineColor, height: 0.5 }} />
                             <TouchableOpacity
@@ -201,7 +279,7 @@ export default class TradeHome extends BaseComponent {
                 this.url =  this.type ===1 ?BaseUrl.createSellOrder():BaseUrl.createBuyOrder()
                 HttpUtils.postData(this.url,
                     {
-                        sessionId: this.userInfo.sessionId,
+                        sessionId: this.getUserInfo().sessionId,
                         cid: this.state.cid, //币种id
                         num: this.state.num, //出售数量
                         price: this.state.myPrice, //价格
