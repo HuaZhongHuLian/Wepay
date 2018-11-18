@@ -47,7 +47,7 @@ export default class ModifyNickName extends BaseComponent {
                      upDataUserInfo(this.props.AppStore)
                     //更新用户本地信息
                       //这个nickname 是上一个界面里 
-                      this.userInfo.userName = this.state.userName;
+                      this.getUserInfo().userName = this.state.userName;
                       this.navigation.state.params.callbacks({ nickname: this.state.userName })
                       this.props.navigation.goBack()
                     DialogUtils.showToast("修改成功")
@@ -78,7 +78,8 @@ export default class ModifyNickName extends BaseComponent {
                     <TextInput
                         style={{ height: 40, flex: 1, fontSize: 16, color: '#333', marginLeft: 8 }}
                         placeholder={'请输入新的昵称'}
-                        defaultValue={this.state.userName}
+                        // ios不能输入中文问题
+                        // defaultValue={this.state.userName}
                         placeholderTextColor={'#999'}
                         underlineColorAndroid='transparent'
                         keyboardType={"default"}

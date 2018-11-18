@@ -64,7 +64,8 @@ export default class EditAddress extends BaseComponent {
                     <TextInput
                         style={styles.itemTextInput}
                         placeholder={'请输入姓名'}
-                        defaultValue={this.state.name}
+                        // ios不能输入中文问题
+                        // defaultValue={this.state.name}
                         placeholderTextColor={'#999'}
                         underlineColorAndroid='transparent'
                         keyboardType='default'
@@ -98,7 +99,8 @@ export default class EditAddress extends BaseComponent {
                             style={{ height: 40, flex: 1, fontSize: 16, color: '#333', marginLeft: 8 }}
                             placeholder={'请输入详细收货地址'}
                             placeholderTextColor={'#999'}
-                            defaultValue={this.state.address}
+                            // ios不能输入中文问题
+                            // defaultValue={this.state.address}
                             underlineColorAndroid='transparent'
                             keyboardType='default'
                             onChangeText={(text) => this.setState({ address: text })} />
@@ -169,8 +171,8 @@ export default class EditAddress extends BaseComponent {
     addAddress() {
         if (this.addrssInfo === null) {
             this.url = BaseUrl.putAddress(
-                this.userInfo.sessionId,
-                this.userInfo.userid,
+                this.getUserInfo().sessionId,
+                this.getUserInfo().userid,
                 this.state.name,
                 this.state.phone,
                 this.state.province,
@@ -180,9 +182,9 @@ export default class EditAddress extends BaseComponent {
                 this.state.isDefault)
         } else {
             this.url = BaseUrl.editAddress(
-                this.userInfo.sessionId,
+                this.getUserInfo().sessionId,
                 this.addrssInfo.addressId,
-                this.userInfo.userid,
+                this.getUserInfo().userid,
                 this.state.name,
                 this.state.phone,
                 this.state.province,
