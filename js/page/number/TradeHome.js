@@ -47,6 +47,7 @@ export default class TradeHome extends BaseComponent {
             modalVisible:false,
             unitPrice:"0.00",//单价
             number:"0.00",//数量
+            numberShow:"",//数量
 
         }
         this.userInfo = this.getUserInfo()
@@ -58,6 +59,8 @@ export default class TradeHome extends BaseComponent {
         this.fiveHour = [];
         this.dateLine = [];
         this.isLoading = true;
+        // 第一次加载,ScrollView 和 refControl 只给一个触发
+        this.loadCount = 0;
     }
 
     componentDidMount() {
@@ -72,7 +75,7 @@ export default class TradeHome extends BaseComponent {
     }
 
     geTopData(){
-        let url = BaseUrl.coinDeal(this.userInfo.sessionId,this.cid)
+        let url = BaseUrl.coinDeal(this.getUserInfo().sessionId,this.cid)
         HttpUtils.getData(url)
             .then(result => {
                 this.setState({isRefresh:false,})
@@ -134,9 +137,9 @@ export default class TradeHome extends BaseComponent {
      * @private
      */
     _onScroll(event) {
-        if(this.state.loadMore){
-            return;
-        }
+        // if(this.state.loadMore){
+        //     return;
+        // }
         let y = event.nativeEvent.contentOffset.y;
         let height = event.nativeEvent.layoutMeasurement.height;
         let contentHeight = event.nativeEvent.contentSize.height;
@@ -145,6 +148,7 @@ export default class TradeHome extends BaseComponent {
         console.log('contentHeight-->' + contentHeight);
         if(y+height>=contentHeight-20&&this.isLoading){
             this.isLoading = false
+             console.log("来自onScroll")
              this._onLoadData()
         }
     }
@@ -178,6 +182,7 @@ export default class TradeHome extends BaseComponent {
                 //     //showMinLabel: true,
                 //     showMaxLabel: true,
                 // },
+                // axisLabel:{interval :0}
             },
             yAxis: {
                 //offset:-String(min).length*2+5, //y轴偏移位置
@@ -207,7 +212,10 @@ export default class TradeHome extends BaseComponent {
                 name: this.state.title,
                 data: this.state.ydata,
                 type: 'line',
-            }]
+            }],
+            // echart: {
+            //     backgroundColor: 'red'  //设置初始背景色
+            //   }
         };
 
         let status = <View style={{ height: Platform.OS === 'ios' ? 20 : 0,backgroundColor: '#48b1a3'}}>
@@ -340,7 +348,10 @@ export default class TradeHome extends BaseComponent {
                         </View>
                         {/* 折线统计图 */}
                         <View style={{ marginTop: -50, zIndex: -1, backgroundColor: Colors.white }}>
-                            <Echarts option={options} height={240} width={Utils.getWidth()} />
+                            <Echarts 
+                                option={options} height={240} 
+                                width={Utils.getWidth()} 
+                            />
                         </View>
 
                         <View style={{ flexDirection: "row", backgroundColor: Colors.bgColor, justifyContent: "center", padding: 10, marginTop: -30 }}>
@@ -432,20 +443,34 @@ export default class TradeHome extends BaseComponent {
                                 keyboardType={"numeric"}
                                 editable={true}
                                 maxLength={12}
-                                value={this.state.number+""}
+                                value={this.state.numberShow+""}
                                 onChangeText={(text)=>{
+                                    if(!this.data){
+                                        return;
+                                    }
                                     //限额
                                     var num = this.data?this.data.item.num:0.00;
+                                    if(text.length < 1){
+                                        text = "0.00";
+                                    }
                                     if(text>num){
                                         text = num
                                     }
-                                    this.setState({number:text,unitPrice:this.data?this.data.item.dprice+"":""})
+                                    this.setState({
+                                        number:text,
+                                        numberShow : text == "0.00" ? "" : text,
+                                        unitPrice:this.data?this.data.item.dprice+"":"",
+                                    })
                                 }}
                             />
                             <Text
                                 onPress={()=>{
                                     var text = this.data?this.data.item.num:0.00;
-                                    this.setState({number:text,unitPrice:this.data?this.data.item.dprice+"":""})
+                                    this.setState({
+                                        number:text,
+                                        numberShow : text == "0.00" ? "" : text,
+                                        unitPrice:this.data?this.data.item.dprice+"":""
+                                    })
                                 }}
                                 style={{fontSize:13,color:Colors.white,paddingLeft:8,paddingRight:8,
                                 backgroundColor:Colors.red,borderRadius:5,height:25,paddingTop:4,paddingBottom:4,}}>全额</Text>
@@ -460,7 +485,10 @@ export default class TradeHome extends BaseComponent {
                                 underlineColorAndroid='transparent'
                                 keyboardType={"numeric"}
                                 editable={false}
-                                value={Utils.formatNumBer(this.state.number* this.state.unitPrice,4)}
+                                value={
+                                    Utils.formatNumBer(this.state.number* this.state.unitPrice,4) == "0.0000" ? "" :
+                                    Utils.formatNumBer(this.state.number* this.state.unitPrice,4)
+                                }
                                 maxLength={12}
                             />
                             {/*<Text  style={{fontSize:15,color:Colors.text6, alignSelf:"center"}}>{Utils.formatNumBer(this.state.number* this.state.unitPrice,4)}</Text>*/}
@@ -587,7 +615,7 @@ export default class TradeHome extends BaseComponent {
              this.url = !this.state.activeIndex ?BaseUrl.dealBuy():BaseUrl.dealSell();
              // alert(this.data.item.id)
             HttpUtils.postData(this.url,
-                {   sessionId: this.userInfo.sessionId,
+                {   sessionId: this.getUserInfo().sessionId,
                     id: this.data.item.id,
                     num: num,
                     safetyPwd: safetyPwd,
@@ -611,18 +639,24 @@ export default class TradeHome extends BaseComponent {
         //this.refList.refreshStar()
         this.isLoading = true
         this.pageIndex = 1;
+        console.log("刷新列表")
         this.getData(true)
     }
     //加载更多数据
     _onLoadData() {
+        console.log("加载列表")
+        if((++this.loadCount) < 3){
+            return;
+        }
         this.getData(false)
     }
 
     getData(isRefesh) {
+ 
         if (this.activeIndex === 0) { //购买
-            this.url = BaseUrl.dealOrder(this.userInfo.sessionId, this.pageIndex,1,this.cid)
+            this.url = BaseUrl.dealOrder(this.getUserInfo().sessionId, this.pageIndex,1,this.cid)
         } else if (this.activeIndex === 1) {//出售
-            this.url = BaseUrl.dealOrder(this.userInfo.sessionId, this.pageIndex,2,this.cid)
+            this.url = BaseUrl.dealOrder(this.getUserInfo().sessionId, this.pageIndex,2,this.cid)
         }
         //alert(this.url)
         HttpUtils.getData(this.url)

@@ -32,7 +32,8 @@ export default class ZhongChouBuy extends Component{
         this.dprice = 0;
         this.amount = 0;
         this.id = 0;
-        this.sessionId = ''
+        this.sessionId = '';
+        this.countShow = "";
     }
 
     setVisible(visible){
@@ -55,6 +56,7 @@ export default class ZhongChouBuy extends Component{
         this.currencyName = currencyName;
         this.dprice = dprice;
         this.amount = amount;
+        this.countShow = "";
     }
 
     static s_flag = 0;
@@ -112,10 +114,10 @@ export default class ZhongChouBuy extends Component{
                         underlineColorAndroid='transparent'
                         keyboardType={"numeric"}
                         editable={true}
-                        value={this.state.count.toString()}
+                        value={this.countShow}
                         onChangeText={(text)=>{
                             if(text.length < 1){
-                                return;
+                                text = "0";
                             }
                             text = text.replace(/[^\d]+/, '');
                             let num = parseInt(text);
@@ -123,6 +125,7 @@ export default class ZhongChouBuy extends Component{
                                 num = this.quota;
                             }
                             
+                            this.countShow = num == 0 ? "" : num;
                             this.setState({
                                 flag : ++ZhongChouBuy.s_flag,
                                 count: num,
@@ -139,7 +142,7 @@ export default class ZhongChouBuy extends Component{
                         style={styleInput}
                         underlineColorAndroid='transparent'
                         editable={false}
-                        value={this.state.total + ' ' + this.currencyName}
+                        value={this.state.total == 0 ? "" : (this.state.total + ' ' + this.currencyName)}
                     />
                     {/*<Text  style={{fontSize:15,color:Colors.text6, alignSelf:"center"}}>{Utils.formatNumBer(this.state.number* this.state.unitPrice,4)}</Text>*/}
                 </View>
