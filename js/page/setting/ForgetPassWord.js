@@ -95,7 +95,7 @@ export default class ModifyPassWord extends BaseComponent {
         return (
             <View style={[BaseStyles.container_column, {backgroundColor: mainColor}]}>
                 <NavigationBar
-                    title={this.state.type === 0 ? "找回登陆密码" : "找回支付密码"}
+                    title={this.state.type === 0 ? "找回登录密码" : "找回支付密码"}
                     navigation={this.props.navigation}
                 />
                 <View style={styles.itemView}>

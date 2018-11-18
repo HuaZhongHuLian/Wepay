@@ -21,14 +21,12 @@
     "glog": "cd ./node_modules/react-native/third-party/glog-0.3.4 && ../../scripts/ios-configure-glog.sh",
     "hot-ios": "code-push release-react 376368673/Wepay-IOS  ios   --t 1.3.0 --dev false --d Staging --des \"$DESC\" --m true",
     "hot-android": "code-push release-react 376368673/Wepay-Android android --t 1.3.0 --dev false --d Staging --des \"$DESC\" --m true",
-    "hot": "code-push release-react 376368673/Wepay-IOS  ios   --t 1.3.0 --dev false --d Staging  --des \"$DESC\" --m true && code-push release-react 376368673/Wepay-Android android --t 1.3.0 --dev false --d Staging --des \"$DESC\" --m true",
-    "hot-ios-history" : "code-push deployment history 376368673/Wepay-IOS Staging",
-    "hot-android-history" : "code-push deployment history 376368673/Wepay-Android Staging",
+    "hot" : "npm run hot-android && npm run hot-ios",
+    "hot-history" : "code-push deployment history 376368673/Wepay-IOS Staging && code-push deployment history 376368673/Wepay-Android Staging",
     "codepush-ios": "code-push release-react 376368673/Wepay-IOS  ios   --t 1.3.0 --dev false --d Production  --des \"$DESC\" --m true",
     "codepush-android": "code-push release-react 376368673/Wepay-Android android --t 1.3.0 --dev false --d Production --des \"$DESC\" --m true",
-    "codepush": "code-push release-react 376368673/Wepay-IOS  ios   --t 1.3.0 --dev false --d Production  --des \"$DESC\" --m true && code-push release-react 376368673/Wepay-Android android --t 1.3.0 --dev false --d Production --des \"$DESC\" --m true",
-    "codepush-ios-history" : "code-push deployment history 376368673/Wepay-IOS Production",
-    "codepush-android-history" : "code-push deployment history 376368673/Wepay-Android Production"
+    "codepush": "npm run codepush-android && npm run codepush-ios",
+    "codepush-history" : "code-push deployment history 376368673/Wepay-IOS Production && code-push deployment history 376368673/Wepay-Android Production"
   },
   "dependencies": {
     "GitHubTrending": "^2.0.0",

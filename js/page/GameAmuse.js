@@ -169,7 +169,7 @@ export default class GameAmuse extends BaseComponent{
 
     viewItem(index){
         let styleTouch = {width : 80, height : 30, borderRadius : 4, justifyContent : 'center', alignItems : 'center'};
-        return(<View style = {{backgroundColor : 'white', marginHorizontal : 10, marginTop : 15, padding : 10, borderRadius : 15, flexDirection : 'row', justifyContent : 'space-between'}}>
+        return(<View key = {index} style = {{backgroundColor : 'white', marginHorizontal : 10, marginTop : 15, padding : 10, borderRadius : 15, flexDirection : 'row', justifyContent : 'space-between'}}>
             <View style = {{flexDirection : 'row'}}>
                 <Image style = {{width : 80, height : 80}} source = {this.images[index]} />
                 <View style = {{marginLeft : 10}}>

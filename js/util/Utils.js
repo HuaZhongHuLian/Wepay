@@ -1,7 +1,6 @@
 import DialogUtils from './DialogUtils';
 import area from "../../res/raw/area.json"
-import React from 'react';
-import { Platform, CameraRoll } from 'react-native';
+import { Platform } from 'react-native';
 
 export default class Utils {
     static useFastImage = true;

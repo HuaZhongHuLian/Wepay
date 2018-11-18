@@ -6,6 +6,7 @@ export default class HttpUtils {
      * @param {*} url 
      */
     static getData(url) {
+        // return HttpUtils.get(url);
         // console.warn(url)
         return new Promise((resolve, reject) => {
             fetch(url)
@@ -30,7 +31,7 @@ export default class HttpUtils {
         //console.error(error.message)
        // console.warn(error.message)
         var message  = JSON.stringify(error.message)
-        if(message.startsWith("Network")&&message.endsWith("failed")){
+        if(message.startsWith("Network") && message.endsWith("failed")){
             DialogUtils.showToast("网络异常，请检查网络")
         }else{
             DialogUtils.showToast("网络状态不佳，请检查网络")
@@ -42,6 +43,7 @@ export default class HttpUtils {
      * @param {*} data 
      */
     static postData(url, data) {
+        // return HttpUtils.get(url, data);
        // console.warn(url + JSON.stringify(data))
         var formData = new FormData();
         for (const key in data) {
@@ -79,7 +81,7 @@ export default class HttpUtils {
      * @param {*} callback 成功回调方法
      */
     static uploadImage(url,obj,imgAry,callback) {
-        DialogUtils.showLoading()
+        DialogUtils.showLoading("图文上载...耐心等待", true)
         let formData = new FormData();       //因为需要上传多张图片,所以需要遍历数组,把图片的路径数组放入formData中
         for (var i = 0; i < imgAry.length; i++) {
             //截取获取文件名

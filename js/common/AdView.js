@@ -79,7 +79,7 @@ export default class AdView extends BaseComponent {
        // alert(type)
         switch (type) {
             case 1:
-                alert(type)
+                // alert(type)
                 this.props.navigation.navigate('StroeDetails',{
                     storeId:data.shopId?data.shopId:0
                 });
