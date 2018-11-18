@@ -14,14 +14,22 @@ import { inject } from 'mobx-react';
 import { PullPicker } from 'teaset';
 import SplashScreen from "react-native-splash-screen"
 import BaseUrl from '../util/BaseUrl';
-import user from '../model/UserInfo';
+// import user from '../model/UserInfo';
 import UserInfo from '../model/UserInfo';
 //重置路由 首先导入NavigationActions
 import { NavigationActions, StackActions } from 'react-navigation';
 
+import icons from "../../res/images/_icons";
+import images from "../../res/pictures/_images"
+import bankcards from "../../res/bank_card_icon/_bankcard";
+export const Icons = icons;
+export const Images = images;
+export const Bankcard = bankcards;
+
 export default class BaseComponent extends Component {
     constructor(props) {
         super(props);
+        // HttpUtils.s_goLogin = (()=>{this.goLogin(this.props.navigation)}).bind(this);
         // this.navigation = this.props.navigation;
         //this.props.navigation.navigate('name');
         // this.props.navigation.goBack()
@@ -42,6 +50,17 @@ export default class BaseComponent extends Component {
         navigation.dispatch(resetAction)
     }
 
+    isNotLogin(result) {
+        DialogUtils.hideLoading();
+        if(result.code == 1){
+            return true;
+        }
+        DialogUtils.showToast(result.msg);
+        if(result.code == 2 || result.code == 4){
+            this.goLogin(this.props.navigation);
+        }
+    }
+
     //跳转并替换当前路由
     goHome(navigation ) {
         //然后设置新路由的第0个路由为home 
@@ -60,19 +79,20 @@ export default class BaseComponent extends Component {
     }
 
     getUser() {
-        return user;
+        return UserInfo;
     }
     //获取用户信息
     getUserInfo() {
-        if (user.userInfo === null) {
+        // Dialog.toast(UserInfo.userInfo);
+        if (UserInfo.userInfo === null) {
             //下面的方法不同步 很烦 正在找方法
             return null
         }
-        return user.userInfo;
+        return UserInfo.userInfo;
     }
     //获取用户信息 sessionId
     getSessionId() {
-        return user.sessionId;
+        return UserInfo.sessionId;
     }
     getCallBackValue = (params) => this.setState(params)
     //获取图片拼接的地址，有些图片不需要拼接

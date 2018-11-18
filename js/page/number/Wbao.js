@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     Image,
 } from 'react-native';
-import BaseComponent, { BaseStyles } from "../BaseComponent";
+import BaseComponent, { BaseStyles, Images } from "../BaseComponent";
 import NavigationBar from "../../common/NavigationBar";
 import HttpUtils from "../../util/HttpUtils";
 import BaseUrl from "../../util/BaseUrl";
@@ -54,11 +54,11 @@ export default class Wbao extends BaseComponent {
     */
     getData(isRefesh) {
         if (this.action === 1) {
-            this.url = BaseUrl.getWBIndex(this.userInfo.sessionId, this.pageIndex,2)
+            this.url = BaseUrl.getWBIndex(this.getUserInfo().sessionId, this.pageIndex,2)
         } else if (this.action === 2) {
-            this.url = BaseUrl.getWBIndex(this.userInfo.sessionId, this.pageIndex,3)
+            this.url = BaseUrl.getWBIndex(this.getUserInfo().sessionId, this.pageIndex,3)
         } else {
-            this.url = BaseUrl.getWBIndex(this.userInfo.sessionId, this.pageIndex,1)
+            this.url = BaseUrl.getWBIndex(this.getUserInfo().sessionId, this.pageIndex,1)
         }
         HttpUtils.getData(this.url)
             .then(result => {
@@ -90,13 +90,17 @@ export default class Wbao extends BaseComponent {
 
     getImageBygrade(){
         if (this.state.grade===1) {
-            return require("../../../res/images/g1.png")
+            return Images.g1;
+            // return require("../../../res/images/g1.png")
         }else  if (this.state.grade===2){
-                return require("../../../res/images/g2.png")
+            return Images.g2;
+            // return require("../../../res/images/g2.png")
         } else  if (this.state.grade===3){
-                return require("../../../res/images/g3.png")
+            return Images.g3;
+            // return require("../../../res/images/g3.png")
         } else {
-                return require("../../../res/images/g0.png")
+            return Images.g0;
+            // return require("../../../res/images/g0.png")
         }
     }
 
