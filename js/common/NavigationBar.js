@@ -113,8 +113,10 @@ export default class NavigationBar extends Component {
 
     //左边默认返回组件 返回按钮
     getLeftDefault() {
+        // 返回按钮大一点,老是点不中
+        // 11 22 33
         return <TouchableOpacity
-            style={[{ paddingRight: 20,paddingTop:10,paddingBottom:10},styles.leftContainer]}
+            style={[{ paddingRight : 20 + Utils.getWidth() / 20, paddingVertical:10},styles.leftContainer]}
             onPress={() => {
                 this.props.navigation.goBack(null);
             }}

@@ -56,7 +56,7 @@ export default class SearchStore extends BaseComponent {
     * @param {*} pageIndex 
     */
     getData(isRefesh) {
-        this.url = BaseUrl.getShopBySearch(this.userInfo.sessionId, this.pageIndex,this.state.keyword,this.typeId)
+        this.url = BaseUrl.getShopBySearch(this.getUserInfo().sessionId, this.pageIndex,this.state.keyword,this.typeId)
         //alert(JSON.stringify(this.url))
         HttpUtils.getData(this.url)
             .then(result => {
@@ -111,6 +111,7 @@ export default class SearchStore extends BaseComponent {
                 <NavigationBar
                     navigation={this.props.navigation}
                     titleView={() => this.searchView()}
+                    // 16*2+10 + 25+10+10 = 82
                     rightView={this.getRightStyle_View()}
                 />
                 <View style={{ flex: 1, backgroundColor: "#f1f1f1" }}>
@@ -127,23 +128,37 @@ export default class SearchStore extends BaseComponent {
         );
     }
     searchView() {
-        return (<View style={{ flexDirection: "row", alignItems: "center" }}>
-            <View style={{ marginLeft:-60, width: 230, backgroundColor: "#fff", height: 35, borderRadius: 18, flexDirection: "row", alignItems: "center" }}>
-                <Image style={{ height: 30, width: 30, marginLeft: 10 }} source={require("../../../res/images/sousuo-shang.png")} />
-                <TextInput
-                    style={[{
-                        height: 35, flex: 1, fontSize: 13, color: '#333', backgroundColor: "#fff", padding: 5, marginRight: 20,
-                        borderColor: "#ccc",
-                    }]}
-                    placeholder={'请输入商品名称'}
-                    //defaultValue={userName}
-                    placeholderTextColor={'#999'}
-                    underlineColorAndroid='transparent'
-                    keyboardType={"default"}
-                    maxLength={12}
-                    onChangeText={(text) => this.setState({ keyword: text })} />
-            </View>
-        </View>);
+        return <View style={{ 
+            position:"absolute",
+            left : 10,
+            width : Utils.getWidth() * (1 - 0.05 - 0.05) - 82 - 10 - 20,
+            // marginLeft:-60, 
+            // width: 230, 
+            backgroundColor: "#fff", 
+            height: 36, 
+            borderRadius: 18, 
+            flexDirection: "row", 
+            alignItems: "center" 
+        }}>
+            <Image style={{ height: 30, width: 30, marginLeft: 10 }} source={require("../../../res/images/sousuo-shang.png")} />
+            <TextInput
+                style={{
+                    height: 35, 
+                    flex: 1, 
+                    color: '#333', 
+                    backgroundColor: "#fff", 
+                    padding: 5, 
+                    marginRight: 20,
+                    borderColor: "#ccc",
+                }}
+                placeholder={'请输入商品名称'}
+                //defaultValue={userName}
+                placeholderTextColor={'#999'}
+                underlineColorAndroid='transparent'
+                keyboardType={"default"}
+                maxLength={12}
+                onChangeText={(text) => this.setState({ keyword: text })} />
+    </View>;
     }
 
     /**

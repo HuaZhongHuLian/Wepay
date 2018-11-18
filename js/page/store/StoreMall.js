@@ -81,6 +81,7 @@ export default class StoreMall extends BaseComponent {
                 <NavigationBar
                     title='购物中心'
                     navigation={this.props.navigation}
+                    // 55+25=80
                     titleView={() => this.searchView()}
                     //rightView={NavigationBar.getRightStyle_View(require("../../../res/images/dingdan-shang.png"),()=>this.onClicks(1))}
                     rightView={this.getRightStyle_View()}
@@ -177,7 +178,7 @@ export default class StoreMall extends BaseComponent {
      * @param {*} pageIndex
      */
     getData(isRefesh) {
-        this.url = BaseUrl.getHomeShop(this.userInfo.sessionId, this.pageIndex,this.typeId)
+        this.url = BaseUrl.getHomeShop(this.getUserInfo().sessionId, this.pageIndex,this.typeId)
         //alert(this.url)
         HttpUtils.getData(this.url)
             .then(result => {
@@ -280,32 +281,21 @@ export default class StoreMall extends BaseComponent {
     }
 
     searchView() {
-        return (<View style={{flexDirection: "row", alignItems: "center", position: "absolute", left: 0}}>
-            <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => this.onClicks(2)}
-                style={{justifyContent: "center", alignItems: "center",}}
-            >
-                <View style={{
-                    marginLeft: 0,
-                    width: (Platform.OS == 'ios' ? 240 : 220),
-                    backgroundColor: "#fff",
-                    height: 35,
-                    borderRadius: 18,
-                    flexDirection: "row",
-                    alignItems: "center"
-                }}>
-                    <Image style={{height: 30, width: 30, marginLeft: 10, padding: 5,}}
-                           source={require("../../../res/images/sousuo-shang.png")}/>
-
-                    <Text
-                        style={[{
-                            fontSize: 13, color: '#999', backgroundColor: "#fff", marginRight: 20, padding: 10,
-                            borderColor: "#ccc",
-                        }]}
-                    >请输入商品名称</Text>
-                </View></TouchableOpacity>
-        </View>);
+        // , position: "absolute", left: 0
+        return <TouchableOpacity activeOpacity={0.8} onPress={() => this.onClicks(2)}
+            style={{
+            position:"absolute",
+            left : 10,
+            width : Utils.getWidth() * (1 - 0.05 - 0.05) - 80 - 10 - 20,
+            backgroundColor: "#fff",
+            height: 36,
+            borderRadius: 18,
+            flexDirection: "row",
+            alignItems: "center"
+        }}>
+            <Image style={{height: 30, width: 30}}source={require("../../../res/images/sousuo-shang.png")}/>
+            <Text style={{color: '#999', backgroundColor: "#fff", marginRight: 20,borderColor: "#ccc",}}>请输入商品名称</Text>
+        </TouchableOpacity>
     }
 
     //导航右边更多按钮
