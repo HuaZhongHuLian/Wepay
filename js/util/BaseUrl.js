@@ -1,11 +1,14 @@
+import { Net } from "../utils/Component";
+
+
 const url2 = 'http://wp.wepay168.com/wepay'  //正式服务器
 // const url2 = 'http://192.168.0.10:8081/wepay'
 // const url2 = 'http://192.168.1.4:8080/wepay'  
 // const url2 = 'http://121.201.46.206/wepay'      //测试服务器
 //const url2 = 'http://103.206.121.128:8080/wepay'
 
-
 var url = url2;
+// url = "http://192.168.0.10:8081/wepay";
 export default class BaseUrl {
 
     static geturl(){
@@ -20,6 +23,7 @@ export default class BaseUrl {
         }else if(u == "1"){
             url = "http://" + u + "/wepay";
         }
+        Net._url = url;
         console.log(url);
     }
     /**

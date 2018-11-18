@@ -77,6 +77,9 @@ import GameExchange from '../page/GameExchange'
 import GameGuide from '../page/GameGuide'
 import GameMining from "../page/GameMining"
 
+import CashTransactions from "../page/number/CashTransactions"
+import CashDetail from "../page/number/CashDetail"
+
 export default AppNavigator = createStackNavigator({
     // PassNumInput: {//密码输入
     //     screen: PassNumInput
@@ -307,6 +310,10 @@ export default AppNavigator = createStackNavigator({
 
     GameMining : {screen : GameMining},
 
+    CashTransactions : {screen : CashTransactions}, 
+    CashDetail : {screen : CashDetail}, 
+    
+
     Welcome: {//欢迎页 
         screen: Welcome,
         path: 'app/homeTwo',//使用url导航时用到, 如 web app 和 Deep Linking
@@ -317,6 +324,8 @@ export default AppNavigator = createStackNavigator({
     initialRouteName: 'LoginPage', // 默认显示界面
     //initialRouteName: 'TradeHome', // 默认显示界面
     //initialRouteName: 'EchartsDemo', // 默认显示界面
+    // initialRouteName: 'CashTransactions',
+    // initialRouteName: 'CashDetail',
 
 
     mode: 'card',
