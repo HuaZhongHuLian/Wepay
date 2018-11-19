@@ -1,53 +1,37 @@
-import {Linking} from "react-native"
-import { NavComponent, Dialog } from "./Component"
-
-import App from "./App";
+import { Dialog, Util, renavigate } from "./Component"
+import { Navigator } from "./Navigator";
 
 const c_url = "http://wp.wepay168.com/wepay";
 const c_image = "http://wepay.hxksky.com/";
 
 
-export class _Net{
-    static _url = c_url;
-    // static _url = "http://192.168.0.10:8081/wepay";
-    static _cache = {};
-
-    static userData = null;
-    static getUser(){
-        return this.userData;
-    }
-    static updateUserData(){
-        this.fetid("/user/getIndexUser", null, (result)=>{
-            this.userData = result.data;
-        });
-    }
-    static loadUserData(sessionId){
-        this.fet("/user/getIndexUser?sessionId=" + sessionId, null, (result)=>{
-            this.userData = result.data;
-        });
-    }
-
-    static coins = null;
-    static getCoins(index){
-        if(index || index == 0){
-            for(let k = 0; k < this.coins.coinVos.length; ++k){
-                if(this.coins.coinVos[k].cid == index){
-                    return this.coins.coinVos[k];
-                }
-            }
-            return null;
-        }
-        return this.coins;
-    }
-    static updateCoins(){
-        this.fetid("/coin/index", null, (result)=>{
-            this.coins = result.data;
-        });
-    }
-
+export class Net{
     static getImage(){
         return c_image;
     }
+
+
+    static _cache = {};
+    static clear(){
+        this._cache = {};
+    }
+    static isFetching(url, obj){
+        obj = obj ? Util.stringify(obj) : "";
+        obj = url + obj;
+        if(this._cache[obj] === 1){
+            return true;
+        }
+        this._cache[obj] = 1;
+        return false;
+    }
+    static clear(url, obj){
+        obj = obj ? Util.stringify(obj) : "";
+        obj = url + obj;
+        delete this._cache[obj];
+    }
+
+
+    static _url = c_url;
     static setUrl(url){
         if(this.url != url){
             this.clear();
@@ -55,27 +39,9 @@ export class _Net{
         this.url = url;
     }
 
-    static clear(){
-        this._cache = {};
-    }
 
-    static fetching(url, obj){
-        obj = obj ? JSON.stringify(obj) : "";
-        obj = url + obj;
-        if(this._cache[obj] && this._cache[obj] == 1){
-            return true;
-        }
-        this._cache[obj] = 1;
-        return false;
-    }
 
-    static clear(url, obj){
-        obj = obj ? JSON.stringify(obj) : "";
-        obj = url + obj;
-        delete this._cache[obj];
-    }
-
-    static fetc(url, obj){
+    static fetch(url, obj){
         console.log(url);
         if(!obj){
             return fetch(this._url + url);
@@ -96,38 +62,33 @@ export class _Net{
         }); 
     }
 
-    static fet(url, obj, cb, nav){
-        if(NavComponent.s_isNavigating){
-            return;
-        }
+    static fetc(url, obj, cb){
         Dialog.loading();
-        if(this.fetching(url, obj)){
+        if(this.isFetching(url, obj)){
             for (const key in obj) {
-                if(key == "file"){
-                    Dialog.loading(true, "上载中...请耐心等待");
+                if(key === "file"){
+                    Dialog.loading("上载中...请耐心等待", true);
                     return;  
                 }
             }
-            Dialog.loading(null, "请求中");
+            Dialog.loading("请求中");
             return;
         }
-        this.fetc(url, obj)
+        this.fetch(url, obj)
         .then(response=>response.json())
-        .then(result=>{
+        .catch(err => {
+            this.clear(url, obj);
+            Dialog.hiding(err);
+            Dialog.toast(err.message);
+        })
+        .then(r=>{
             Dialog.hiding();
-            if(!this.fetching(url, obj)){
+            if(!this.isFetching(url, obj)){
                 return;
             }
             this.clear(url, obj);
-            if(result.code == 1 || result.code == 21){
-                console.log(result.data);
-                cb(result);
-            }else {
-                Dialog.toast(result.msg);
-                if(result.code == 2 || result.code == 4){
-                    nav && NavComponent.renavigate(nav, "LoginPage")
-                }
-            }
+            console.log(r.data);
+            cb && cb(r);
         })
         .catch(err => {
             this.clear(url, obj);
@@ -141,40 +102,108 @@ export class _Net{
         })
     }
 
-    static fetid(url, obj, cb, nav){
+
+    static fetcid(url, obj, cb){
         if(obj){
-            this.fet(url, {sessionId:this.userData.sessionId, ...obj}, cb, nav)
+            this.fetc(url, {sessionId:this._user.sessionId, ...obj}, cb)
         }else {
             let str = (url.indexOf("?") >= 0) ? "&" : "?";
-            this.fet(url + str + "sessionId=" + this.userData.sessionId, null, cb, nav)
+            this.fetc(url + str + "sessionId=" + this._user.sessionId, null, cb)
         }
     }
 
-    static login(account, password, appVersion, cb){
-        this.fet("/user/login", {
-            account: account,
-            password: password,
-            appVersion: appVersion || App.getVersionName(),
-        }, (result)=>{
-            if(result.code == 1){
-                this.userData = result.data;
-                Dialog.toast("登录成功");
-                cb && cb();
-            }else if(result.code == 21){
-                Dialog.msg2("检测到新版本", ()=>{
-                    Linking.canOpenURL(result.msg)
-                    .then(ok => {
-                        if (ok) {
-                            return Linking.openURL(result.msg);
-                        } else {
-                            Dialog.toast("An error occurred: " + result.msg);
-                        }
-                    })
-                    .catch(err => {
-                        console.error("An error occurred: ", result.msg)
-                    });
-                }, null, "下载", "稍后");
+    static cb124(r, cb1, nav){
+        if(r.code === 1){
+            cb1 && cb1(r);
+        }else {
+            Dialog.toast(r.msg);
+            if(r.code === 2 || r.code === 4){
+                nav && Navigator.renavigate(nav, "LoginPage");
+            }
+        }
+    }
+
+
+    static fet(url, obj, cb1, nav){
+        this.fetc(url, obj, r=>{this.cb124(r, cb1, nav);});
+    }
+
+    static fetid(url, obj, cb1, nav){
+        this.fetcid(url, obj, r=>{this.cb124(r, cb1, nav);})
+    }
+
+
+
+
+    static _user = null;
+    static getUser(){
+        return this._user;
+    }
+    static loadUser(sessionId, cb, cbOther){
+        this.fetc("/user/getIndexUser?sessionId=" + sessionId, null, (r)=>{
+            if(r.code === 1){
+                this._user = r.data;
+                cb && cb(r);
+            }else {
+                // Dialog.toast(r.msg);
+                cbOther && cbOther(r);
             }
         });
     }
+    static updateUser(cb1, nav){
+        this.fetid("/user/getIndexUser", null, r=>{
+            this._user = r.data;
+            cb && cb1(this._user);
+        }, nav);
+    }
+ 
+
+
+    static _coins = null;
+    static getCoins(index){
+        if(Util.isNumber(index)){
+            for(let k = 0; k < this._coins.coinVos.length; ++k){
+                if(this._coins.coinVos[k].cid == index){
+                    return this._coins.coinVos[k];
+                }
+            }
+            return null;
+        }
+        return this._coins;
+    }
+    static updateCoins(){
+        this.fetid("/coin/index", null, (r)=>{
+            this._coins = r.data;
+        });
+    }
+
+
+
+    static checkVersion(appVersion, cb){
+        this.fetc("/user/login", {
+            account: 0,
+            password: 0,
+            appVersion: appVersion,
+        }, (r)=>{
+            cb && cb(r);
+        });
+    }
+
+    static login(account, password, appVersion, cb, cbOther){
+        this.fet("/user/login", {
+            account: account,
+            password: password,
+            appVersion: appVersion, 
+        }, (r)=>{
+            if(r.code == 1){
+                this._user = r.data;
+                Dialog.toast("登录成功");
+                cb && cb(r);
+            }else {
+                Dialog.toast(r.msg);
+                cbOther && cbOther(r);
+            }
+        });
+    }
+
 }
