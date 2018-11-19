@@ -6,9 +6,7 @@ import {
     TextInput,
     TouchableOpacity,
     Image, 
-    Platform,
     Linking,
-    NativeModules,
 } from 'react-native';
 import BaseComponent, { BaseStyles, mainColor } from "../BaseComponent";
 import NavigationBar from "../../common/NavigationBar";
@@ -22,9 +20,10 @@ import SplashScreen from "react-native-splash-screen"
 import Colors from '../../util/Colors';
 import Utils from "../../util/Utils";
 import codePush from "react-native-code-push";
-import You, { isAndroid, vsSize } from '../../util/You'
+// import You, { isAndroid, vsSize } from '../../util/You'
 import {Overlay, Button, Input} from "teaset"
 import { Net } from '../../utils/Component';
+import { Build } from '../../utils/Build';
 /**
  * 登陆页面
  */
@@ -62,17 +61,17 @@ export default class LoginPage extends BaseComponent {
         // codePush.sync()
         // Platform.OS ==="ios"? {}:codePush.sync()
 
-        if(You.hadUpdate == -1){
+        if(DialogUtils.hadUpdate == -1){
             console.log('检测更新');
             codePush.checkForUpdate()
             .then((update) => {
                 if(update){
-                    You.hadUpdate = 1;
+                    DialogUtils.hadUpdate = 1;
                     console.log('有更新');
                     let cb = ()=>DialogUtils.showMsg("请->设置->版本检测->点击更新")
                     DialogUtils.showPop("检测到新版本,是否更新?", DialogUtils.checkUpdate, null, "更新", "稍后", true);
                 } else {
-                    You.hadUpdate = 0;
+                    DialogUtils.hadUpdate = 0;
                     console.log('无更新');
                 }
             })
@@ -94,7 +93,7 @@ export default class LoginPage extends BaseComponent {
                     </TouchableOpacity>}
                 />
                 <TouchableOpacity style={{height:150,justifyContent:"center",alignItems:"center"}}  
-                    onPress = {You.show}
+                    onPress = {()=>console.log(Build.desc)}
                     activeOpacity = {1}
                 >
                 <Image source={require('../../../res/images/logo-d.png')}/>
@@ -248,7 +247,7 @@ export default class LoginPage extends BaseComponent {
         let obj = {
             account:this.state.text,
             password:this.state.pwd,
-            appVersion: LoginPage.s_version.length > 0 ? LoginPage.s_version : You.getVersionName(), //this.state.appVersion,
+            appVersion: LoginPage.s_version.length > 0 ? LoginPage.s_version : Build.versionName, //this.state.appVersion,
         };
         console.log(JSON.stringify(obj));
         HttpUtils.postData(url,obj)
@@ -269,7 +268,7 @@ export default class LoginPage extends BaseComponent {
                    // this.props.navigation.navigate('HomePage');
                     this.goHome(this.props.navigation)
                    // this.props.navigator.push({name: HomePage,reset:true});
-                   Net.loadUserData(UserInfo.userInfo.sessionId);
+                   Net.loadUser(UserInfo.userInfo.sessionId);
                    
                 } else  if (result.code === 21){
                     //DialogUtils.showToast(result.msg)

@@ -1,14 +1,28 @@
-import AppNavigator from './js/navigators/AppNavigator'
-import React, { Component } from 'react';
-import {View, Text, Image} from "react-native"
+if (!__DEV__) {
+    global.console = {
+        info: () => {},
+        log: () => {},
+        warn: () => {},
+        debug: () => {},
+        error: () => {}
+    };
+}
+
+
+import React from 'react';
 import { Provider } from 'mobx-react';
-import AppStore from './js/AppStore';
 import codePush from "react-native-code-push";
 import SplashScreen from "react-native-splash-screen"
-import You from './js/util/You'
+import AppStore from './js/AppStore';
+import AppNavigator from './js/navigators/AppNavigator'
+
+
+import { initBuild } from './js/utils/Build';
+
+// import {View, Text, Image} from "react-native"
 // import {Theme} from 'teaset';
 
-import {initBuildType} from "./js/utils/App";
+
 // import StackNavigator from "./js/utils/StackNavigator"
 
 
@@ -21,34 +35,20 @@ import {initBuildType} from "./js/utils/App";
 // import bankcards from "./res/bank_card_icon/_bankcard"
 
 
-
-if (!__DEV__) {
-global.console = {
-    info: () => {},
-    log: () => {},
-    warn: () => {},
-    debug: () => {},
-    error: () => {}
-};
-}
-
 // Theme.set({
 //     fitIPhoneX: true,
 //     primaryColor: '#48B1A3',
-//     // secondaryColor : "#48B1A3",
-//     // defaultColor : "white",
-//     // defaultTextColor : "black",
+//     secondaryColor : "#48B1A3",
+//     defaultColor : "white",
+//     defaultTextColor : "black",
 // }); 
 
-const stores ={
-    AppStore,
-} 
- class App extends Component {
+const stores ={AppStore};
+class App extends React.Component {
     constructor(props){
         super(props);
-        console.log("App初始化,明显是在启动图之后");
-        You.init();
-        initBuildType();
+        console.log("App初始化Build");
+        initBuild();
     }
 
     componentWillMount(){
@@ -61,19 +61,20 @@ const stores ={
     }
 
     render() {
-        // return <View style = {{flex:1, backgroundColor:"black", justifyContent:"center", alignItems:"center"}}>
+        // return <View style = {{
+        //     flex:1, 
+        //     backgroundColor:"black", 
+        //     justifyContent:"center", 
+        //     alignItems:"center"
+        // }}>
         //     <Text style = {{fontSize:32, color:"white"}}>Nav</Text>
         //     <Image source = {bankcards.guangda}/>
         // </View>;
         // return <StackNavigator />;
-        // 配置mobx 的 Store 
-        return <Provider {...stores}>
-            <AppNavigator/>
-        </Provider>;
+        return <Provider {...stores}><AppNavigator/></Provider>;
     }
 }
 
-//export default AppNavigator
 // 关闭指定警告
 console.ignoredYellowBox = [ 'Warning: isMounted(...)','Warning: Failed prop type' ];
 // 关闭全部的警告

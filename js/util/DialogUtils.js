@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {Overlay, Toast, ActionSheet, AlbumView} from "teaset";
 import codePush from "react-native-code-push"
-import You from "./You"
+// import You from "./You"
 
 class TextUpdate extends Component{
     constructor(props){
@@ -342,9 +342,9 @@ export default class DialogUtils {
             });
     }
 
-
+    static hadUpdate = -1;
     static checkUpdate(){
-        if(You.hadUpdate != 1){
+        if(this.hadUpdate != 1){
             DialogUtils.showToast("最新版本");
             return;
         }

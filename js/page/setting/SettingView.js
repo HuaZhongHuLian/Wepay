@@ -17,7 +17,8 @@ import HttpUtils from '../../util/HttpUtils';
 import BaseUrl from '../../util/BaseUrl';
 import { inject, observer } from 'mobx-react';
 import AsySorUtils from "../../dao/AsySorUtils";
-import You, {} from '../../util/You'
+// import You, {} from '../../util/You'
+import { Build } from '../../utils/Build';
 
 @inject('AppStore') @observer
 export default class SettingView extends BaseComponent {
@@ -276,7 +277,7 @@ export default class SettingView extends BaseComponent {
                         {ViewUtils.getSettingItem1(require('../../../res/images/tousujianyi.png'), '投诉建议', false,
                             () => this.onClicks("Complaint"))}
                         {ViewUtils.getSettingItem2(require('../../../res/images/banben.png'), '版本检测', 
-                        You.getVersionName() + (You.isDebug() ? '调试版' : (You.isRelease() ? "" : "测试版")),You.hadUpdate == 1,
+                        Build.versionDesc,DialogUtils.hadUpdate == 1,
                             () => this.onClicks("version"))}
                         {ViewUtils.getSettingItem1(require('../../../res/images/guanyu.png'), '关于', false,
                             () => this.onClicks("about"))}
