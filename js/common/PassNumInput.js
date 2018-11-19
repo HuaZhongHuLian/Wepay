@@ -141,7 +141,7 @@ class PassNumInput extends Component {
                     <View style={{ backgroundColor: "#aaa", height: 0.5, flexDirection: 'column', marginTop: 10, marginBottom: 5, }} />
                    {this.props.price!==0?<View style={{ alignItems: "center" ,marginTop:10,marginLeft:-10}}>
                         <Text style={{ fontSize: 14, color: "#000", }}> {this.props.des}</Text>
-                        <Text style={{ fontSize: 22, color: "#000", }}>￥{ new Number(this.props.price).toFixed(2)}</Text>
+                        <Text style={{ fontSize: 22, color: "#000", }}>{(typeof(this.props.rmb)==="undefined")?"":"￥"}{ new Number(this.props.price).toFixed(2)}</Text>
                     </View>:null
                 } 
                     <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", marginTop: 20 }}>

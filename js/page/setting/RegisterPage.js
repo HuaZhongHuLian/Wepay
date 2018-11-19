@@ -14,7 +14,7 @@ import BaseUrl from '../../util/BaseUrl';
 import DialogUtils from '../../util/DialogUtils';
 import HttpUtils from '../../util/HttpUtils';
 import CountDownView from '../../common/CountDownView';
-import You from '../../util/You'
+// import You from '../../util/You'
 
 /**
  * 注册页面
