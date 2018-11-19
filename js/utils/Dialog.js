@@ -1,16 +1,16 @@
 import React from 'react';
-import {Text,View,ActivityIndicator, Dimensions} from 'react-native';
-import {Overlay, Toast, ActionSheet, AlbumView} from "teaset";
-import { C, Touch, vsSize } from "./Component";
+import {Text,View,ActivityIndicator,Linking} from 'react-native';
+import {Overlay, ActionSheet, AlbumView} from "teaset";
+import {Color, Layout, Util, vsHeight, Touch} from "./Component"
 
 class ViewContent extends React.PureComponent{
     render(){return <View style = {{
         minHeight: 100, 
-        padding: C.cPad, 
+        padding: Layout.pad, 
         justifyContent: "center", 
         alignItems: "center",
     }}>
-        <Text style={{ fontSize: C.c16, color: C.black }}>{this.props.text}</Text>
+        <Text style={{ fontSize: Layout.c16, color: Color.black }}>{this.props.text}</Text>
     </View>}
 }
 
@@ -21,7 +21,7 @@ class Button extends React.PureComponent{
         alignItems: "center",
     }} 
     onPress = {this.props.onPress}>
-        <Text style={{ fontSize: C.c18, color: C.black }}>{this.props.title}</Text>
+        <Text style={{ fontSize: Layout.c18, color: Color.black }}>{this.props.title}</Text>
     </Touch>}
 }
 
@@ -41,76 +41,23 @@ const styleMsg = {
     minWidth: 300, 
     width: "80%", 
     minHeight: 160, 
-    // C.cRadius 为什么报错
+    // Layout.radius 为什么报错
     borderRadius: 8, 
 }
 
-export class _Dialog{
+export class Dialog{
     static refs = {};
     static toasts = {}
 
-    static stringify(text){
-        if(typeof(text)=="string"){
-            return text;
-        }
-        return JSON.stringify(text);
-    }
-
-    static close(text, cb, closable){
-        if((closable !== false) && this.refs[text]){
-            // this.refs[text].close();
-            Overlay.hide(this.refs[text]);
-            delete this.refs[text];
-        } 
-        cb && cb();
-    }
-
-    static msg2(text, cbOk, cbCancel, textOk, textCancel) {
-        text = this.stringify(text);
-        this.close(text);
-
-        this.refs[text] = Overlay.show(<OverView modal={true}>
-            <View style = {styleMsg}>
-                <ViewContent text = {text}/>
-                <View style={{ backgroundColor: C.line, height: 1 }} />
-                <View style={{ flexDirection: "row", height: 60}}>
-                    <Button title = {textOk || "确定"} onPress = {()=>this.close(text, cbOk)}/>
-                    <View style={{ width: 1, backgroundColor: C.line, height: 40, alignSelf:"center" }} />
-                    <Button title = {textCancel || "取消"} onPress = {()=>this.close(text, cbCancel)}/>
-                </View>
-            </View>
-        </OverView>);
-    }
-
-
-    static msg1(text, cbOk, textOk, closable) {
-        text = this.stringify(text);
-        this.close(text);
-        this.refs[text] = Overlay.show(<OverView
-        modal={true}>
-            <View style = {styleMsg}>
-                <ViewContent text = {text}/>
-                <View style={{ backgroundColor: C.line, height: 1 }} />
-                <View style={{ flexDirection: "row", height: 60}}>
-                    <Button title = {textOk || "确定"} onPress = {()=>this.close(text, cbOk, closable)}/>
-                </View>
-            </View>
-        </OverView>);
-    }
-
-    static msg(text) {
-        text = this.stringify(text);
-        Overlay.show(<OverView
-        modal={false}>
-            <View style = {styleMsg}>
-                <ViewContent text = {text}/>
-            </View>
-        </OverView>);
-    }
-
-    static loading(modal, text) {
+    static loading(text_model, modal) {
         this.hiding();
-        if(!text || text.length < 1){
+        if(!modal){
+            if(Util.isBoolean(text_model)){
+                modal = text_model;
+                text_model = null;
+            }
+        }
+        if(!text_model){
             this.loadingView = Overlay.show(<OverView
                 modal={modal || false}
                 overlayOpacity={0}>
@@ -121,9 +68,9 @@ export class _Dialog{
         this.loadingView = Overlay.show(<OverView
             modal={modal || false}
             overlayOpacity={0}>
-            <View style={{ backgroundColor: '#333', padding: C.cPad, borderRadius: C.cRadius, alignItems: 'center' }}>
+            <View style={{ backgroundColor: '#333', padding: Layout.pad, borderRadius: Layout.radius, alignItems: 'center' }}>
                 <ActivityIndicator size={'large'} animating={true}/>
-                <Text style={{ color: "#fff" }}>{text}</Text>
+                <Text style={{ color: "#fff" }}>{text_model}</Text>
             </View>
         </OverView>);
     }
@@ -143,7 +90,7 @@ export class _Dialog{
         for(let k in this.toasts){
             ++this.s_toast;
         }
-        if(this.s_toast == 0 || this.s_toast > ((vsSize.height-100) / 30)){
+        if(this.s_toast == 0 || this.s_toast > ((vsHeight-100) / 30)){
             this.s_toastButtom = 0;
         }        
     }
@@ -160,10 +107,82 @@ export class _Dialog{
                 paddingHorizontal:10,
                 bottom : (++this.s_toastButtom) * 30 + 60,
             }}>
-                <Text style={{color:C.white, }}>{this.stringify(text)}</Text>
+                <Text style={{color:Color.white, }}>{Util.stringify(text)}</Text>
             </View>
         </Overlay.View>);
         this.toasts[key] = key;
         setTimeout(()=>{this.toastTimer(key)}, 2500);
     }
+
+
+    static close(text, cb, noClose){
+        if(!noClose && this.refs[text]){
+            // this.refs[text].close();
+            Overlay.hide(this.refs[text]);
+            delete this.refs[text];
+        } 
+        cb && cb();
+    }
+
+    static msg2(text, cbOk, cbCancel, textOk, textCancel) {
+        text = Util.stringify(text);
+        this.close(text);
+
+        this.refs[text] = Overlay.show(<OverView modal={true}>
+            <View style = {styleMsg}>
+                <ViewContent text = {text}/>
+                <View style={{ backgroundColor: Color.line, height: 1 }} />
+                <View style={{ flexDirection: "row", height: 60}}>
+                    <Button title = {textOk || "确定"} onPress = {()=>this.close(text, cbOk)}/>
+                    <View style={{ width: 1, backgroundColor: Color.line, height: 40, alignSelf:"center" }} />
+                    <Button title = {textCancel || "取消"} onPress = {()=>this.close(text, cbCancel)}/>
+                </View>
+            </View>
+        </OverView>);
+    }
+
+
+    static msg1(text, cbOk, textOk, noClose) {
+        text = Util.stringify(text);
+        this.close(text);
+        this.refs[text] = Overlay.show(<OverView
+        modal={true}>
+            <View style = {styleMsg}>
+                <ViewContent text = {text}/>
+                <View style={{ backgroundColor: Color.line, height: 1 }} />
+                <View style={{ flexDirection: "row", height: 60}}>
+                    <Button title = {textOk || "确定"} onPress = {()=>this.close(text, cbOk, noClose)}/>
+                </View>
+            </View>
+        </OverView>);
+    }
+
+    static msg(text) {
+        text = Util.stringify(text);
+        Overlay.show(<OverView
+        modal={false}>
+            <View style = {styleMsg}>
+                <ViewContent text = {text}/>
+            </View>
+        </OverView>);
+    }
+
+    static msgVersion(url){
+        this.msg2("检测到新版本", ()=>{
+            Linking.canOpenURL(url)
+            .then(ok => {
+                if (ok) {
+                    return Linking.openURL(url);
+                } else {
+                    Dialog.toast(r.msg);
+                }
+            })
+            .catch(err => {
+                console.error(err.msg)
+            });
+        }, null, "下载", "稍后");
+    }
+
+
+
 }
