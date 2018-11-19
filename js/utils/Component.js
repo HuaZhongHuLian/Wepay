@@ -1,35 +1,20 @@
 import React from "react";
-import {Platform,  Dimensions, View, Text as _Text, StatusBar as _StatusBar, Image, TouchableHighlight, Linking} from "react-native"
-import {StackActions, NavigationActions } from "react-navigation"
-import {_Dialog} from "./Dialog"
-import {_Net} from "./Net"
-import {_Util} from "./Util"
+import {Platform, Dimensions, Text as Label, TouchableHighlight as Touch, View, Image, StatusBar, TextInput} from "react-native";
 
-import icons from "../../res/images/_icons";
-import images from "../../res/pictures/_images"
-import bankcards from "../../res/bank_card_icon/_bankcard"
+import {Icons} from "../../res/images/_icons";
+import {Images} from "../../res/pictures/_images";
+import {Bankcards} from "../../res/bank_card_icon/_bankcard";
+import {Util} from "./Util";
+import {Dialog} from "./Dialog"
+import {Net} from "./Net"
+import { Navigator } from "./Navigator";
 
-
-// 只适用于(不支持横竖屏切换)
+export {Label, Touch, Icons, Images, Bankcards, Util, Dialog, Net}
 const {width, height} = Dimensions.get("window");
-export const vsSize = {width : width, height : height};
-export const isAndroid = (Platform.OS != "ios");
-export const isFullScreen = (height / width) > 1.8 || isAndroid
-
-export const Icons = icons;
-export const Images = images;
-export const Bankcard = bankcards;
-
-export const Touch = TouchableHighlight;
-export const Dialog = _Dialog;
-export const Net = _Net;
-export const U = _Util;
-
-export const KEY_ACCOUNT = "account_password";
-export const KEY_SESSION = "sessionId";
-
-export const C = {
-    theme : "#48B1A3",
+export const vsWidth = width;
+export const vsHeight = height;
+export const Color = Object.freeze({
+    theme : "#48B1A3", 
     line : "#E0E0E0",
     back : "#E0E0E0",
     black : "black",
@@ -37,54 +22,51 @@ export const C = {
     gray : "gray",
     transparent : "transparent",   
     opacity : "rgba(0,0,0,0.7)",
-
+});
+export const Layout = Object.freeze({
     c13 : 13,
-    cFontSize : 14,
-    c14 : 14,
+    c14 : 14,  // 默认 14
     c16 : 16,
     c18 : 18,
     c20 : 20,
-    cPad : 10,
-    cMargin : 10,
-    cRadius : 8,
+    pad : 10,
+    margin : 10,
+    radius : 8,
+});
+export const App = Object.freeze({
+    isAndroid : (Platform.OS === "android"),
+    isIOS : (Platform.OS === "ios"),
+    isScreen : (height / width) < 1.8 && (Platform.OS === "ios"),
+});
+
+export const renavigate = function(nav, page){
+    const resetAction = StackActions.reset({
+        index: 0,
+        actions: [
+            NavigationActions.navigate({ routeName: page }),
+        ],
+    });
+    nav.dispatch(resetAction)
 }
 
-
-// class StatusBarAndroid extends _StatusBar{
-//     static defaultProps = {
-//         ..._StatusBar.defaultProps,
-//         style : {
-//             ..._StatusBar.defaultProps.style,
-//             backgroundColor : C.theme,
-//         }
-//     }
-// }
-
-export const StatusBar = isAndroid ? <_StatusBar backgroundColor = {C.theme}/> : <View style = {{backgroundColor : C.theme, height : 16}}/>;
-
-
-// export class Text extends _Text{
-//     render(){
-//         let {style, ...other} = this.props;
-//         style = {
-//             fontSize:C.cFontSize,
-//             ...style,
-//         }
-//         this.props = {style, ...other};
-//         return super.render();
-//     }  
-// }
-export const Text = _Text;
+class StatusBarAndroid extends React.PureComponent{
+    render(){return <StatusBar backgroundColor = {Color.theme}/>}
+}
+class StatusBarIOS extends React.PureComponent{
+    render(){return <View style = {{backgroundColor : Color.theme, height : 16}}/>}
+}
+export const StateBar = App.isAndroid ? StatusBarAndroid : StatusBarIOS;
 
 
 export class NavLeft extends React.PureComponent{
-    render(){return <Touch
-            style = {{paddingHorizontal:C.cPad, flexDirection:"row", alignItems:"center"}}
+    render(){
+        return <Touch
+            style = {{paddingHorizontal:Layout.pad, flexDirection:"row", alignItems:"center"}}
             onPress={this.props.onLeft}
         >
             <View style = {{flexDirection:"row"}}>
-                <Image opacity = {this.props.onLeft ? 1 : 0} source={icons.fanhui}/>
-                <Text style = {{fontSize:C.c16, color:C.transparent}}>返回</Text>
+                <Image opacity = {this.props.onLeft ? 1 : 0} source={Icons.fanhui}/>
+                <Label style = {{fontSize:Layout.c16, color:Color.transparent}}>返回</Label>
             </View>
         </Touch>
     }
@@ -95,9 +77,9 @@ export class NavRight extends React.PureComponent{
             style = {{flexDirection:"row"}}
             onPress={this.props.onRight}
         >
-            <View style = {{paddingHorizontal:C.cPad, flexDirection:"row", alignItems:"center"}}>
-                <Image opacity = {0} source={icons.fanhui}/>
-                <Text style = {{fontSize:C.c16, color:this.props.onRight ? C.white : C.transparent }}>更多</Text>
+            <View style = {{paddingHorizontal:Layout.pad, flexDirection:"row", alignItems:"center"}}>
+                <Image opacity = {0} source={Icons.fanhui}/>
+                <Label style = {{fontSize:Layout.c16, color:this.props.onRight ? Color.white : Color.transparent }}>更多</Label>
             </View>
         </Touch>
     }
@@ -106,7 +88,7 @@ export class NavRight extends React.PureComponent{
 export class NavTitle extends React.PureComponent{
     render(){
         return <View style = {{flex:1, justifyContent:"center", alignItems:"center"}}>
-            <Text style = {{fontSize:C.c20, color:C.white}}>{this.props.title}</Text>
+            <Label style = {{fontSize:Layout.c20, color:Color.white}}>{this.props.title}</Label>
         </View>
     }
 }
@@ -115,7 +97,7 @@ export class NavBar extends React.PureComponent{
     render(){
         let title = this.props.title || "";
         return <View style={{
-            backgroundColor:C.theme, 
+            backgroundColor:Color.theme, 
             flexDirection:"row", 
             alignItems:"stretch", 
             minHeight:40, 
@@ -128,88 +110,24 @@ export class NavBar extends React.PureComponent{
 }
 
 
-
-export class NavComponent extends React.Component{
-    static s_isNavigating;
-    constructor(props){
-        super(props);
-        this.params = this.props.navigation.state.params;
-        this.onLeft = this.onLeft.bind(this);
-    }
-
-    componentDidMount(){
-        NavComponent.s_isNavigating = false;
-    }
-
-    onLeft(){
-        if(NavComponent.s_isNavigating){
-            return;
-        }
-        Net.clear();       
-        this.props.navigation.goBack(null);
-    }
-
-    static renavigate(nav, page){
-        if(this.s_isNavigating){
-            return;
-        }
-        this.s_isNavigating = true;
-        Net.clear();
-        const resetAction = StackActions.reset({
-            index: 0,
-            actions: [
-                NavigationActions.navigate({ routeName: page }),
-            ],
-        });
-        nav.dispatch(resetAction)
-    }
-
-    renavigate(page){
-        NavComponent.renavigate(this.props.navigation, page);
-    }
-
-
-    static navigate(nav, page, obj){
-        if(this.s_isNavigating){
-            return;
-        }
-        this.s_isNavigating = true;
-        Net.clear();
-        nav.navigate(page, obj);
-    }
-
-    navigate(page, obj){
-        NavComponent.navigate(this.props.navigation, page, obj);
-    }
-
-    fet(url, obj, cb){
-        Net.fet(url, obj, cb, this.props.navigation);
-    }
-
-    fetid(url, obj_str, cb){
-        Net.fetid(url, obj_str, cb, this.props.navigation);
-    }
-}
-
-
-
 export class Button extends Touch {
     render(){
         let {style, children, pure, round, ...other} = this.props;
         pure = pure || true;
-        const fontSize = (style && style.fontSize) || C.cFontSize;
-        const color = (style && style.color) || C.theme;
-        children = children || <Text 
-                style = {{fontSize:fontSize, color: pure ? C.white : color}}>
+        const c14 = Layout.c14;
+        const fontSize = (style && style.fontSize) || c14;
+        const color = (style && style.color) || Color.theme;
+        children = children || <Label 
+                style = {{fontSize:fontSize, color: pure ? Color.white : color}}>
                 {this.props.title || "button"}
-            </Text>;
+            </Label>;
         style = {
-            minWidth : C.cFontSize * 3 + C.cPad * 2,
-            width : C.cFontSize * 4 + C.cPad * 2,
-            height : C.cFontSize + C.cPad * 2,
+            minWidth : c14 * 3 + Layout.pad * 2,
+            width : c14 * 4 + Layout.pad * 2,
+            height : c14 + Layout.pad * 2,
             justifyContent:"center",
             alignItems:"center",
-            borderRadius : round ? (parseInt(C.cFontSize / 2) + C.cPad) : 4,
+            borderRadius : round ? (parseInt(c14 / 2) + Layout.pad) : 4,
             borderWidth : pure ? 0 : 1,
             borderColor : color,
             backgroundColor : pure ? color : null,
@@ -228,14 +146,37 @@ export class Button1 extends Button {
         style = {
             alignSelf: 'center',
             fontWeight: "900",
-            marginVertical:30,
+            marginVertical:25,
             borderRadius : 8,
             width : 180,
             height : 50,
-            fontSize : C.c20,
+            fontSize : Layout.c20,
             ...style,
         }
         this.props = {style, ...other};
         return super.render();
     }   
+}
+
+
+export class Input extends TextInput {
+    render(){
+        //, placeholderTextColor,
+        let {style, underlineColorAndroid, ...other} = this.props;
+        // placeholderTextColor = placeholderTextColor || Color.gray;
+        underlineColorAndroid = underlineColorAndroid || Color.transparent;
+        const c16 = Layout.c16;
+        style = {
+            borderRadius : 4,
+            borderWidth : 1,
+            paddingLeft : 5,
+            borderColor : "#BBB",
+            fontSize : c16,
+            height : App.isAndroid ? null : 50,
+            ...style,
+        }
+        //, placeholderTextColor
+        this.props = {style, underlineColorAndroid, ...other};
+        return super.render();
+    }
 }
