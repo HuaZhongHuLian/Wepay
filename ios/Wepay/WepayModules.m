@@ -18,45 +18,45 @@ RCT_EXPORT_MODULE();
 // 导出方法，桥接到js的方法返回值类型必须是void
 /* 回调参数必须为两个，第一个为状态，第二个为参数 */
 RCT_EXPORT_METHOD(getBuildType:(RCTResponseSenderBlock)callback){
-  NSString *callbackData = @"release"; //准备回调回去的数据
+  NSInteger callbackData = 1; //准备回调回去的数据
 #ifdef DEBUG
-  callbackData = @"debug";
+  callbackData = 0;
 #endif
 #ifdef STAGING
-  callbackData = @"releaseStaging";
+  callbackData = 2;
 #endif
-  callback(@[callbackData]);
+  callback(@[@(callbackData)]);
   return;
-  callback(@[[NSNull null],callbackData]);
+//  callback(@[[NSNull null],callbackData]);
 }
 
-RCT_EXPORT_METHOD(isDebug:(RCTResponseSenderBlock)callback){
-#ifdef DEBUG
-  callback(@[@(YES)]);
-  return;
-#endif
-  callback(@[@(NO)]);
-}
+// RCT_EXPORT_METHOD(isDebug:(RCTResponseSenderBlock)callback){
+// #ifdef DEBUG
+//   callback(@[@(YES)]);
+//   return;
+// #endif
+//   callback(@[@(NO)]);
+// }
 
-RCT_EXPORT_METHOD(isRelease:(RCTResponseSenderBlock)callback){
-#ifdef DEBUG
-  callback(@[@(NO)]);
-  return;
-#endif
-#ifdef STAGING
-  callback(@[@(NO)]);
-  return;
-#endif
-  callback(@[@(YES)]);
-}
+// RCT_EXPORT_METHOD(isRelease:(RCTResponseSenderBlock)callback){
+// #ifdef DEBUG
+//   callback(@[@(NO)]);
+//   return;
+// #endif
+// #ifdef STAGING
+//   callback(@[@(NO)]);
+//   return;
+// #endif
+//   callback(@[@(YES)]);
+// }
 
-RCT_EXPORT_METHOD(isReleaseStaging:(RCTResponseSenderBlock)callback){
-#ifdef STAGING
-  callback(@[@(YES)]);
-  return;
-#endif
-  callback(@[@(NO)]);
-}
+// RCT_EXPORT_METHOD(isReleaseStaging:(RCTResponseSenderBlock)callback){
+// #ifdef STAGING
+//   callback(@[@(YES)]);
+//   return;
+// #endif
+//   callback(@[@(NO)]);
+// }
 
 
 

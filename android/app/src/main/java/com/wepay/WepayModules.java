@@ -100,20 +100,20 @@ public class WepayModules extends ReactContextBaseJavaModule {
         cb.invoke(BuildConfig.buildType);
     }
 
-    @ReactMethod
-    public void isDebug(Callback cb){
-        cb.invoke(BuildConfig.buildType.equals("debug"));
-    }
+    // @ReactMethod
+    // public void isDebug(Callback cb){
+    //     cb.invoke(BuildConfig.buildType.equals("debug"));
+    // }
 
-    @ReactMethod
-    public void isRelease(Callback cb){
-        cb.invoke(BuildConfig.buildType.equals("release"));
-    }
+    // @ReactMethod
+    // public void isRelease(Callback cb){
+    //     cb.invoke(BuildConfig.buildType.equals("release"));
+    // }
 
-    @ReactMethod
-    public void isReleaseStaging(Callback cb){
-        cb.invoke(BuildConfig.buildType.equals("releaseStaging"));
-    }
+    // @ReactMethod
+    // public void isReleaseStaging(Callback cb){
+    //     cb.invoke(BuildConfig.buildType.equals("releaseStaging"));
+    // }
 
     // public static int getVersionCode(Context mContext) {
     //     if (mContext != null) {
