@@ -22,9 +22,10 @@ import BankCardView from "../../common/BankCardView"
 import ViewUtils from '../../util/ViewUtils';
 import CheckMoney from '../../common/CheckMoney';
 import SplashScreen from "react-native-splash-screen"
-import { Net, Dialog, NavComponent, Text, StatusBar, NavBar, Button1, C, Button, U, isAndroid, KEY_SESSION } from '../../utils/Component';
+import { Net, Dialog, Label as Text, StateBar, NavBar, Button1, Color, Layout, Button, Util, Input } from '../../utils/Component';
 import AsySorUtils from '../../dao/AsySorUtils';
 import UserInfo from '../../model/UserInfo';
+import { NavComponent } from '../../utils/NavComponent';
 
 
 const c_prices = [500, 1000, 1500, 2000, 2500,3000, 3500, 4000, 5000];
@@ -38,6 +39,7 @@ export default class CashTransactions extends NavComponent {
             SegmentedIndex : eSeg.HALL,
             buySellIndex : eBuySell.BUY,
             bankCard:null,
+            price : "",
             amount:"",
             hideCheckMoney : false,
         }
@@ -55,7 +57,7 @@ export default class CashTransactions extends NavComponent {
         if(1){
             U.load(KEY_SESSION, info=>{
                 if(info){
-                    Net.loadUserData(info.sessionId);
+                    Net.loadUser(info.sessionId);
                     setTimeout(this.autoUpdate.bind(this),500);
                 } else {
                     this.autoLogin();
@@ -70,6 +72,7 @@ export default class CashTransactions extends NavComponent {
     }
 
     autoLogin(){
+        return;
         let acount = isAndroid ? 26536 : 26538;
         let pwd = 123456;
         Net.login(acount, pwd, "1.3.0", ()=>{
@@ -123,42 +126,56 @@ export default class CashTransactions extends NavComponent {
             Dialog.msg1("请选择价格")
             return;
         }
-        let amount = this.state.amount;
-        if(amount.length < 0){
-            Dialog.msg1("请输入有效数值")
+        let amount = Util.checkInterger(this.state.amount);
+        let price = Util.checkInterger(this.state.price);
+        if(amount){
+            Dialog.msg1(amount)
             return;
         }
-        amount = parseInt(amount);
-        if(amount < 1 || amount.toString() != this.state.amount){
-            Dialog.msg1("请输入整数")
+        if(price){
+            Dialog.msg1(price)
             return;
         }
+        amount = parseInt(this.state.amount);
+        price = parseInt(this.state.price);
+        // let amount = this.state.amount;
+        // if(amount.length < 0){
+        //     Dialog.msg1("请输入有效数值")
+        //     return;
+        // }
+        // amount = parseInt(amount);
+        // if(amount < 1 || amount.toString() != this.state.amount){
+        //     Dialog.msg1("请输入整数")
+        //     return;
+        // }
 
         if(buySellIndex == eBuySell.SELL){
-            let coin = Net.getCoins(this.params.cid);
+            let coin = Net.getCoins(this.getParams().cid);
             if(amount > coin.num)
             {
-                Dialog.msg1(coin.coinName + "数量不足");
+                Dialog.msg1(coin.coinName + " 数量不足");
                 return;
             }
         }
         
-        PassWordInput.showPassWordInput((safetyPwd) => this.onCreatePwd(buySellIndex, safetyPwd, amount))
+        PassWordInput.showPassWordInput(
+            (safetyPwd) => this.onCreatePwd(buySellIndex, safetyPwd, price, amount),
+            "单价比例:", (price/amount))
     }
 
-    onCreatePwd(buySellIndex, safetyPwd, amount){
+    onCreatePwd(buySellIndex, safetyPwd, price, amount){
         this.fetid("/cashDealing/createOrder", {
             safetyPwd:safetyPwd,
             orderType:[1,0][buySellIndex],
             num:amount,
-            money:c_prices[this.checkMoneyIndex],
+            money:price, //c_prices[this.checkMoneyIndex],
             bankCardId:this.state.bankCard.id,
-            cid:this.params.cid,
+            cid:this.getParams().cid,
         }, result=>{
             Dialog.msg1(result.msg || "订单创建成功");
             if(buySellIndex == eBuySell.SELL){
-                let coin = Net.getCoins(this.params.cid);
-                Dialog.toast(coin.num);
+                let coin = Net.getCoins(this.getParams().cid);
+                // Dialog.toast(coin.num);
                 coin.num -= amount;
             }
         });
@@ -169,7 +186,7 @@ export default class CashTransactions extends NavComponent {
             <TouchableHighlight 
                 style={{ paddingTop: 5,paddingLeft: 15,paddingBottom: 5,}}
                 onPress = {() => this.setState({hideCheckMoney : !this.state.hideCheckMoney})}>
-                <Text style={{color: '#999',fontSize: C.c16,}}> {text}</Text>
+                <Text style={{color: '#999',fontSize: Layout.c16,}}> {text}</Text>
             </TouchableHighlight>
             {this.state.hideCheckMoney ? null : ViewUtils.getLineView()}
             {this.state.hideCheckMoney ? null : <CheckMoney
@@ -186,36 +203,19 @@ export default class CashTransactions extends NavComponent {
             <BankCardView  {...this.props}
                 selechBankCard={(bankCard)=>this.setState({bankCard:bankCard})}
             />
-            {ViewUtils.getLineView()}
-            {this.viewCheckMoney("点击" + (this.hideCheckMoney ? "显示":"隐藏") + (buySellIndex == eBuySell.BUY ? "买入" : "卖出") + "价格")}
+            {/* {this.viewCheckMoney("点击" + (this.hideCheckMoney ? "显示":"隐藏") + (buySellIndex == eBuySell.BUY ? "买入" : "卖出") + "价格")} */}
             <View style = {{marginVertical:10,flexDirection: 'column', backgroundColor: "#fff", paddingHorizontal : 20, paddingVertical : 10}}>
-            <TextInput style = {{fontSize : 16, height : 50, borderColor : '#999', borderRadius : 5, borderWidth : 1, padding : 5}} 
-                placeholder = {"输入需求" + (buySellIndex == eBuySell.BUY ? "买入" : "卖出") + "的数量(整数)"}
-                placeholderTextColor = {'#999'}
-                underlineColorAndroid='transparent'
+            <Input 
+                placeholder = {"输入" + (buySellIndex == eBuySell.BUY ? "买入" : "卖出") + "价格(整数)"}
                 keyboardType={'numeric'}
-                // value={this.state.amount}
-                onChangeText={(str) => {
-                    this.setState({
-                        amount: str, //.replace(/[^\d]/g, ''),
-                    });
-                }}
-            /></View>
-            {/* <TouchableHighlight
-                style={{
-                    width: '90%',
-                    height: 40,
-                    alignSelf: 'center',
-                    backgroundColor: mainColor,
-                    borderRadius: 8,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginTop: 30,
-                    marginBottom : 50,
-                }}
-                >
-                <Text style={{ fontSize: 20, color: 'white', fontWeight: '900' }}>创建订单</Text>
-            </TouchableHighlight> */}
+                onChangeText={(str) => {this.setState({price: str});}}
+            />
+            <Input style = {{marginTop:Layout.margin}}
+                placeholder = {"输入需求数量(整数)"}
+                keyboardType={'numeric'}
+                onChangeText={(str) => {this.setState({amount: str});}}
+            />
+            </View>
             <Button1 title = {"创建订单"} onPress={() => this.onCreate(buySellIndex)}/>
         </View></ScrollView>;
     }
@@ -228,7 +228,6 @@ export default class CashTransactions extends NavComponent {
         if(!Net.getUser() || this.checkMoneyIndex < 0 || SegmentedIndex == eSeg.PUBLISH){
             return;
         }
-
         // let result = {data : []};
         if(0){
             if(SegmentedIndex == eSeg.HALL){
@@ -246,9 +245,9 @@ export default class CashTransactions extends NavComponent {
         let sell = [1,0][buySellIndex];
         this.fetid((SegmentedIndex == eSeg.HALL) ? "/cashDealing/dealingLobby" : "/cashDealing/orderList", {
             orderType:(SegmentedIndex == eSeg.HALL) ? buy : sell,
-            money:c_prices[this.checkMoneyIndex],
+            // money:c_prices[this.checkMoneyIndex],
             pageIndex:this.pageIndex,
-            cid:this.params.cid,
+            cid:this.getParams().cid,
         }, result=>{
             if (clear) {
                 // .current
@@ -274,12 +273,20 @@ export default class CashTransactions extends NavComponent {
                     <View style = {{marginLeft:10}}>
                         <Text style = {{fontSize:16,color:"black"}}>{data.username}</Text>
                         <View style = {{flexDirection:"row"}}>
-                            <Text style = {{color:C.black}}>交易数量: </Text>
-                            <Text style = {{color:C.black}}>{data.publishNums}</Text>
+                            <Text style = {{color:Color.black}}>交易价格: </Text>
+                            <Text style = {{color:Color.black}}>{data.transactionSum}</Text>
                         </View>
                         <View style = {{flexDirection:"row"}}>
-                            <Text style = {{color:C.black}}>支付方式: </Text>
-                            <Text style = {{color:C.black}}>{data.bankName}</Text>
+                            <Text style = {{color:Color.black}}>交易数量: </Text>
+                            <Text style = {{color:Color.black}}>{data.publishNums}</Text>
+                        </View>
+                        <View style = {{flexDirection:"row"}}>
+                            <Text style = {{color:Color.black}}>单价比例: </Text>
+                            <Text style = {{color:Color.black}}>{data.unitPrice}</Text>
+                        </View>
+                        <View style = {{flexDirection:"row"}}>
+                            <Text style = {{color:Color.black}}>支付方式: </Text>
+                            <Text style = {{color:Color.black}}>{data.bankName}</Text>
                         </View>
                     </View>
                 </View>
@@ -302,20 +309,20 @@ export default class CashTransactions extends NavComponent {
         return <View style = {{marginTop:1, backgroundColor:"white", flexDirection:"row", justifyContent:"space-between"}}>
             <View style = {{paddingVertical:10, paddingLeft:10}}>
                 {/* <View style = {{flexDirection:"row"}}>
-                    <Text style = {{color:C.gray}}>{strBuySellRev}账号 </Text>
-                    <Text style = {{color:C.black}}>{data.acount}</Text>
+                    <Text style = {{color:Color.gray}}>{strBuySellRev}账号 </Text>
+                    <Text style = {{color:Color.black}}>{data.acount}</Text>
                 </View> */}
                 <View style = {{flexDirection:"row"}}>
-                    <Text style = {{color:C.gray}}>交易金额 </Text>
-                    <Text style = {{color:C.black}}>{data.transactionSum}</Text>
+                    <Text style = {{color:Color.gray}}>交易金额 </Text>
+                    <Text style = {{color:Color.black}}>{data.transactionSum}</Text>
                 </View>
                 <View style = {{flexDirection:"row"}}>
-                    <Text style = {{color:C.gray}}>交易状态 </Text>
-                    <Text style = {{color: status == 3 ? C.black : "red"}}>{strStatus}</Text>
+                    <Text style = {{color:Color.gray}}>交易状态 </Text>
+                    <Text style = {{color: status == 3 ? Color.black : "red"}}>{strStatus}</Text>
                 </View>
                 <View style = {{flexDirection:"row"}}>
-                    <Text style = {{color:C.gray}}>{strDate} </Text>
-                    <Text style = {{color:C.black}}>{U.toDate(iTime)}</Text>
+                    <Text style = {{color:Color.gray}}>{strDate} </Text>
+                    <Text style = {{color:Color.black}}>{Util.toDate(iTime)}</Text>
                 </View>
             </View>
             <View style={{justifyContent:"space-around", paddingRight:10}}>
@@ -330,9 +337,9 @@ export default class CashTransactions extends NavComponent {
         let buy = [0,1][buySellIndex];
         let sell = [1,0][buySellIndex];
         if(SegmentedIndex == eSeg.HALL){
-            let coin = Net.getCoins(this.params.cid);
+            let coin = Net.getCoins(this.getParams().cid);
             if(buySellIndex == eBuySell.SELL && data.publishNums > coin.num){
-                Dialog.msg1(coin.coinName + "数量不足");
+                Dialog.msg1(coin.coinName + " 数量不足");
                 return;
             }
             PassWordInput.showPassWordInput((safetyPwd) => {
@@ -373,7 +380,7 @@ export default class CashTransactions extends NavComponent {
 
     render() {
         return (
-            <View style = {{flex:1}}>{StatusBar}<NavBar title = {"现金交易"} onLeft = {this.onLeft}/>
+            <View style = {{flex:1}}><StateBar /><NavBar title = {"现金交易"} onLeft = {this.onLeft}/>
                 {/* <NavigationBar
                     title='现金交易'
                     navigation={this.props.navigation}
@@ -415,13 +422,7 @@ export default class CashTransactions extends NavComponent {
                         <Text style={{ fontSize:16,color: this.state.buySellIndex == eBuySell.SELL ? Colors.white : Colors.gray }}>卖出</Text>
                     </TouchableOpacity>
                 </View>
-                {
-                    this.state.SegmentedIndex == eSeg.PUBLISH ? 
-                    this.viewOrder(this.state.buySellIndex) : 
-                    (this.state.SegmentedIndex == eSeg.HALL ? 
-                        this.viewCheckMoney("点击" + (this.hideCheckMoney ? "显示":"隐藏") + "匹配金额") : 
-                        null)
-                }
+                {this.state.SegmentedIndex == eSeg.PUBLISH && this.viewOrder(this.state.buySellIndex)}
                 <RefreshFlatList
                     ref={r=> this.refList = r}
                     renderItem={(items) => this.viewHallItem(this.state.SegmentedIndex, this.state.buySellIndex, items.item)}

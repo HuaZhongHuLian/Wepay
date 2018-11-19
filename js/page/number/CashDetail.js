@@ -1,22 +1,24 @@
 import React, {Component} from 'react';
 import {View,Image,ScrollView,TextInput, } from 'react-native';
 import SyanImagePicker from 'react-native-syan-image-picker';
-import { Net,Dialog,NavComponent,Text,StatusBar,NavBar,C,Button1,U, Icons, Touch} from '../../utils/Component';
+import { Net,Dialog,Label as Text,StateBar,NavBar,Color,Button1,Layout, Icons, Touch, Util} from '../../utils/Component';
 import { eBuySell, c_DataFields } from "./CashTransactions"
 import DialogUtils from '../../util/DialogUtils';
+import { NavComponent } from '../../utils/NavComponent';
+// import { Navigator } from '../../utils/Navigator';
 
 class Text2 extends React.PureComponent{
-    render(){ return <View style = {{flexDirection:"row",alignItems:"center", marginTop:C.cMargin, ...this.props.style}}>
-        <Text style = {{fontSize:C.c16, color:C.gray, minWidth:C.c20*4}}>{this.props.field}</Text>
-        {U.isElement(this.props.children)?this.props.children:<Text style = {{fontSize:C.c16, color:C.black}}>{this.props.children}</Text>}
+    render(){ return <View style = {{flexDirection:"row",alignItems:"center", marginTop:Layout.margin, ...this.props.style}}>
+        <Text style = {{fontSize:Layout.c16, color:Color.gray, minWidth:Layout.c20*4}}>{this.props.field}</Text>
+        {Util.isElement(this.props.children)?this.props.children:<Text style = {{fontSize:Layout.c16, color:Color.black}}>{this.props.children}</Text>}
     </View>}
 }
 
 export default class CashDetail extends NavComponent {
     constructor(props) {
         super(props);
-        let status = this.params.status_234;
-        let buy = this.params.buysell_01;
+        let status = this.getParams().status_234;
+        let buy = this.getParams().buysell_01;
         if(status == 2){
             this.title = ["打款", "匹配详情"][buy];
             if(buy == 0){
@@ -25,7 +27,7 @@ export default class CashDetail extends NavComponent {
             }
         }else{
             this.remitVoucherField = "打款凭证";
-            this.remitVoucher = this.params.data.remitProof;
+            this.remitVoucher = this.getParams().data.remitProof;
             this.remitVoucher = { uri : Net.getImage() + this.remitVoucher};
             if(status == 3){
                 this.title = ["打款详情", "收款详情"][buy];
@@ -68,7 +70,7 @@ export default class CashDetail extends NavComponent {
 // subscriptionPhone: "13923044417"
 // transactionSum: 2000
         let buy2 = buy;
-        let data = this.params.data;
+        let data = this.getParams().data;
         this.name = [data.publishName, data.subscriptionName][buy2];
         this.phone = [data.publishPhone, data.subscriptionPhone][buy2];
         this.money = data.transactionSum;
@@ -76,30 +78,30 @@ export default class CashDetail extends NavComponent {
         this.bank = [data.publishBankName, data.subscriptionBankName][buy2];
         this.card = [data.publishCardNumber, data.subscriptionCardNumber][buy2];
         this.date = [data.matchTime, data.remitTime, data.finishTime][status-2];
-        this.date = U.toDate(this.date)
+        this.date = Util.toDate(this.date)
     }
 
     
     render(){ 
         return<View style = {{flex:1}}> 
-            {StatusBar}
-            <NavBar title = {this.title} onLeft = {()=>{this.onLeft(); this.params.onBack()}}/>
-            {this.subTitle && <View style = {{paddingLeft:C.cPad, paddingTop:C.cPad, backgroundColor:C.white}}>
-                <Text style = {{fontSize:C.c16,color:C.theme}}>{this.subTitle}</Text>
+            <StateBar />
+            <NavBar title = {this.title} onLeft = {()=>{this.onLeft(); this.getParams().onBack()}}/>
+            {this.subTitle && <View style = {{paddingLeft:Layout.pad, paddingTop:Layout.pad, backgroundColor:Color.white}}>
+                <Text style = {{fontSize:Layout.c16,color:Color.theme}}>{this.subTitle}</Text>
             </View>}
-            <View style = {{backgroundColor:C.white, padding:C.cPad}}>
+            <View style = {{backgroundColor:Color.white, padding:Layout.pad}}>
                 <Text2 style = {{marginTop:0}} field = {this.nameField}>{this.name}</Text2>
                 <Text2 field = {"手机号"}>{this.phone}</Text2>
                 <Text2 field = {"交易金额"}>{this.money}</Text2>
                 <Text2 field = {"交易数量"}>{this.count}</Text2>
                 <Text2 field = {"支付类型"}>{this.bank}</Text2>
-                <Text2 field = {"支付账号"}><Text style = {{fontSize:C.c16, color:"red"}}>{this.card}</Text></Text2>
+                <Text2 field = {"支付账号"}><Text style = {{fontSize:Layout.c16, color:"red"}}>{this.card}</Text></Text2>
                 <Text2 field = {this.dateField}>{this.date}</Text2>
                 {this.remitVoucherField && <Text2 style = {{alignItems:"flex-start",}}
                     field = {this.remitVoucherField}>
                     <Touch onPress = {()=>DialogUtils.onImagePress([this.remitVoucher],0)}>
                         <Image 
-                            style={{ marginTop: C.cMargin, width:120, height:120, resizeMode: "cover"}}
+                            style={{ marginTop: Layout.margin, width:120, height:120, resizeMode: "cover"}}
                             source={this.remitVoucher}
                         />
                     </Touch>
@@ -107,11 +109,11 @@ export default class CashDetail extends NavComponent {
                 </Text2>}
             </View>
             {this.remit && <View 
-                style = {{backgroundColor:C.white, marginTop:C.cMargin, padding:C.cPad}}>
-                <Text style = {{fontSize:C.c16,color:C.theme}}>上传打款凭证</Text>
+                style = {{backgroundColor:Color.white, marginTop:Layout.margin, padding:Layout.pad}}>
+                <Text style = {{fontSize:Layout.c16,color:Color.theme}}>上传打款凭证</Text>
                 <Touch onPress = {this.pick}>
                     <Image 
-                        style={{ marginTop: C.cMargin, width:120, height:120, resizeMode: "cover"}}
+                        style={{ marginTop: Layout.margin, width:120, height:120, resizeMode: "cover"}}
                         source={this.state.photo || Icons.shangchuan_3}
                     />
                 </Touch>
@@ -121,29 +123,29 @@ export default class CashDetail extends NavComponent {
     }
 
     onClick(){
-        if(this.params.buysell_01 == 0){
+        if(this.getParams().buysell_01 == 0){
             if(!this.state.photo){
                 Dialog.msg1("未选取打款凭证");
                 return;
             }
-            let cb = ()=>{this.fetid("/cashDealing/inAPUpdate",{
-                orderId : this.params.data.orderId,
-                file : U.toFile(this.state.photo.uri),
+            let cb = ()=>{this.fetid("/cashDealing/inAPUpdate",{ 
+                orderId : this.getParams().data.orderId,
+                file : Util.toFile(this.state.photo.uri),
                 },result=>{
                     Dialog.msg1(result.msg || "打款成功");
                     this.onLeft();
-                    this.params.onBack();
+                    this.getParams().onBack();
                 });
             };
             Dialog.msg2("确认已经打款?", cb);
         } else {
             let cb = ()=>{
                 this.fetid("/cashDealing/outAPUpdate",{
-                    orderId : this.params.data.orderId,
+                    orderId : this.getParams().data.orderId,
                 },result=>{
                     Dialog.msg1(result.msg || "收款成功");
                     this.onLeft();
-                    this.params.onBack();
+                    this.getParams().onBack();
                 });
             };
             Dialog.msg2("确定已收款?", cb);
