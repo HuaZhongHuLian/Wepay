@@ -1,5 +1,4 @@
-
-const icons = {
+export const Icons = Object.freeze({
 addimg:require("./addimg.png"),
 banben:require("./banben.png"),
 bangzu:require("./bangzu.png"),
@@ -109,6 +108,4 @@ zhuanchu_shu:require("./zhuanchu-shu.png"),
 zhuanchu:require("./zhuanchu.png"),
 zhuanru:require("./zhuanru.png"),
 zuixin:require("./zuixin.png"),
-};
-
-export default icons;
+});

@@ -1,4 +1,4 @@
-const bankcard = {
+export const Bankcards = Object.freeze({
 gongdongfazan:require("./gongdongfazan.png"),
 gongshang:require("./gongshang.png"),
 guangda:require("./guangda.png"),
@@ -13,6 +13,4 @@ zhaoshang:require("./zhaoshang.png"),
 zhifubao:require("./zhifubao.png"),
 zhongguo:require("./zhongguo.png"),
 zhongxin:require("./zhongxin.png"),
-}
-
-export default bankcard;
+});

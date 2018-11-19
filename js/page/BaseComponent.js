@@ -19,12 +19,11 @@ import UserInfo from '../model/UserInfo';
 //重置路由 首先导入NavigationActions
 import { NavigationActions, StackActions } from 'react-navigation';
 
-import icons from "../../res/images/_icons";
-import images from "../../res/pictures/_images"
-import bankcards from "../../res/bank_card_icon/_bankcard";
-export const Icons = icons;
-export const Images = images;
-export const Bankcard = bankcards;
+import {Icons} from "../../res/images/_icons";
+import {Images} from "../../res/pictures/_images"
+import {Bankcards} from "../../res/bank_card_icon/_bankcard";
+export {Icons, Images, Bankcards}
+
 
 export default class BaseComponent extends Component {
     constructor(props) {
