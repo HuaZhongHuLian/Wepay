@@ -1,30 +1,9 @@
-import { Net } from "../utils/Component";
+import { Net } from "../utils/_component";
 
-
-const url2 = 'http://wp.wepay168.com/wepay'  //正式服务器
-// const url2 = 'http://192.168.0.10:8081/wepay'
-// const url2 = 'http://192.168.1.4:8080/wepay'  
-// const url2 = 'http://121.201.46.206/wepay'      //测试服务器
-//const url2 = 'http://103.206.121.128:8080/wepay'
-
-var url = url2;
-// url = "http://192.168.0.10:8081/wepay";
 export default class BaseUrl {
 
     static geturl(){
-        return url;
-    }
-
-    static seturl(u){
-        if(u.length < 1){
-            url = url2;
-        }else if(u == "0"){
-            url = 'http://192.168.0.10:8081/wepay';
-        }else if(u == "1"){
-            url = "http://" + u + "/wepay";
-        }
-        Net._url = url;
-        console.log(url);
+        return Net._url;
     }
     /**
      * 登陆接口
@@ -48,7 +27,7 @@ export default class BaseUrl {
      "todayReleas": 1.004
      */
     static loginUrl() {
-        return url + "/user/login"
+        return this.geturl() + "/user/login"
     }
 
     /**
@@ -67,7 +46,7 @@ export default class BaseUrl {
      * @param {*} sessionId
      */
     static getuserInfoUrl(sessionId) {
-        return url + "/user/userCenter?sessionId=" + sessionId;
+        return this.geturl() + "/user/userCenter?sessionId=" + sessionId;
     }
 
     /**
@@ -89,7 +68,7 @@ export default class BaseUrl {
      "uid": 2520
      */
     static getBanner() {
-        return url + "/user/getBanner"
+        return this.geturl() + "/user/getBanner"
     }
 
     /**
@@ -103,7 +82,7 @@ export default class BaseUrl {
      "uid": 2520
      */
     static getMallBanner() {
-        return url + "/goods/getMallBanner"
+        return this.geturl() + "/goods/getMallBanner"
     }
 
 
@@ -128,7 +107,7 @@ export default class BaseUrl {
 
      */
     static getUserInfoBy(sessionId) {
-        return url + "/user/getIndexUser?sessionId=" + sessionId
+        return this.geturl() + "/user/getIndexUser?sessionId=" + sessionId
     }
 
     /**
@@ -139,7 +118,7 @@ export default class BaseUrl {
      * @return  1
      */
     static updateUserName(sessionId, userName) {
-        return url + "/user/updateUserName?sessionId=" + sessionId + "&userName=" + userName;
+        return this.geturl() + "/user/updateUserName?sessionId=" + sessionId + "&userName=" + userName;
     }
 
     /**
@@ -150,7 +129,7 @@ export default class BaseUrl {
      "data": 537461
      */
     static getVerificationCodeUrl(mobile) {
-        return url + "/user/sendCode?mobile=" + mobile
+        return this.geturl() + "/user/sendCode?mobile=" + mobile
     }
 
     /**
@@ -165,7 +144,7 @@ export default class BaseUrl {
      * @return  1
      */
     static getRegisterUrl() {
-        return url + "/user/register"
+        return this.geturl() + "/user/register"
     }
 
     /**
@@ -176,7 +155,7 @@ export default class BaseUrl {
      * file    是    File图片文件    file
      */
     static getUpdataHeadUrl() {
-        return url + "/user/updateImgHead"
+        return this.geturl() + "/user/updateImgHead"
     }
 
     /**
@@ -188,7 +167,7 @@ export default class BaseUrl {
      * contents    是    投诉内容（100字以内）    String
      */
     static getComplaintUrl() {
-        return url + "/opinions/add"
+        return this.geturl() + "/opinions/add"
     }
 
     /**
@@ -200,7 +179,7 @@ export default class BaseUrl {
      * @return  1
      */
     static getForgotPwdUrl() {
-        return url + "/user/forgotPwd"
+        return this.geturl() + "/user/forgotPwd"
     }
 
     /**
@@ -212,7 +191,7 @@ export default class BaseUrl {
      * @return  1
      */
     static getForgotPayPwdUrl() {
-        return url + "/user/forgotPayPwd"
+        return this.geturl() + "/user/forgotPayPwd"
     }
 
     /**
@@ -225,7 +204,7 @@ export default class BaseUrl {
      * @return  1
      */
     static getUpdatePayPwdUrl() {
-        return url + "/user/updatePayPwd"
+        return this.geturl() + "/user/updatePayPwd"
     }
 
     /**
@@ -238,7 +217,7 @@ export default class BaseUrl {
      * @return  1
      */
     static getUpdateLoginPwdUrl() {
-        return url + "/user/updateLoginPwd"
+        return this.geturl() + "/user/updateLoginPwd"
     }
 
     /**
@@ -257,7 +236,7 @@ export default class BaseUrl {
      "banqImg": "http://tz.hxksky.com/wepay/upload/zggsyh.png"
      */
     static getUserBankListUrl(sessionId) {
-        return url + "/bank/userBank?sessionId=" + sessionId;
+        return this.geturl() + "/bank/userBank?sessionId=" + sessionId;
     }
 
     /**
@@ -268,7 +247,7 @@ export default class BaseUrl {
      * @returns  code 1
      */
     static delBankCardUrl(sessionId, id) {
-        return url + "/bank/deleteBank?sessionId=" + sessionId + "&id=" + id;
+        return this.geturl() + "/bank/deleteBank?sessionId=" + sessionId + "&id=" + id;
     }
 
     /**
@@ -282,7 +261,7 @@ export default class BaseUrl {
      *
      */
     static addBankCardUrl(sessionId, cardId, holdName, openCard, cardNumber, isDefault) {
-        return url + "/bank/addBank?sessionId=" + sessionId + "&cardId=" + cardId + "&holdName=" + holdName + "&openCard=" + openCard + "&cardNumber=" + cardNumber + "&isDefault=" + isDefault;
+        return this.geturl() + "/bank/addBank?sessionId=" + sessionId + "&cardId=" + cardId + "&holdName=" + holdName + "&openCard=" + openCard + "&cardNumber=" + cardNumber + "&isDefault=" + isDefault;
     }
 
     /**
@@ -294,7 +273,7 @@ export default class BaseUrl {
 
      */
     static getBankListUrl() {
-        return url + "/bank/bankNameList"
+        return this.geturl() + "/bank/bankNameList"
     }
 
     /**
@@ -308,7 +287,7 @@ export default class BaseUrl {
      "addtime": 1526389977
      */
     static getSystemNews(sessionId, pageIndex) {
-        return url + "/news/list?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
+        return this.geturl() + "/news/list?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
     }
 
     /**
@@ -322,7 +301,7 @@ export default class BaseUrl {
      * "content": "11"
      */
     static getSystemgNewsDetails(sessionId, id) {
-        return url + "/news/detail?sessionId=" + sessionId + "&id=" + id;
+        return this.geturl() + "/news/detail?sessionId=" + sessionId + "&id=" + id;
     }
 
 
@@ -340,7 +319,7 @@ export default class BaseUrl {
      "status": 1    未读：0，已读：1
      */
     static getNews(sessionId, pageIndex) {
-        return url + "/message/list?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
+        return this.geturl() + "/message/list?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
     }
 
     /**
@@ -357,7 +336,7 @@ export default class BaseUrl {
      "status": 1    未读：0，已读：1
      */
     static getNewsDetails(sessionId, id) {
-        return url + "/message/detail?sessionId=" + sessionId + "&id=" + id;
+        return this.geturl() + "/message/detail?sessionId=" + sessionId + "&id=" + id;
     }
 
     /**
@@ -376,7 +355,7 @@ export default class BaseUrl {
      "zt": 1
      */
     static getAddressList(sessionId) {
-        return url + "/address/list?sessionId=" + sessionId
+        return this.geturl() + "/address/list?sessionId=" + sessionId
     }
 
     /**
@@ -387,7 +366,7 @@ export default class BaseUrl {
      * @returns  code 1
      */
     static delAddressUrl(sessionId, addressId) {
-        return url + "/address/delete?sessionId=" + sessionId + "&addressId=" + addressId;
+        return this.geturl() + "/address/delete?sessionId=" + sessionId + "&addressId=" + addressId;
     }
 
     /**
@@ -404,7 +383,7 @@ export default class BaseUrl {
      * @param {*} zt
      */
     static putAddress(sessionId, memberId, name, telephone, provinceId, cityId, countryId, address, zt) {
-        return url + "/address/add?sessionId=" + sessionId
+        return this.geturl() + "/address/add?sessionId=" + sessionId
             + "&memberId=" + memberId
             + "&name=" + name
             + "&telephone=" + telephone
@@ -430,7 +409,7 @@ export default class BaseUrl {
      * @param {*} zt
      */
     static editAddress(sessionId, addressId, memberId, name, telephone, provinceId, cityId, countryId, address, zt) {
-        return url + "/address/update?sessionId=" + sessionId
+        return this.geturl() + "/address/update?sessionId=" + sessionId
             + "&addressId=" + addressId
             + "&memberId=" + memberId
             + "&name=" + name
@@ -458,7 +437,7 @@ export default class BaseUrl {
      * @param {*} sessionId
      */
     static getDefaultAddressUrl(sessionId) {
-        return url + "/address/default?sessionId=" + sessionId;
+        return this.geturl() + "/address/default?sessionId=" + sessionId;
     }
 
 
@@ -474,7 +453,7 @@ export default class BaseUrl {
      3.6    imgHead        用户头像
      */
     static shareRecord(sessionId, pageIndex, keyword) {
-        return url + "/user/shareRecord?sessionId=" + sessionId
+        return this.geturl() + "/user/shareRecord?sessionId=" + sessionId
             + "&pageIndex=" + pageIndex
             + "&keyword=" + keyword
     }
@@ -498,7 +477,7 @@ export default class BaseUrl {
      */
 
     static getUserBy(sessionId, account) {
-        return url + "/tranMoney/getUser?sessionId=" + sessionId + "&account=" + account
+        return this.geturl() + "/tranMoney/getUser?sessionId=" + sessionId + "&account=" + account
     }
 
 
@@ -515,7 +494,7 @@ export default class BaseUrl {
      * @returns code 1,0
      */
     static tranOutMoney() {
-        return url + "/store/outMoney"
+        return this.geturl() + "/store/outMoney"
     }
 
 
@@ -536,7 +515,7 @@ export default class BaseUrl {
      // 3.8    imgHead        对方头像（需要添加前缀如：如http://tz.hxksky.com/wepay/upload/
      */
     static getOutRecord(sessionId, pageIndex) {
-        return url + "/tranMoney/outRecord?sessionId=" + sessionId
+        return this.geturl() + "/tranMoney/outRecord?sessionId=" + sessionId
             + "&pageIndex=" + pageIndex;
     }
 
@@ -548,7 +527,7 @@ export default class BaseUrl {
      * 返回参数与转出一样
      */
     static getInRecord(sessionId, pageIndex) {
-        return url + "/tranMoney/inRecord?sessionId=" + sessionId
+        return this.geturl() + "/tranMoney/inRecord?sessionId=" + sessionId
             + "&pageIndex=" + pageIndex;
     }
 
@@ -561,7 +540,7 @@ export default class BaseUrl {
      * 请求方式:POST
      */
     static creditsExchange() {
-        return url + "/store/creditsExchange?"
+        return this.geturl() + "/store/creditsExchange?"
     }
 
     /**
@@ -573,7 +552,7 @@ export default class BaseUrl {
      * @returns data 实际获得积分 , "data": 720
      */
     static getExchangeIntegral(sessionId, exchangeMoney) {
-        return url + "/store/actualGetIntegral?sessionId=" + sessionId
+        return this.geturl() + "/store/actualGetIntegral?sessionId=" + sessionId
             + "&exchangeMoney=" + exchangeMoney;
     }
 
@@ -584,7 +563,7 @@ export default class BaseUrl {
      * @param {*} pageIndex
      */
     static getExchangeRecord(sessionId, pageIndex) {
-        return url + "/tranMoney/exchangeRecord?sessionId=" + sessionId
+        return this.geturl() + "/tranMoney/exchangeRecord?sessionId=" + sessionId
             + "&pageIndex=" + pageIndex;
     }
 
@@ -594,7 +573,7 @@ export default class BaseUrl {
      * @param {*} pageIndex
      */
     static getExchangeRecordJ(sessionId, pageIndex) {
-        return url + "/tranMoney/integralRecord?sessionId=" + sessionId
+        return this.geturl() + "/tranMoney/integralRecord?sessionId=" + sessionId
             + "&pageIndex=" + pageIndex;
     }
 
@@ -604,7 +583,7 @@ export default class BaseUrl {
      * @param {*} pageIndex
      */
     static getExchangeRecordY(sessionId, pageIndex) {
-        return url + "/tranMoney/balanceRecord?sessionId=" + sessionId
+        return this.geturl() + "/tranMoney/balanceRecord?sessionId=" + sessionId
             + "&pageIndex=" + pageIndex;
     }
 
@@ -624,7 +603,7 @@ export default class BaseUrl {
      *
      */
     static createOutOrder() {
-        return url + "/trans/createOutOrder";
+        return this.geturl() + "/trans/createOutOrder";
     }
 
 
@@ -651,7 +630,7 @@ export default class BaseUrl {
      3.13    feeNums        手续费
      */
     static getOutUndoneUnselectedUrl(sessionId, pageIndex) {
-        return url + "/trans/outUndoneUnselected?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
+        return this.geturl() + "/trans/outUndoneUnselected?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
         ;
     }
 
@@ -674,7 +653,7 @@ export default class BaseUrl {
      3.9    mobile        手机号
      */
     static getOutUndoneSelectedUrl(sessionId, pageIndex) {
-        return url + "/trans/outUndoneSelected?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
+        return this.geturl() + "/trans/outUndoneSelected?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
     }
 
 
@@ -699,7 +678,7 @@ export default class BaseUrl {
      ）
      */
     static getOutAffirmProceeds(sessionId, pageIndex) {
-        return url + "/trans/outAffirmProceeds?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
+        return this.geturl() + "/trans/outAffirmProceeds?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
     }
 
 
@@ -723,7 +702,7 @@ export default class BaseUrl {
      3.10    transImg        打款截图（需要添加前缀如：如http://tz.hxksky.com/wepay/upload/）
      */
     static getOutCompleteOrder(sessionId, pageIndex) {
-        return url + "/trans/outCompleteOrder?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
+        return this.geturl() + "/trans/outCompleteOrder?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
     }
 
 
@@ -733,7 +712,7 @@ export default class BaseUrl {
      * @id {*} id  挂单id
      */
     static getOutAPUpdate(sessionId, id) {
-        return url + "/trans/outAPUpdate?sessionId=" + sessionId + "&id=" + id;
+        return this.geturl() + "/trans/outAPUpdate?sessionId=" + sessionId + "&id=" + id;
     }
 
     /**
@@ -756,7 +735,7 @@ export default class BaseUrl {
      * @id {*} id  挂单id
      */
     static getOutSalesCenter(sessionId, pageIndex, amount) {
-        return url + "/trans/outSalesCenter?sessionId=" + sessionId + "&pageIndex=" + pageIndex + "&amount=" + amount;
+        return this.geturl() + "/trans/outSalesCenter?sessionId=" + sessionId + "&pageIndex=" + pageIndex + "&amount=" + amount;
     }
 
 
@@ -771,7 +750,7 @@ export default class BaseUrl {
      * @returns 数据 data （code=1}
      */
     static getSalesCenterSaleUrl() {
-        return url + "/trans/salesCenterSale?";
+        return this.geturl() + "/trans/salesCenterSale?";
     }
 
     /**
@@ -780,7 +759,7 @@ export default class BaseUrl {
      * @id {*} id  挂单id
      */
     static getCncelBalanceOrder(sessionId, id) {
-        return url + "/trans/cancelBalanceOrder?sessionId=" + sessionId + "&id=" + id;
+        return this.geturl() + "/trans/cancelBalanceOrder?sessionId=" + sessionId + "&id=" + id;
     }
 
 
@@ -799,7 +778,7 @@ export default class BaseUrl {
      *
      */
     static createInOrder() {
-        return url + "/trans/createInOrder";
+        return this.geturl() + "/trans/createInOrder";
     }
 
 
@@ -827,7 +806,7 @@ export default class BaseUrl {
      *
      */
     static getInUndoneUnselectedUrl(sessionId, pageIndex) {
-        return url + "/trans/inUndoneUnselected?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
+        return this.geturl() + "/trans/inUndoneUnselected?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
     }
 
     /**
@@ -854,7 +833,7 @@ export default class BaseUrl {
      *
      */
     static getInUndoneSelectedUrl(sessionId, pageIndex) {
-        return url + "/trans/inUndoneSelected?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
+        return this.geturl() + "/trans/inUndoneSelected?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
     }
 
     /**买入-确认打款 列表
@@ -883,7 +862,7 @@ export default class BaseUrl {
      *
      */
     static getInAffirmProceeds(sessionId, pageIndex) {
-        return url + "/trans/inAffirmProceeds?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
+        return this.geturl() + "/trans/inAffirmProceeds?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
     }
 
 
@@ -898,7 +877,7 @@ export default class BaseUrl {
      file        是        打款截图      file
      */
     static getInAPUpdateUrl() {
-        return url + "/trans/inAPUpdate"
+        return this.geturl() + "/trans/inAPUpdate"
     }
 
     /*买入-已完成订单
@@ -926,7 +905,7 @@ export default class BaseUrl {
      * 
      */
     static getInCompleteOrder(sessionId, pageIndex) {
-        return url + "/trans/inCompleteOrder?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
+        return this.geturl() + "/trans/inCompleteOrder?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
     }
 
     /**
@@ -949,7 +928,7 @@ export default class BaseUrl {
      *
      */
     static getCallCenter(sessionId, pageIndex, amount) {
-        return url + "/trans/callCenter?sessionId=" + sessionId + "&pageIndex=" + pageIndex + "&amount=" + amount;
+        return this.geturl() + "/trans/callCenter?sessionId=" + sessionId + "&pageIndex=" + pageIndex + "&amount=" + amount;
     }
 
 
@@ -964,7 +943,7 @@ export default class BaseUrl {
      * @returns 数据 data （code=1}
      */
     static getCallCenterBuyUrl() {
-        return url + "/trans/callCenterBuy"
+        return this.geturl() + "/trans/callCenterBuy"
     }
 
 
@@ -984,7 +963,7 @@ export default class BaseUrl {
      *
      */
     static getInBuyRecords(sessionId, pageIndex) {
-        return url + "/trans/inBuyRecords?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
+        return this.geturl() + "/trans/inBuyRecords?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
     }
 
 
@@ -1004,7 +983,7 @@ export default class BaseUrl {
      *
      */
     static getOutSellRecords(sessionId, pageIndex) {
-        return url + "/trans/outSellRecords?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
+        return this.geturl() + "/trans/outSellRecords?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
     }
 
 
@@ -1014,7 +993,7 @@ export default class BaseUrl {
      * @returns code  1,0
      */
     static integralRelease(sessionId) {
-        return url + "/store/integralRelease?sessionId=" + sessionId;
+        return this.geturl() + "/store/integralRelease?sessionId=" + sessionId;
     }
 
 
@@ -1025,7 +1004,7 @@ export default class BaseUrl {
      * @param {*} sessionId
      */
     static getStoreStatus(sessionId) {
-        return url + "/verify/status?sessionId=" + sessionId;
+        return this.geturl() + "/verify/status?sessionId=" + sessionId;
     }
 
 
@@ -1035,7 +1014,7 @@ export default class BaseUrl {
     // 请求方式:get/post
     // 请求参数 sessionId
     static getStoreCashInfo(sessionId) {
-        return url + "/merchantWd/index?sessionId=" + sessionId;
+        return this.geturl() + "/merchantWd/index?sessionId=" + sessionId;
     }
 
 
@@ -1096,7 +1075,7 @@ export default class BaseUrl {
      */
 
     static getStoreCashApplyUrl() {
-        return url + "/merchantWd/add"; 
+        return this.geturl() + "/merchantWd/add"; 
     }
 
 /**
@@ -1117,7 +1096,7 @@ export default class BaseUrl {
 3	data	是	数据
  */
 static getPhoneBillApplyUrl(){
-    return url + '/callCharge/applyFor';
+    return this.geturl() + '/callCharge/applyFor';
 }
 
 
@@ -1141,7 +1120,7 @@ static getPhoneBillApplyUrl(){
 3	data	是	数据
  */
 static getFuelUpApplyUrl(){
-    return url + '/balanceRefuel/applyFor'
+    return this.geturl() + '/balanceRefuel/applyFor'
 }
 
 
@@ -1164,7 +1143,7 @@ static getFuelUpApplyUrl(){
      *
      */
     static getCateList() {
-        return url + "/verify/cateList";
+        return this.geturl() + "/verify/cateList";
     }
 
     /**
@@ -1187,7 +1166,7 @@ static getFuelUpApplyUrl(){
      是    店铺地址    String
      */
     static applyStore() {
-        return url + "/verify/add";
+        return this.geturl() + "/verify/add";
     }
 
     /**
@@ -1202,7 +1181,7 @@ static getFuelUpApplyUrl(){
      5    goodsStock 是    商品库存 int
      */
     static getAddShopUrl() {
-        return url + "/goods/add";
+        return this.geturl() + "/goods/add";
     }
 
     /**
@@ -1212,7 +1191,7 @@ static getFuelUpApplyUrl(){
      * @returns {string}
      */
     static deleteShopUrl(sessionId, goodsId,) {
-        return url + "/goods/delete?sessionId=" + sessionId + "&goodsId=" + goodsId
+        return this.geturl() + "/goods/delete?sessionId=" + sessionId + "&goodsId=" + goodsId
     }
 
 
@@ -1229,7 +1208,7 @@ static getFuelUpApplyUrl(){
      6  id    是    商品id    int
      */
     static getUpdateShopUrl() {
-        return url + "/goods/update";
+        return this.geturl() + "/goods/update";
     }
 
 
@@ -1250,7 +1229,7 @@ static getFuelUpApplyUrl(){
      */
 
     static getShopBySearch(sessionId, pageIndex, keyword, typeId) {
-        var path = url + "/goods/all?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
+        var path = this.geturl() + "/goods/all?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
         if (keyword) {
             path += "&keyword=" + keyword
         }
@@ -1261,7 +1240,7 @@ static getFuelUpApplyUrl(){
     }
 
     static getHomeShop(sessionId, pageIndex,typeId) {
-        var path = url + "/goods/all?sessionId=" + sessionId + "&pageIndex=" + pageIndex +"&typeId=" + typeId;
+        var path = this.geturl() + "/goods/all?sessionId=" + sessionId + "&pageIndex=" + pageIndex +"&typeId=" + typeId;
         return path
     }
 
@@ -1284,7 +1263,7 @@ static getFuelUpApplyUrl(){
      */
 
     static getShopByType(sessionId, pageIndex, goodsType) {
-        var path = url + "/special/goods?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
+        var path = this.geturl() + "/special/goods?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
         return path+"&goodsType=" + goodsType
     }
 
@@ -1303,7 +1282,7 @@ static getFuelUpApplyUrl(){
      *
      */
     static getStoreList(sessionId, pageIndex, lng, lat) {
-        return url + "/shop/nearby?sessionId=" + sessionId
+        return this.geturl() + "/shop/nearby?sessionId=" + sessionId
             + "&pageIndex=" + pageIndex
             + "&lng=" + lng
             + "&lat=" + lat
@@ -1333,7 +1312,7 @@ static getFuelUpApplyUrl(){
      *
      */
     static getMyStoreShop(sessionId, pageIndex) {
-        return url + "/shop/indexGoods?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
+        return this.geturl() + "/shop/indexGoods?sessionId=" + sessionId + "&pageIndex=" + pageIndex;
     }
 
     /**
@@ -1345,7 +1324,7 @@ static getFuelUpApplyUrl(){
      *
      */
     static getMyStoreEarnings(sessionId) {
-        return url + "/shop/earnings?sessionId=" + sessionId
+        return this.geturl() + "/shop/earnings?sessionId=" + sessionId
     }
 
 
@@ -1360,7 +1339,7 @@ static getFuelUpApplyUrl(){
      *
      */
     static updateStatus(sessionId, id, goodsStatus) {
-        return url + "/goods/updateStatus?sessionId=" + sessionId + "&id=" + id + "&goodsStatus=" + goodsStatus
+        return this.geturl() + "/goods/updateStatus?sessionId=" + sessionId + "&id=" + id + "&goodsStatus=" + goodsStatus
     }
 
 
@@ -1390,7 +1369,7 @@ static getFuelUpApplyUrl(){
      */
 
     static getShopDetail(sessionId, goodsId) {
-        var path = url + "/goods/particulars?sessionId=" + sessionId + "&goodsId=" + goodsId;
+        var path = this.geturl() + "/goods/particulars?sessionId=" + sessionId + "&goodsId=" + goodsId;
         return path
     }
 
@@ -1420,7 +1399,7 @@ static getFuelUpApplyUrl(){
      */
 
     static getStoreDetail(sessionId, shopId) {
-        var path = url + "/shop/goods?sessionId=" + sessionId + "&shopId=" + shopId;
+        var path = this.geturl() + "/shop/goods?sessionId=" + sessionId + "&shopId=" + shopId;
         return path
     }
 
@@ -1451,7 +1430,7 @@ static getFuelUpApplyUrl(){
      *
      */
     static getMyOrderBy(sessionId, pageIndex, orderStatus) {
-        return url + "/order/myOrder?sessionId=" + sessionId + "&pageIndex=" + pageIndex + "&orderStatus=" + orderStatus
+        return this.geturl() + "/order/myOrder?sessionId=" + sessionId + "&pageIndex=" + pageIndex + "&orderStatus=" + orderStatus
     }
 
     /**
@@ -1486,7 +1465,7 @@ static getFuelUpApplyUrl(){
      *
      */
     static getStoreOrderBy(sessionId, pageIndex, orderStatus) {
-        return url + "/order/shopOrder?sessionId=" + sessionId + "&pageIndex=" + pageIndex + "&orderStatus=" + orderStatus
+        return this.geturl() + "/order/shopOrder?sessionId=" + sessionId + "&pageIndex=" + pageIndex + "&orderStatus=" + orderStatus
     }
 
 
@@ -1499,7 +1478,7 @@ static getFuelUpApplyUrl(){
      *
      */
     static cancelShopOrder() {
-        return url + "/order/cancel"
+        return this.geturl() + "/order/cancel"
     }
 
     /**修改订单状态
@@ -1509,7 +1488,7 @@ static getFuelUpApplyUrl(){
      * @param {*} orderStatus 订单状态 2已发货（待收货），  3交易完成(已收货)
      */
     static updateOrderStatus(sessionId, id, orderStatus) {
-        return url + "/order/updateStatus?sessionId=" + sessionId + "&orderId=" + id + "&orderStatus=" + orderStatus;
+        return this.geturl() + "/order/updateStatus?sessionId=" + sessionId + "&orderId=" + id + "&orderStatus=" + orderStatus;
     }
 
 
@@ -1528,7 +1507,7 @@ static getFuelUpApplyUrl(){
      *
      */
     static createShopOrder() {
-        return url + "/order/create";
+        return this.geturl() + "/order/create";
     }
 
 
@@ -1549,7 +1528,7 @@ static getFuelUpApplyUrl(){
      // 3.8    imgHead        对方头像（需要添加前缀如：如http://tz.hxksky.com/wepay/upload/
      */
     static getOutRecord(sessionId, pageIndex) {
-        return url + "/tranMoney/outRecord?sessionId=" + sessionId
+        return this.geturl() + "/tranMoney/outRecord?sessionId=" + sessionId
             + "&pageIndex=" + pageIndex;
     }
 
@@ -1564,7 +1543,7 @@ static getFuelUpApplyUrl(){
      //data    是    数据(对方用户名)
      */
     static getUserName(transferAddress) {
-        return url + "/coin/getUserName?transferAddress=" + transferAddress
+        return this.geturl() + "/coin/getUserName?transferAddress=" + transferAddress
     }
 
     /**
@@ -1580,7 +1559,7 @@ static getFuelUpApplyUrl(){
      *
      */
     static transfer() {
-        return url + "/coin/transfer";
+        return this.geturl() + "/coin/transfer";
     }
 
 
@@ -1596,7 +1575,7 @@ static getFuelUpApplyUrl(){
      "userName": "零零8"
      */
     static tradingRecord(sessionId, pageIndex, recordType) {
-        return url + "/wetrans/tradingRecord?sessionId=" + sessionId
+        return this.geturl() + "/wetrans/tradingRecord?sessionId=" + sessionId
             + "&pageIndex=" + pageIndex + "&recordType=" + recordType;
     }
 
@@ -1617,7 +1596,7 @@ static getFuelUpApplyUrl(){
      3.4.5    coinName        货币名称
      */
     static numberIndex(sessionId) {
-        return url + "/coin/index?sessionId=" + sessionId
+        return this.geturl() + "/coin/index?sessionId=" + sessionId
     }
 
     /**
@@ -1641,7 +1620,7 @@ static getFuelUpApplyUrl(){
      * }
      */
     static orderRecord(sessionId, pageIndex, status, cid) {
-        return url + "/deal/order?sessionId=" + sessionId
+        return this.geturl() + "/deal/order?sessionId=" + sessionId
             + "&pageIndex=" + pageIndex + "&status=" + status + "&cid=" + cid
     }
 
@@ -1651,7 +1630,7 @@ static getFuelUpApplyUrl(){
      * @id {*} id  挂单id
      */
     static cancelOrder(sessionId, orderId) {
-        return url + "/deal/cancelOrder?sessionId=" + sessionId + "&orderId=" + orderId;
+        return this.geturl() + "/deal/cancelOrder?sessionId=" + sessionId + "&orderId=" + orderId;
     }
 
     /**
@@ -1662,7 +1641,7 @@ static getFuelUpApplyUrl(){
      * @returns {string}
      */
     static getWBIndex(sessionId, pageIndex, recordType) {
-        return url + "/wbao/index?sessionId=" + sessionId
+        return this.geturl() + "/wbao/index?sessionId=" + sessionId
             + "&pageIndex=" + pageIndex + "&recordType=" + recordType
     }
 
@@ -1674,7 +1653,7 @@ static getFuelUpApplyUrl(){
      * @returns {string}
      */
     static lockAssetWb() {
-        return url + "/wbao/lockAsset"
+        return this.geturl() + "/wbao/lockAsset"
     }
 
     /**
@@ -1685,7 +1664,7 @@ static getFuelUpApplyUrl(){
      * @returns {string}
      */
     static rollInWb() {
-        return url + "/wbao/rollIn"
+        return this.geturl() + "/wbao/rollIn"
     }
 
     /**
@@ -1696,7 +1675,7 @@ static getFuelUpApplyUrl(){
      * @returns {string}
      */
     static rollOut() {
-        return url + "/wbao/rollOut"
+        return this.geturl() + "/wbao/rollOut"
     }
 
 
@@ -1712,7 +1691,7 @@ static getFuelUpApplyUrl(){
      "userName": "零零8"
      */
     static zhongchouRecord(sessionId, pageIndex, recordType) {
-        return url + "/crowdsDetail/record?sessionId=" + sessionId
+        return this.geturl() + "/crowdsDetail/record?sessionId=" + sessionId
             + "&pageIndex=" + pageIndex + "&recordType=" + recordType;
     }
 
@@ -1720,30 +1699,30 @@ static getFuelUpApplyUrl(){
      * 认购项目中心(众筹)
      */
     static getCrowdFundingUrl(){
-        return url + '/crowdFunding/index';
+        return this.geturl() + '/crowdFunding/index';
     }
 
      /**
      * 认购买购(众筹)
      */
     static getCrowdFundingBuyUrl(){
-        return url + '/crowdFunding/buy';
+        return this.geturl() + '/crowdFunding/buy';
     }
 
     /**
      * 认购买购记录(众筹)
      */
     static getCrowdConsumeBuyRecordUrl(){
-        return url + '/crowdConsume/buyRecord';
+        return this.geturl() + '/crowdConsume/buyRecord';
     }
 
     static getCrowdConsumeReleaseRecordUrl(){
-        return url + '/crowdConsume/releaseRecord';
+        return this.geturl() + '/crowdConsume/releaseRecord';
     }
 
 
     static getCrowdConsumeCrowdRecordUrl(){
-        return url + '/crowdFunding/crowdRecord';
+        return this.geturl() + '/crowdFunding/crowdRecord';
     }
 
 
@@ -1767,7 +1746,7 @@ static getFuelUpApplyUrl(){
      coinAddtime        时间
      */
     static coinDeal(sessionId, coinId) {
-        return url + "/coin/deal?sessionId=" + sessionId + "&coinId=" + coinId;
+        return this.geturl() + "/coin/deal?sessionId=" + sessionId + "&coinId=" + coinId;
     }
 
     /**数字资产交易中心订单列表
@@ -1779,7 +1758,7 @@ static getFuelUpApplyUrl(){
      * @returns {string}
      */
     static dealOrder(sessionId, pageIndex, orderType, coinId) {
-        return url + "/coin/dealOrder?sessionId=" + sessionId + "&pageIndex=" + pageIndex + "&orderType=" + orderType + "&coinId=" + coinId;
+        return this.geturl() + "/coin/dealOrder?sessionId=" + sessionId + "&pageIndex=" + pageIndex + "&orderType=" + orderType + "&coinId=" + coinId;
     }
 
 
@@ -1791,7 +1770,7 @@ static getFuelUpApplyUrl(){
      4    num    是    购买数量    double
      */
     static dealBuy() {
-        return url + "/deal/buy"
+        return this.geturl() + "/deal/buy"
     }
 
     /**
@@ -1802,7 +1781,7 @@ static getFuelUpApplyUrl(){
      4    num    是    购买数量    double
      */
     static dealSell() {
-        return url + "/deal/sell"
+        return this.geturl() + "/deal/sell"
     }
 
 
@@ -1827,7 +1806,7 @@ static getFuelUpApplyUrl(){
      * }
      */
     static teadeRecord(sessionId, pageIndex, cid) {
-        return url + "/dealDetail/record?sessionId=" + sessionId
+        return this.geturl() + "/dealDetail/record?sessionId=" + sessionId
             + "&pageIndex=" + pageIndex + "&cid=" + cid
     }
 
@@ -1848,7 +1827,7 @@ static getFuelUpApplyUrl(){
      *
      */
     static createSellOrder() {
-        return url + "/deal/createOutOrder";
+        return this.geturl() + "/deal/createOutOrder";
     }
 
     /**
@@ -1867,7 +1846,7 @@ static getFuelUpApplyUrl(){
      *
      */
     static createBuyOrder() {
-        return url + "/deal/createInOrder";
+        return this.geturl() + "/deal/createInOrder";
     }
 
 
@@ -1886,7 +1865,7 @@ static getFuelUpApplyUrl(){
      *
      */
     static getUnion(sessionId) {
-        return url + "/engoy/index?sessionId=" + sessionId;
+        return this.geturl() + "/engoy/index?sessionId=" + sessionId;
     }
 
     /**
@@ -1902,7 +1881,7 @@ static getFuelUpApplyUrl(){
      workAddress    是    办公地址    String
      */
     static engoyApply() {
-        return url + "/engoyApply/add"
+        return this.geturl() + "/engoyApply/add"
     }
 
 
@@ -1930,7 +1909,7 @@ static getFuelUpApplyUrl(){
      * }
      */
     static searchUnion(sessionId, pageIndex, keyword) {
-        return url + "/engoy/search?sessionId=" + sessionId
+        return this.geturl() + "/engoy/search?sessionId=" + sessionId
             + "&pageIndex=" + pageIndex + "&keyword=" + keyword
     }
 
@@ -1939,7 +1918,7 @@ static getFuelUpApplyUrl(){
      * @param sessionId
      */
     static agency(sessionId) {
-        return url + "/engoy/agency?sessionId=" + sessionId
+        return this.geturl() + "/engoy/agency?sessionId=" + sessionId
 
     }
 
@@ -1964,7 +1943,7 @@ static getFuelUpApplyUrl(){
     3.3	isBinding		是否绑定账号0,没有。1.有
      */
     static getGameHomeUrl(){
-        return url + '/game/index';
+        return this.geturl() + '/game/index';
     }
 
 
@@ -1985,7 +1964,7 @@ static getFuelUpApplyUrl(){
         3	data	是	数据(集合)
      */
     static getGameBindingUrl(){
-        return url + '/game/binding';
+        return this.geturl() + '/game/binding';
     }
 
 
@@ -2007,7 +1986,7 @@ static getFuelUpApplyUrl(){
     3	data	是	数据(集合)
      */
     static getGameBalanceForGoldUrl(){
-        return url + '/game/balanceForGold';
+        return this.geturl() + '/game/balanceForGold';
     }
 
 
@@ -2030,6 +2009,6 @@ static getFuelUpApplyUrl(){
      */
 
      static getGameGoldForBalanceUrl(){
-         return url + '/game/goldForBalance';
+         return this.geturl() + '/game/goldForBalance';
      }
 }
