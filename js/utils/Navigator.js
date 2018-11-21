@@ -1,77 +1,87 @@
-import {StackActions, NavigationActions } from "react-navigation";
-import { Util, Net } from "./Component";
+import {StackActions, NavigationActions } from "react-navigation"
+import { Jx } from "./Jx"
 
 
 const c_navigateLength = 8;
+const ACT_1 = "1st", ACT_NAV = "navigate", ACT_RESET = "reset";
 export class Navigator{
-    static _navigators = [];
-    static _navigatorIndex = -1;
     static _isNavigating = false;
+    static _routes;
+    static _action = ACT_1;
+    static _navigators = [];
+    static _navigator1st = null;
 
-    static setNavigator(nav){
-        if((++this._navigatorIndex) === c_navigateLength){
-            this._navigatorIndex = 0;
+    static onNavigate(prevNav, nav, action){
+        if(action.type === "Navigation/COMPLETE_TRANSITION" || action.type === "Navigation/RESET"){
+            this._routes = nav.routes;
+        }      
+    }
+
+    static getRouteName(){
+        let length =  this._routes.length - 1;
+        if(length < 0){
+            return "";
         }
-        this._navigators[this._navigatorIndex] = nav;
+        this._routes[length].routeName;
     }
 
-    static getNavigator(){
-        return this._navigators[this._navigatorIndex];
+    static push(nav){
+        if(this._action === ACT_1){
+            this._navigator1st = nav;
+        } else if(this._action === ACT_RESET){
+            this._navigators = [nav];
+        } else {
+            this._navigators.push(nav);
+        }
     }
 
-    static renavigate(nav_page, page){
-        // if(this.isNavigating()){
-        //     return;
-        // }
-        if(!page){
-            page = nav_page;
-            nav_page = this.getNavigator();
+    static getNav(){
+        let length = this._navigators.length - 1;
+        if(length < 0){
+            return this._navigator1st;
+        }
+        return this._navigators[length];
+    }
+
+    static getName(){
+        return this.getNav().state.params.routeName;
+    }
+
+    static renavigate(nav, page){
+        nav = nav || this.getNav();
+        if(!nav){
+            return;
         }
         const resetAction = StackActions.reset({
             index: 0,
             actions: [
-                NavigationActions.navigate({ routeName: page }),
+                NavigationActions.navigate({ routeName: page}),
             ],
         });
-        // this.startNavigating();
-        Net.clear();
-        nav_page.dispatch(resetAction)
+        this._action = ACT_RESET;
+        nav.dispatch(resetAction)
     }
 
-    static navigate(nav_page, page_obj, obj){
-        // if(this.isNavigating()){
-        //     return;
-        // }
-        if(!obj){
-            if(!page_obj){
-                page_obj = nav_page;
-                nav_page = this.getNavigator();
-            } else if(Util.isString(nav_page)){
-                obj = page_obj;
-                page_obj = nav_page;
-                nav_page = this.getNavigator();
-            }
+    static navigate(nav, page, params){
+        nav = nav || this.getNav();
+        if(!nav){
+            return;
         }
-        // this.startNavigating();
-        Net.clear();
-        nav_page.navigate(page_obj, obj);
+        this._action = ACT_NAV;
+        nav.navigate(page, params);
     }
 
     static navigateBack(nav){
-        // if(this.isNavigating()){
-        //     return;
-        // }
-        nav = nav || this.getNavigator();
-        // this.startNavigating();
-        Net.clear();
-        // console.log("导航信息nav...........");
-        // console.log(nav);
-        // console.log("导航信息getNavigator...........");
-        // console.log(this.getNavigator());
-        nav.goBack(null);
-        if((--this._navigatorIndex) < 0){
-            console.log("导航返回越界");
+        nav = nav || this.getNav();
+        if(!nav){
+            return;
         }
+        if(this._action === ACT_1 || this._navigators.length < 2){
+
+        }else {
+            this._navigators.pop();
+        }
+        nav.goBack(null);
     }
 
     static isNavigating(){
@@ -82,11 +92,11 @@ export class Navigator{
         this._isNavigating = true;
     }
 
-    static stopNavigatingRightNow(){
+    static stopNavigating(){
         this._isNavigating = false;
     }
 
-    static stopNavigating(){
-        setTimeout(this.stopNavigatingRightNow, 500);
+    static stopNavigatingTimeOut(){
+        setTimeout(this.stopNavigating, 500);
     }
 }
