@@ -7,17 +7,13 @@ if (!__DEV__) {
         error: () => {}
     };
 }
-
-
 import React from 'react';
 import { Provider } from 'mobx-react';
 import codePush from "react-native-code-push";
-import SplashScreen from "react-native-splash-screen"
 import AppStore from './js/AppStore';
 import AppNavigator from './js/navigators/AppNavigator'
 
-
-import { initBuild } from './js/utils/Build';
+import { promiseInitBuild, Login, Navigator } from './js/utils/_component';
 
 // import {View, Text, Image} from "react-native"
 // import {Theme} from 'teaset';
@@ -48,7 +44,7 @@ class App extends React.Component {
     constructor(props){
         super(props);
         console.log("App初始化Build");
-        initBuild();
+        promiseInitBuild().then(Login.onBuild.bind(Login))
     }
 
     componentWillMount(){
@@ -57,7 +53,6 @@ class App extends React.Component {
 
     componentDidMount(){
         console.log("App已经Mount");
-        SplashScreen.hide();
     }
 
     render() {
@@ -68,10 +63,12 @@ class App extends React.Component {
         //     alignItems:"center"
         // }}>
         //     <Text style = {{fontSize:32, color:"white"}}>Nav</Text>
-        //     <Image source = {bankcards.guangda}/>
+        //     {/* <Image source = {Bankcards.guangda}/> */}
         // </View>;
         // return <StackNavigator />;
-        return <Provider {...stores}><AppNavigator/></Provider>;
+        return <Provider {...stores}>
+            <AppNavigator onNavigationStateChange={Navigator.onNavigate.bind(Navigator)}/>
+        </Provider>;
     }
 }
 

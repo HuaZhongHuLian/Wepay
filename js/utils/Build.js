@@ -1,6 +1,6 @@
-import { Platform, Dimensions, NativeModules} from 'react-native';
-const {width, height} = Dimensions.get("window");
-
+import { Platform, Dimensions, NativeModules} from 'react-native'
+import {Jx} from "./Jx"
+const {width, height} = Dimensions.get("window")
 export const Build = {
     NONE : -1,
     DEBUG : 0,
@@ -11,25 +11,24 @@ export const Build = {
     versionDesc : "",
     desc : "",
 }
-
-function initBuildLater (){
+function initBuildLater (resolve){
     if(Build.type === Build.NONE || Build.versionName === ""){
         return;
     }
     Build.versionDesc = Build.versionName + (["调试版", "", "测试版"][Build.type]);
     Build.desc = Build.versionName + "\n" + Build.desc + "\n" + Platform.OS + "\n" + width + "," + height;
     Object.freeze(Build);
+    resolve && resolve(Build);
 }
-
-export function initBuild(){
+function initBuild(resolve){
     let m = NativeModules.WepayModules;
     m.getVersionName(e=>{
         Build.versionName = e;
-        initBuildLater();
+        initBuildLater(resolve);
     });
     m.getBuildType(e=>{
         Build.type = e;
-        if(typeof(Build.type) === "number"){
+        if(Jx.isNumber(Build.type)){
             Build.desc = ["debug", "release", "releaseStaging"][Build.type];
         } else {
             let oldType = {
@@ -40,6 +39,9 @@ export function initBuild(){
             Build.desc = Build.type;
             Build.type = oldType[Build.type];           
         }
-        initBuildLater();
+        initBuildLater(resolve);
     })
+}
+export function promiseInitBuild(){
+    return new Promise(initBuild);
 }
