@@ -82,32 +82,32 @@ import CashTransactions from "../page/number/CashTransactions"
 import CashDetail from "../page/number/CashDetail"
 
 
-import {Navigator, Login, Storage} from "../utils/_component"
-import { inject } from 'mobx-react';
-import UserInfo from '../model/UserInfo';
-@inject("AppStore")
-class PageAutoLogin extends React.PureComponent{
-    constructor(props){
-        super(props);
-        Navigator.push(this.props.navigation);
-        Login.setAutoLogin(this.onAutoLogin.bind(this));
-        Login.setPageLogin(this.onPageLogin.bind(this));
-    }
+// import {Navigator, Login, Storage} from "../utils/_component"
+// import { inject } from 'mobx-react';
+// import UserInfo from '../model/UserInfo';
+// @inject("AppStore")
+// class PageAutoLogin extends React.PureComponent{
+//     constructor(props){
+//         super(props);
+//         Navigator.push(this.props.navigation);
+//         Login.setAutoLogin(this.onAutoLogin.bind(this));
+//         Login.setPageLogin(this.onPageLogin.bind(this));
+//     }
 
-    onPageLogin(){
-        Navigator.renavigate(this.props.navigation, "LoginPage");
-    }
+//     onPageLogin(){
+//         Navigator.renavigate(this.props.navigation, "LoginPage");
+//     }
 
-    onAutoLogin(user){
-        this.props.AppStore.setUserInfo(user);
-        UserInfo.userInfo = user;
-        Navigator.renavigate(this.props.navigation, "HomePage");
-    }
+//     onAutoLogin(user){
+//         this.props.AppStore.setUserInfo(user);
+//         UserInfo.userInfo = user;
+//         Navigator.renavigate(this.props.navigation, "HomePage");
+//     }
 
-    render(){
-        return <View />
-    }
-}
+//     render(){
+//         return <View />
+//     }
+// }
 
 export default AppNavigator = createStackNavigator({
     // PassNumInput: {//密码输入
@@ -349,7 +349,7 @@ export default AppNavigator = createStackNavigator({
         //navigationOptions: {}  // 此处设置了, 会覆盖组件内的`static navigationOptions`设置. 具体参数详见下文
     },
 
-    PageAutoLogin : {screen : PageAutoLogin}
+    // PageAutoLogin : {screen : PageAutoLogin}
 
 }, {
     initialRouteName: 'LoginPage', // 默认显示界面

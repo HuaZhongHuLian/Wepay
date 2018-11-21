@@ -108,7 +108,7 @@ export default class ViewUtils {
      */
     static getSettingItem2(img, text, text2, isShow, callback, longcb) {
         return <TouchableOpacity
-            // onPress={callback}
+            onPress={callback}
             onLongPress = {longcb}
         >
             <View style={[BaseStyles.container_center,
