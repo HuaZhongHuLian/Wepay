@@ -1,48 +1,81 @@
-import { Dialog, Util, renavigate } from "./Component"
-import { Navigator } from "./Navigator";
+import { Jx } from "./Jx"
+import { Dialog } from "./Dialog"
+import { Navigator } from "./Navigator"
+
 
 const c_url = "http://wp.wepay168.com/wepay";
+const c_localurl = "192.168.0.10:8081";
 const c_image = "http://wepay.hxksky.com/";
-
+const c_page = "anywhere";
 
 export class Net{
     static getImage(){
         return c_image;
     }
 
-
-    static _cache = {};
-    static clear(){
-        this._cache = {};
-    }
-    static isFetching(url, obj){
-        obj = obj ? Util.stringify(obj) : "";
-        obj = url + obj;
-        if(this._cache[obj] === 1){
-            return true;
+    static _caches = {};
+    static clear(page, key){
+        if(this._caches[page]){
+            if(this._caches[page][key]){
+                delete this._caches[page][key];
+                if(Jx.isObjectEmpty(this._caches[page])){
+                    delete this._caches[page];
+                }
+            }else{
+                console.log("Net:clear " + page + " 未找到缓存 " + key);
+            }
+        }else{
+            console.log("Net:clear 未找到场景" + page + " 未找到缓存 " + key);
         }
-        this._cache[obj] = 1;
-        return false;
     }
-    static clear(url, obj){
-        obj = obj ? Util.stringify(obj) : "";
-        obj = url + obj;
-        delete this._cache[obj];
+    static insert(page, key){
+        if(this._caches[page]){
+            if(this._caches[page][key]){
+                console.log("Net:insert " + page + " 重复的缓存 " + key);
+            }else{
+                this._caches[page][key] = true;
+            }
+        }else {
+            this._caches[page] = {[key] : true};
+        }
+        // console.log("Net:insert: 打印" + JSON.stringify(this._caches));
     }
+    static unfetch(page, url, obj){
+        // 字典序不必分级
+        obj = Jx.isUndefined(obj) ? "" : Jx.stringify(obj);
+        url += obj;
+        if(Jx.isUndefined(this._caches[page]) || Jx.isUndefined(this._caches[page][url])){
+            return url;
+        }
+        return "";
+    }
+
 
 
     static _url = c_url;
     static setUrl(url){
-        if(this.url != url){
-            this.clear();
+        if(!url){
+            url = c_url;
+        }else{
+            url = "http://" + url + "/wepay"
         }
-        this.url = url;
+        if(this._url != url){
+            this._caches = {};
+        }
+        this._url = url;
+    }
+
+    static _localurl = c_localurl;
+    static setLocalUrl(url){
+        this._localurl = url || c_localurl;
+    }
+    static getLocalUrl(){
+        return this._localurl;
     }
 
 
-
-    static fetch(url, obj){
-        console.log(url);
+    static fetc(page, url, obj){
+        console.log("网络请求 " + page + ": " + url);
         if(!obj){
             return fetch(this._url + url);
         }
@@ -62,106 +95,85 @@ export class Net{
         }); 
     }
 
-    static fetc(url, obj, cb){
+    static error(reject, err, page, key){
+        this.clear(page, key);
+        Dialog.hiding(err);
+        if(reject){
+            reject(Jx.stringify(err.message));
+        }else{
+            Dialog.toast(err.message);
+        }
+        return;
+        let msg = JSON.stringify(err.message)
+        if(msg.startsWith("Network") && msg.endsWith("failed")){
+            Dialog.toast("网络异常");
+        }
+    }
+
+    static fet(page, url, obj, cb){
         Dialog.loading();
-        if(this.isFetching(url, obj)){
-            for (const key in obj) {
-                if(key === "file"){
-                    Dialog.loading("上载中...请耐心等待", true);
-                    return;  
+        page = page || c_page;
+        let key = this.unfetch(page, url, obj);
+        if(!key){
+            Dialog.loading("加载中");
+            return Promise.resolve({code:65535, msg:"", data:null, is1:false, page:c_page});
+        }
+        this.insert(page, key);
+        return new Promise((resolve, reject)=>{
+            this.fetc(page, url, obj) 
+            .then(response=>response.json())
+            .catch(err=>this.error(reject, err, page, key))
+            .then(r=>{
+                this.clear(page, key)
+                console.log(r.data);
+                Dialog.hiding();
+                let is1 = (r.code === 1)
+                if(!is1){
+                    Dialog.toast(r.msg);
                 }
-            }
-            Dialog.loading("请求中");
-            return;
-        }
-        this.fetch(url, obj)
-        .then(response=>response.json())
-        .catch(err => {
-            this.clear(url, obj);
-            Dialog.hiding(err);
-            Dialog.toast(err.message);
-        })
-        .then(r=>{
-            Dialog.hiding();
-            if(!this.isFetching(url, obj)){
-                return;
-            }
-            this.clear(url, obj);
-            console.log(r.data);
-            cb && cb(r);
-        })
-        .catch(err => {
-            this.clear(url, obj);
-            Dialog.hiding(err);
-            Dialog.toast(err.message);
-            return;
-            let msg = JSON.stringify(err.message)
-            if(msg.startsWith("Network") && msg.endsWith("failed")){
-                Dialog.toast("网络异常");
-            }
-        })
+                cb && cb({...r, is1, page});
+                resolve({...r, is1, page});
+            })
+            .catch(err=>this.error(reject, err, page, key));
+        });
     }
 
 
-    static fetcid(url, obj, cb){
+    static fetid(page, url, obj, cb){
+        let sessionId = this.getSessionId();
         if(obj){
-            this.fetc(url, {sessionId:this._user.sessionId, ...obj}, cb)
-        }else {
-            let str = (url.indexOf("?") >= 0) ? "&" : "?";
-            this.fetc(url + str + "sessionId=" + this._user.sessionId, null, cb)
+            obj = {...obj, sessionId};
+        }else{
+            obj = (url.indexOf("?") >= 0) ? "&" : "?";
+            url = url + obj + "sessionId=" + sessionId;
+            obj = null;
         }
+        return this.fet(page, url, obj, cb);
     }
-
-    static cb124(r, cb1, nav){
-        if(r.code === 1){
-            cb1 && cb1(r);
-        }else {
-            Dialog.toast(r.msg);
-            if(r.code === 2 || r.code === 4){
-                nav && Navigator.renavigate(nav, "LoginPage");
-            }
-        }
-    }
-
-
-    static fet(url, obj, cb1, nav){
-        this.fetc(url, obj, r=>{this.cb124(r, cb1, nav);});
-    }
-
-    static fetid(url, obj, cb1, nav){
-        this.fetcid(url, obj, r=>{this.cb124(r, cb1, nav);})
-    }
-
-
-
 
     static _user = null;
     static getUser(){
         return this._user;
     }
-    static loadUser(sessionId, cb, cbOther){
-        this.fetc("/user/getIndexUser?sessionId=" + sessionId, null, (r)=>{
-            if(r.code === 1){
+    static getSessionId(){
+        if(this._user){
+            return this._user.sessionId
+        }
+        return "";
+    }
+    static updateUser(sessionId){
+        sessionId = sessionId || this.getSessionId();
+        return this.fet(null, "/user/getIndexUser?sessionId=" + sessionId, null, r=>{
+            if(r.is1){
                 this._user = r.data;
-                cb && cb(r);
-            }else {
-                // Dialog.toast(r.msg);
-                cbOther && cbOther(r);
             }
         });
     }
-    static updateUser(cb1, nav){
-        this.fetid("/user/getIndexUser", null, r=>{
-            this._user = r.data;
-            cb && cb1(this._user);
-        }, nav);
-    }
- 
 
 
     static _coins = null;
     static getCoins(index){
-        if(Util.isNumber(index)){
+        if(Jx.isNumber(index)){
             for(let k = 0; k < this._coins.coinVos.length; ++k){
                 if(this._coins.coinVos[k].cid == index){
                     return this._coins.coinVos[k];
@@ -172,36 +184,29 @@ export class Net{
         return this._coins;
     }
     static updateCoins(){
-        this.fetid("/coin/index", null, (r)=>{
-            this._coins = r.data;
+        return this.fetid(null, "/coin/index", null, r=>{
+            if(r.is1){
+                this._coins = r.data;
+            }
         });
     }
 
-
-
-    static checkVersion(appVersion, cb){
-        this.fetc("/user/login", {
-            account: 0,
-            password: 0,
-            appVersion: appVersion,
-        }, (r)=>{
-            cb && cb(r);
+    static checkVersion(appVersion){
+        return new Promise((resolve, reject)=>{
+            this.fetc(c_page, "/user/login", {account : 0, password : 0, appVersion})
+            .then(response=>response.json())
+            .catch(err=>reject(err))
+            .then(r=>{
+                resolve(r);
+            })
+            .catch(e=>reject(e));
         });
     }
 
-    static login(account, password, appVersion, cb, cbOther){
-        this.fet("/user/login", {
-            account: account,
-            password: password,
-            appVersion: appVersion, 
-        }, (r)=>{
-            if(r.code == 1){
+    static login(account, password, appVersion){
+        return this.fet(null, "/user/login", {account, password, appVersion}, r=>{
+            if(r.is1){
                 this._user = r.data;
-                Dialog.toast("登录成功");
-                cb && cb(r);
-            }else {
-                Dialog.toast(r.msg);
-                cbOther && cbOther(r);
             }
         });
     }
