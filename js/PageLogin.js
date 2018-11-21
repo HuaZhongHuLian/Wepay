@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, ScrollView} from 'react-native';
-import { Icons, Layout, Color, Label, Touch, StateBar, NavBar, Button1, Button, Net, renavigate } from "./utils/Component";
-import {NavComponent} from "./utils/NavComponent"
+import { Icons, Layout, Color, Label, Touch, StateBar, NavBar, Button1, Button, Net, renavigate } from "./utils/_component";
+import {NavComponent} from "./NavComponent"
 import { Build } from './utils/Build';
 
 

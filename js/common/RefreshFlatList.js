@@ -14,7 +14,7 @@ import {
     ActivityIndicator,
 } from 'react-native';
 import DialogUtils from '../util/DialogUtils';
-import { Dialog } from '../utils/Component';
+import { Dialog } from '../utils/_component';
 
 export default class RefreshFlatList extends Component {
     constructor(props) {

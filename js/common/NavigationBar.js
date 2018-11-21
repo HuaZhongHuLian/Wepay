@@ -96,7 +96,7 @@ export default class NavigationBar extends Component {
     //定义左边按钮 左边布局，一般都是返回按钮
     _leftView() {
         //打印日志 不知道在哪看日志输出
-        console.log('isShowBackView:' + this.props.isShowBackView);
+        // console.log('isShowBackView:' + this.props.isShowBackView);
         //如果不显示左边按钮 直接返回空
         if (!this.props.isShowBackView) return <View/>
         //如果传过来的props.leftView 存在 则直接显示

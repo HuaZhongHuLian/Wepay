@@ -1,16 +1,14 @@
 import React, {Component} from 'react';
 import {View,Image,ScrollView,TextInput, } from 'react-native';
 import SyanImagePicker from 'react-native-syan-image-picker';
-import { Net,Dialog,Label as Text,StateBar,NavBar,Color,Button1,Layout, Icons, Touch, Util} from '../../utils/Component';
+import { Net,Dialog,Label as Text,StateBar,NavBar,Color,Button1,Layout, Icons, Touch, Jx, NavComponent} from '../../utils/_component';
 import { eBuySell, c_DataFields } from "./CashTransactions"
 import DialogUtils from '../../util/DialogUtils';
-import { NavComponent } from '../../utils/NavComponent';
-// import { Navigator } from '../../utils/Navigator';
 
 class Text2 extends React.PureComponent{
     render(){ return <View style = {{flexDirection:"row",alignItems:"center", marginTop:Layout.margin, ...this.props.style}}>
         <Text style = {{fontSize:Layout.c16, color:Color.gray, minWidth:Layout.c20*4}}>{this.props.field}</Text>
-        {Util.isElement(this.props.children)?this.props.children:<Text style = {{fontSize:Layout.c16, color:Color.black}}>{this.props.children}</Text>}
+        {Jx.isElement(this.props.children)?this.props.children:<Text style = {{fontSize:Layout.c16, color:Color.black}}>{this.props.children}</Text>}
     </View>}
 }
 
@@ -78,7 +76,7 @@ export default class CashDetail extends NavComponent {
         this.bank = [data.publishBankName, data.subscriptionBankName][buy2];
         this.card = [data.publishCardNumber, data.subscriptionCardNumber][buy2];
         this.date = [data.matchTime, data.remitTime, data.finishTime][status-2];
-        this.date = Util.toDate(this.date)
+        this.date = Jx.toDate(this.date)
     }
 
     
@@ -130,7 +128,7 @@ export default class CashDetail extends NavComponent {
             }
             let cb = ()=>{this.fetid("/cashDealing/inAPUpdate",{ 
                 orderId : this.getParams().data.orderId,
-                file : Util.toFile(this.state.photo.uri),
+                file : Jx.toFile(this.state.photo.uri),
                 },result=>{
                     Dialog.msg1(result.msg || "打款成功");
                     this.onLeft();

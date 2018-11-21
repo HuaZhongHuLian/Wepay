@@ -106,9 +106,10 @@ export default class ViewUtils {
      * @param {*} text2 
      * @param {*} callback 
      */
-    static getSettingItem2(img, text, text2, isShow, callback) {
+    static getSettingItem2(img, text, text2, isShow, callback, longcb) {
         return <TouchableOpacity
-            onPress={callback}
+            // onPress={callback}
+            onLongPress = {longcb}
         >
             <View style={[BaseStyles.container_center,
             { flexDirection: 'row', backgroundColor: "#fff", padding: 10 }]}>

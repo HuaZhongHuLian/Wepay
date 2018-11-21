@@ -1,13 +1,17 @@
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage } from 'react-native'
 
 export const Storage = Object.freeze({
-    ACCOUNT : "account_password",
-    SESSION : "sessionid",
+    ACCOUNT : "account",
+    PASSWORD : "password",
+    SESSION : "sessionId",
+    LOCALURL : "localurl",
 
     save : function(key, info) {
         AsyncStorage.setItem(key, JSON.stringify(info), (error) => {
             if (error) {
                 Dialog.toast(error.message)
+            }else{
+                console.log("本地存储: " + key + " : " + JSON.stringify(info));
             }
         });
     },

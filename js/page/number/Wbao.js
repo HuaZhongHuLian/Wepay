@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     Image,
 } from 'react-native';
-import BaseComponent, { BaseStyles, Images } from "../BaseComponent";
+import BaseComponent, { BaseStyles } from "../BaseComponent";
 import NavigationBar from "../../common/NavigationBar";
 import HttpUtils from "../../util/HttpUtils";
 import BaseUrl from "../../util/BaseUrl";
@@ -14,6 +14,7 @@ import RefreshFlatList from "../../common/RefreshFlatList"
 import DialogUtils from '../../util/DialogUtils';
 import Colors from "../../util/Colors"
 import Utils from '../../util/Utils';
+import { Images } from '../../utils/_component';
 //W宝
 
 export default class Wbao extends BaseComponent {

@@ -1,7 +1,9 @@
-import React from 'react';
-import {Text,View,ActivityIndicator,Linking} from 'react-native';
-import {Overlay, ActionSheet, AlbumView} from "teaset";
-import {Color, Layout, Util, vsHeight, Touch} from "./Component"
+import React from 'react'
+import {View,ActivityIndicator,Linking} from 'react-native'
+import {Overlay} from "teaset"
+import {Label, Touch} from "./Component"
+import {Color, Layout, Jx, Jpp} from "./Jx"
+
 
 class ViewContent extends React.PureComponent{
     render(){return <View style = {{
@@ -10,10 +12,9 @@ class ViewContent extends React.PureComponent{
         justifyContent: "center", 
         alignItems: "center",
     }}>
-        <Text style={{ fontSize: Layout.c16, color: Color.black }}>{this.props.text}</Text>
+        <Label style={{ fontSize: Layout.c16, color: Color.black, textAlign:"center" }}>{this.props.text}</Label>
     </View>}
 }
-
 class Button extends React.PureComponent{
     render(){return <Touch style = {{
         flex: 1, 
@@ -21,7 +22,7 @@ class Button extends React.PureComponent{
         alignItems: "center",
     }} 
     onPress = {this.props.onPress}>
-        <Text style={{ fontSize: Layout.c18, color: Color.black }}>{this.props.title}</Text>
+        <Label style={{ fontSize: Layout.c18, color: Color.black }}>{this.props.title}</Label>
     </Touch>}
 }
 
@@ -52,7 +53,7 @@ export class Dialog{
     static loading(text_model, modal) {
         this.hiding();
         if(!modal){
-            if(Util.isBoolean(text_model)){
+            if(Jx.isBoolean(text_model)){
                 modal = text_model;
                 text_model = null;
             }
@@ -70,7 +71,7 @@ export class Dialog{
             overlayOpacity={0}>
             <View style={{ backgroundColor: '#333', padding: Layout.pad, borderRadius: Layout.radius, alignItems: 'center' }}>
                 <ActivityIndicator size={'large'} animating={true}/>
-                <Text style={{ color: "#fff" }}>{text_model}</Text>
+                <Label style={{ color: "#fff" }}>{text_model}</Label>
             </View>
         </OverView>);
     }
@@ -90,7 +91,7 @@ export class Dialog{
         for(let k in this.toasts){
             ++this.s_toast;
         }
-        if(this.s_toast == 0 || this.s_toast > ((vsHeight-100) / 30)){
+        if(this.s_toast == 0 || this.s_toast > ((Jpp.height-100) / 30)){
             this.s_toastButtom = 0;
         }        
     }
@@ -107,11 +108,18 @@ export class Dialog{
                 paddingHorizontal:10,
                 bottom : (++this.s_toastButtom) * 30 + 60,
             }}>
-                <Text style={{color:Color.white, }}>{Util.stringify(text)}</Text>
+                <Label style={{color:Color.white, }}>{Jx.stringify(text)}</Label>
             </View>
         </Overlay.View>);
         this.toasts[key] = key;
         setTimeout(()=>{this.toastTimer(key)}, 2500);
+    }
+
+    static error(e){
+        if(e && Jx.isString(e)){
+            console.log(e);
+        }
+        return e;
     }
 
 
@@ -120,12 +128,12 @@ export class Dialog{
             // this.refs[text].close();
             Overlay.hide(this.refs[text]);
             delete this.refs[text];
-        } 
+        }
         cb && cb();
     }
 
     static msg2(text, cbOk, cbCancel, textOk, textCancel) {
-        text = Util.stringify(text);
+        text = Jx.stringify(text);
         this.close(text);
 
         this.refs[text] = Overlay.show(<OverView modal={true}>
@@ -143,7 +151,7 @@ export class Dialog{
 
 
     static msg1(text, cbOk, textOk, noClose) {
-        text = Util.stringify(text);
+        text = Jx.stringify(text);
         this.close(text);
         this.refs[text] = Overlay.show(<OverView
         modal={true}>
@@ -158,10 +166,10 @@ export class Dialog{
     }
 
     static msg(text) {
-        text = Util.stringify(text);
+        text = Jx.stringify(text);
         Overlay.show(<OverView
         modal={false}>
-            <View style = {styleMsg}>
+            <View style = {{...styleMsg, justifyContent:"center"}}>
                 <ViewContent text = {text}/>
             </View>
         </OverView>);

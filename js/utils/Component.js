@@ -1,53 +1,8 @@
-import React from "react";
-import {Platform, Dimensions, Text as Label, TouchableHighlight as Touch, View, Image, StatusBar, TextInput} from "react-native";
+import React from "react"
+import {Text as Label, TouchableHighlight as Touch, View, Image, StatusBar, TextInput} from "react-native"
+import {Color, Layout, Jpp, Jx} from "./Jx"
 
-import {Icons} from "../../res/images/_icons";
-import {Images} from "../../res/pictures/_images";
-import {Bankcards} from "../../res/bank_card_icon/_bankcard";
-import {Util} from "./Util";
-import {Dialog} from "./Dialog"
-import {Net} from "./Net"
-import { Navigator } from "./Navigator";
-
-export {Label, Touch, Icons, Images, Bankcards, Util, Dialog, Net}
-const {width, height} = Dimensions.get("window");
-export const vsWidth = width;
-export const vsHeight = height;
-export const Color = Object.freeze({
-    theme : "#48B1A3", 
-    line : "#E0E0E0",
-    back : "#E0E0E0",
-    black : "black",
-    white : "white",
-    gray : "gray",
-    transparent : "transparent",   
-    opacity : "rgba(0,0,0,0.7)",
-});
-export const Layout = Object.freeze({
-    c13 : 13,
-    c14 : 14,  // 默认 14
-    c16 : 16,
-    c18 : 18,
-    c20 : 20,
-    pad : 10,
-    margin : 10,
-    radius : 8,
-});
-export const App = Object.freeze({
-    isAndroid : (Platform.OS === "android"),
-    isIOS : (Platform.OS === "ios"),
-    isScreen : (height / width) < 1.8 && (Platform.OS === "ios"),
-});
-
-export const renavigate = function(nav, page){
-    const resetAction = StackActions.reset({
-        index: 0,
-        actions: [
-            NavigationActions.navigate({ routeName: page }),
-        ],
-    });
-    nav.dispatch(resetAction)
-}
+export {Label, Touch}
 
 class StatusBarAndroid extends React.PureComponent{
     render(){return <StatusBar backgroundColor = {Color.theme}/>}
@@ -55,9 +10,10 @@ class StatusBarAndroid extends React.PureComponent{
 class StatusBarIOS extends React.PureComponent{
     render(){return <View style = {{backgroundColor : Color.theme, height : 16}}/>}
 }
-export const StateBar = App.isAndroid ? StatusBarAndroid : StatusBarIOS;
+export const StateBar = Jpp.isAndroid ? StatusBarAndroid : StatusBarIOS;
 
 
+const c_iconBack = require("./_back.png");
 export class NavLeft extends React.PureComponent{
     render(){
         return <Touch
@@ -65,7 +21,7 @@ export class NavLeft extends React.PureComponent{
             onPress={this.props.onLeft}
         >
             <View style = {{flexDirection:"row"}}>
-                <Image opacity = {this.props.onLeft ? 1 : 0} source={Icons.fanhui}/>
+                <Image opacity = {this.props.onLeft ? 1 : 0} source={c_iconBack}/>
                 <Label style = {{fontSize:Layout.c16, color:Color.transparent}}>返回</Label>
             </View>
         </Touch>
@@ -78,7 +34,7 @@ export class NavRight extends React.PureComponent{
             onPress={this.props.onRight}
         >
             <View style = {{paddingHorizontal:Layout.pad, flexDirection:"row", alignItems:"center"}}>
-                <Image opacity = {0} source={Icons.fanhui}/>
+                <Image opacity = {0} source={c_iconBack}/>
                 <Label style = {{fontSize:Layout.c16, color:this.props.onRight ? Color.white : Color.transparent }}>更多</Label>
             </View>
         </Touch>
@@ -103,7 +59,7 @@ export class NavBar extends React.PureComponent{
             minHeight:40, 
         }}>
             {this.props.left || <NavLeft onLeft = {this.props.onLeft}/>}
-            {(typeof(this.props.title) == "string") ? <NavTitle title = {this.props.title}/> : (this.props.title)}
+            {Jx.isString(this.props.title) ? <NavTitle title = {this.props.title}/> : (this.props.title)}
             {this.props.right || <NavRight onRight = {this.props.onRight}/>}
         </View>
     }
@@ -161,9 +117,7 @@ export class Button1 extends Button {
 
 export class Input extends TextInput {
     render(){
-        //, placeholderTextColor,
         let {style, underlineColorAndroid, ...other} = this.props;
-        // placeholderTextColor = placeholderTextColor || Color.gray;
         underlineColorAndroid = underlineColorAndroid || Color.transparent;
         const c16 = Layout.c16;
         style = {
@@ -172,10 +126,9 @@ export class Input extends TextInput {
             paddingLeft : 5,
             borderColor : "#BBB",
             fontSize : c16,
-            height : App.isAndroid ? null : 50,
+            height : Jpp.isAndroid ? null : 50,
             ...style,
         }
-        //, placeholderTextColor
         this.props = {style, underlineColorAndroid, ...other};
         return super.render();
     }

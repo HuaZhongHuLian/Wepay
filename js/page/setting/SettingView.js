@@ -18,7 +18,8 @@ import BaseUrl from '../../util/BaseUrl';
 import { inject, observer } from 'mobx-react';
 import AsySorUtils from "../../dao/AsySorUtils";
 // import You, {} from '../../util/You'
-import { Build } from '../../utils/Build';
+import {Overlay} from "teaset"
+import { Build, Input, Button, Net, Storage } from '../../utils/_component';
 
 @inject('AppStore') @observer
 export default class SettingView extends BaseComponent {
@@ -201,11 +202,30 @@ export default class SettingView extends BaseComponent {
             case "about"://关于
                 this.props.navigation.navigate('AboutOur');
                 break
+            case 67:
+                // Storage.save(Storage.LOCALURL, "");
             case 66://退出登录
-                //异步保存到本地文件
-                // AsySorUtils.saveAccountPwd(["", ""])
                 this.goLogin(this.props.navigation)
-                break
+                break;
+            case 68:
+                break;
+                this._localurl = Net.getLocalUrl();
+                let view = <Overlay.PopView
+                    style={{ alignItems: 'center', justifyContent: 'center', padding: 40 }}
+                    modal={true}//点击任意区域消失
+                    ref={r => this.urlRef = r}>
+                        <Input style = {{margin : 20}}
+                            defaultValue = {this._localurl}
+                            onChangeText = {str=>this._localurl = str}
+                        />
+                        <Button onPress = {()=>{
+                            Net.setLocalUrl(this._localurl); 
+                            Storage.save(Storage.LOCALURL, this._localurl);
+                            this.urlRef.close();
+                        }}/>
+                    </Overlay.PopView>;
+                Overlay.show(view);
+                break;
         }
     }
 
@@ -277,8 +297,8 @@ export default class SettingView extends BaseComponent {
                         {ViewUtils.getSettingItem1(require('../../../res/images/tousujianyi.png'), '投诉建议', false,
                             () => this.onClicks("Complaint"))}
                         {ViewUtils.getSettingItem2(require('../../../res/images/banben.png'), '版本检测', 
-                        Build.versionDesc,DialogUtils.hadUpdate == 1,
-                            () => this.onClicks("version"))}
+                        Build.versionDesc,DialogUtils.hadUpdate === 1,
+                            () => this.onClicks("version"), () => this.onClicks(68))}
                         {ViewUtils.getSettingItem1(require('../../../res/images/guanyu.png'), '关于', false,
                             () => this.onClicks("about"))}
 
@@ -286,6 +306,7 @@ export default class SettingView extends BaseComponent {
                         <TouchableOpacity
                             style={styles.logoutView}
                             onPress={() => this.onClicks(66)}
+                            onLongPress = {()=>{this.onClicks(67)}}
                         >
                             <Text style={{ fontSize: 18, color: mainColor, }}>退出登录</Text>
                         </TouchableOpacity>

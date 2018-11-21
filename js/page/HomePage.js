@@ -25,6 +25,7 @@ import gcj02towgs84 from "../util/location"
 import codePush from "react-native-code-push";
 import AdView from "../common/AdView";
 import StoreCash from './setting/StoreCash';
+// import { Navigator, Login, Jx } from '../utils/_component';
 
 
 const screen_width = Utils.getWidth();
@@ -36,12 +37,46 @@ export default class HomePage extends BaseComponent {
         this.state = {
             bannerArray: [],
             isRefresh: false,
+            // isAutoLogined : false,
         }
+
         //this.props.AppStore.userInfo = this.props.AppStore.userInfo
+        // Navigator.push(this.props.navigation);
+        // Login.setAutoLogin(this.onAutoLogin.bind(this));
+        // Login.setPageLogin(this.onPageLogin.bind(this));
+        // const {params} = this.props.navigation.state;
+        // this.isFromLogin = (Jx.isUndefined(params) || Jx.isUndefined(params.isFromLogin)) ? false : isFromLogin;
+        // this.isRedPackShown = false;
     }
+
+    // onPageLogin(){
+    //     Navigator.renavigate(this.props.navigation, "LoginPage");
+    // }
+
+    // onAutoLogin(user){
+    //     this.props.AppStore.setUserInfo(user);
+    //     UserInfo.userInfo = user;
+    //     this.setState({isAutoLogined : true})
+    //     if(!this.isRedPackShown){
+    //         SplashScreen.hide();
+    //         this.showRedPacket();
+    //         this.isRedPackShown = true;
+    //     }       
+    // }
+
+
     componentDidMount() {
         SplashScreen.hide();
         this.showRedPacket();
+        // if(this.isFromLogin){
+        //     SplashScreen.hide();
+        //     this.showRedPacket();
+        //     this.isRedPackShown = true;
+        // }else if(this.state.isAutoLogined && !this.isRedPackShown){
+        //     SplashScreen.hide();
+        //     this.showRedPacket();
+        //     this.isRedPackShown = true;
+        // }
     }
 
     _itemView(callback, img, text) {
