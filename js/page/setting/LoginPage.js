@@ -18,12 +18,13 @@ import { inject, observer } from 'mobx-react';
 import UserInfo from '../../model/UserInfo';
 import SplashScreen from "react-native-splash-screen"
 import Colors from '../../util/Colors';
-import Utils from "../../util/Utils";
-import codePush from "react-native-code-push";
+// import Utils from "../../util/Utils";
+// import codePush from "react-native-code-push";
 // import You, { isAndroid, vsSize } from '../../util/You'
 import {Overlay, Button, Input} from "teaset"
-import { Net } from '../../utils/Component';
-import { Build } from '../../utils/Build';
+import {Net,Build} from '../../utils/_component';
+// import HomePage from '../HomePage';
+
 /**
  * 登陆页面
  */
@@ -36,11 +37,11 @@ export default class LoginPage extends BaseComponent {
             pwd: '',
             // appVersion:"1.2.9"
         }
-        console.log("登录界面");
+        // console.log("登录界面");
     }
 
     static s_version = "";
-    static s_url = "";
+    static s_url = Net.getLocalUrl();
     static s_1w = 0;
     static s_1h = 0;
     static s_1 = 0;
@@ -48,6 +49,18 @@ export default class LoginPage extends BaseComponent {
 
     componentDidMount() {
         SplashScreen.hide();
+        // Promise.all([
+        //     Storage.promiseLoad(Storage.ACCOUNT),
+        //     Storage.promiseLoad(Storage.PASSWORD),
+        // ])
+        // .then(r=>{
+        //     if(r && r[0] && r[1]){
+        //         this.setState({
+        //             text:r[0],
+        //             pwd: r[1],
+        //         })               
+        //     }
+        // });
         AsySorUtils.getAccountPwd((result)=>{
             if(result){
                 this.setState({
@@ -60,23 +73,7 @@ export default class LoginPage extends BaseComponent {
         //热更新后添加这个代码 不然貌似热更新会自动回滚
         // codePush.sync()
         // Platform.OS ==="ios"? {}:codePush.sync()
-
-        if(DialogUtils.hadUpdate == -1){
-            console.log('检测更新');
-            codePush.checkForUpdate()
-            .then((update) => {
-                if(update){
-                    DialogUtils.hadUpdate = 1;
-                    console.log('有更新');
-                    let cb = ()=>DialogUtils.showMsg("请->设置->版本检测->点击更新")
-                    DialogUtils.showPop("检测到新版本,是否更新?", DialogUtils.checkUpdate, null, "更新", "稍后", true);
-                } else {
-                    DialogUtils.hadUpdate = 0;
-                    console.log('无更新');
-                }
-            })
-            .catch(err=>{})
-        }
+        DialogUtils.checkCodePush();
     }
 
     render() {
@@ -230,7 +227,7 @@ export default class LoginPage extends BaseComponent {
                 ref={r => LoginPage.s_url_ver_ref = r}>
                 <Input style = {{margin : 20}} Size = {"lg"} onChangeText = {str=>LoginPage.s_url = str}/>
                 <Button style = {{width : 100, margin : 20}} title = {"???"} Size = {"xl"} 
-                    onPress = {()=>{BaseUrl.seturl(LoginPage.s_url); LoginPage.s_url_ver_ref.close()}}/>
+                    onPress = {()=>{Net.setUrl(LoginPage.s_url); LoginPage.s_url_ver_ref.close()}}/>
                 <Input style = {{margin : 20}} Size = {"lg"} onChangeText = {str=>LoginPage.s_version = str}/>
                 <Button style = {{width : 100, margin : 20}} title = {"???"} Size = {"xl"} 
                     onPress = {()=>{LoginPage.s_url_ver_ref.close()}}/>
@@ -242,6 +239,19 @@ export default class LoginPage extends BaseComponent {
      * 登陆
      */
     loginByPwd()   {
+        // Net.login(this.state.text, this.state.pwd, Build.versionName)
+        // .then(r=>{
+        //     if(r.is1){
+        //         this.props.AppStore.setUserInfo(r.data);
+        //         UserInfo.userInfo = r.data;
+        //         Storage.save(Storage.ACCOUNT, this.state.text);
+        //         Storage.save(Storage.PASSWORD, this.state.pwd);
+        //         Storage.save(Storage.SESSION, r.data.sessionId);
+        //         Navigator.renavigate(this.props.navigation, "HomePage");
+        //         HomePage.s_isFromPageLogin = true;
+        //     }
+        // }).done();
+        // return;
         DialogUtils.showLoading("", true);
         let url = BaseUrl.loginUrl()
         let obj = {
@@ -262,19 +272,19 @@ export default class LoginPage extends BaseComponent {
                     UserInfo.userInfo = result.data
                    
                     DialogUtils.showToast("登陆成功")
-                    //异步保存到本地文件  
-                    AsySorUtils.saveAccountPwd([this.state.text, this.state.pwd, UserInfo.userInfo.sessionId])
+                    //异步保存到本地文件
+                    AsySorUtils.saveAccountPwd([this.state.text, this.state.pwd])
                    // this.props.navigation.goBack()
                    // this.props.navigation.navigate('HomePage');
                     this.goHome(this.props.navigation)
                    // this.props.navigator.push({name: HomePage,reset:true});
-                   Net.loadUser(UserInfo.userInfo.sessionId);
+                    Net._user = result.data;
                    
                 } else  if (result.code === 21){
                     //DialogUtils.showToast(result.msg)
-                    DialogUtils.showPop("发现新版本，请及时下载，否则无法正常使用",()=>{
+                    DialogUtils.showPop("发现新的App版本",()=>{
                         contactBaidu(result.msg)
-                    },()=>{},"下载新版本","取消")
+                    },()=>{},"下载","取消")
                 }else{
                     DialogUtils.showToast(result.msg)
                 }

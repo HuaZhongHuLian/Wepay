@@ -309,7 +309,7 @@ export default class DialogUtils {
                 if (!update) {
                     //热更新后添加这个代码 不然貌似热更新会自动回滚
                     // Platform.OS ==="ios"? {}:codePush.sync()
-                    DialogUtils.showToast("已是最新版本")
+                    this.showToast("已是最新版本")
                 } else {
                     codePush.sync({
                         //可选的，更新的对话框，默认是null,包含以下属性
@@ -343,11 +343,30 @@ export default class DialogUtils {
     }
 
     static hadUpdate = -1;
+    static checkCodePush(){
+        if(this.hadUpdate === -1){
+            console.log('检测热更新');
+            codePush.checkForUpdate()
+            .then((update) => {
+                if(update){
+                    this.hadUpdate = 1;
+                    console.log('有更新');
+                    let cb = ()=>this.showMsg("请->设置->版本检测->点击更新")
+                    this.showPop("检测到新版本,是否更新?", this.checkUpdate.bind(this), null, "更新", "稍后", true);
+                } else {
+                    this.hadUpdate = 0;
+                    console.log('无更新');
+                }
+            })
+            .catch(err=>{})
+        }
+    }
     static checkUpdate(){
-        if(this.hadUpdate != 1){
-            DialogUtils.showToast("最新版本");
+        if(this.hadUpdate === 0){
+            this.showToast("最新版本");
             return;
         }
+        this.showLoading("", true);
         let dialog = {
             appendReleaseDescription: true,//是否显示更新description，默认false
             //要显示的更新通知的标题. Defaults to “Update available”.
@@ -385,7 +404,7 @@ export default class DialogUtils {
                 break;
             case codePush.SyncStatus.DOWNLOADING_PACKAGE:
                 console.log("下载更新包...");
-                DialogUtils.showUpdating(0, 0);
+                this.showUpdating(0, 0);
                 // this.hideLoading();
                 // this.showLoading("更新包下载中...", true);
                 break;
@@ -406,13 +425,14 @@ export default class DialogUtils {
         },
         (progress) => {
             console.log(progress.receivedBytes + " of " + progress.totalBytes + " received.");
-            DialogUtils.showUpdating(progress.receivedBytes, progress.totalBytes);
+            this.showUpdating(progress.receivedBytes, progress.totalBytes);
         });
     }
 
     static showUpdating(percent, total) {
-        if(!DialogUtils.updateFlag){
-            DialogUtils.updateFlag = true;
+        if(!this.updateFlag){
+            this.hideLoading();
+            this.updateFlag = true;
             console.log("创建更新提示");
             // Overlay.show(<TextUpdate2 
             //     total = {total}
@@ -425,12 +445,12 @@ export default class DialogUtils {
                 overlayOpacity={0}>
                 <TextUpdate
                     total = {total}
-                    ref={r => DialogUtils.updatingView = r} 
+                    ref={r => this.updatingView = r}
                 />
             </Overlay.View>);
         }
         console.log("刷新更新提示");
-        DialogUtils.updatingView.setPercent(percent, total);
+        this.updatingView.setPercent(percent, total);
     }
 
 
