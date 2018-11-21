@@ -126,11 +126,13 @@ class PassNumInput extends Component {
     }
     render() {
         return (
-            <View style={{ flex: 1, flexDirection: "column", alignItems: "center" }}>
+            <View style={{ flex: 1, flexDirection: "column", alignItems: "center", justifyContent:"flex-end" }}>
                 <View style={{
                     flexDirection: "column", padding: 20,
                     borderColor: "#666", borderWidth: 1,
-                    backgroundColor: "#fff", marginTop: this.props.price!==0?100:140,
+                    backgroundColor: "#fff", 
+                    zIndex: 1
+                    // marginTop: this.props.price!==0?100:140,
                 }}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <TouchableOpacity onPress={() => this.props.onClose()}>
@@ -141,8 +143,11 @@ class PassNumInput extends Component {
                     <View style={{ backgroundColor: "#aaa", height: 0.5, flexDirection: 'column', marginTop: 10, marginBottom: 5, }} />
                    {this.props.price!==0?<View style={{ alignItems: "center" ,marginTop:10,marginLeft:-10}}>
                         <Text style={{ fontSize: 14, color: "#000", }}> {this.props.des}</Text>
-                        <Text style={{ fontSize: 22, color: "#000", }}>{(typeof(this.props.rmb)==="undefined")?"":"￥"}{ new Number(this.props.price).toFixed(2)}</Text>
-                    </View>:null
+                        <Text style={{ fontSize: 22, color: "#000", }}>￥{ new Number(this.props.price).toFixed(2)}</Text>
+                    </View>:
+                    <View style={{ alignItems: "center" ,marginTop:10,marginLeft:-10}}>
+                        <Text style={{ fontSize: 14, color: "#000", textAlign:"center"}}> {this.props.des}</Text>
+                    </View>
                 } 
                     <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", marginTop: 20 }}>
                         {this.creatPwd()}
@@ -150,7 +155,7 @@ class PassNumInput extends Component {
                 </View>
 
                 {/* 数字键盘  */}
-                <View style={{ backgroundColor: "#fff", justifyContent: "center", alignItems: "center", flexDirection: "column", position: "absolute", zIndex: 1, bottom: 0 }}>
+                <View style={{ backgroundColor: "#fff", justifyContent: "center", alignItems: "center", flexDirection: "column", zIndex: 1 }}>
                     <TouchableOpacity
                         style={{ padding: 10 }}
                         onPress={() => this.props.onClose()}>
