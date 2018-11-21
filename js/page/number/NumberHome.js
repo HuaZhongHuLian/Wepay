@@ -29,10 +29,23 @@ export default class NumberHome extends BaseComponent {
             coinVos:[],  // 货币信息集合
         }
         this.userInfo = this.getUserInfo();
+        this.coinVos = null;
     }
     //界面加载完成
     componentDidMount() {
         this._refreshData()
+    }
+
+    getcoinVos(index){
+        if(typeof(index) === "number"){
+            for(let k = 0; k < this.coinVos.length; ++k){
+                if(this.coinVos[k].cid == index){
+                    return this.coinVos[k];
+                }
+            }
+            return null;
+        }
+        return this.coinVos;
     }
 
     /**
@@ -52,6 +65,7 @@ export default class NumberHome extends BaseComponent {
                      wepayNum:result.data.num,
                      purseAddress:result.data.walletAddress
                    })
+                   this.coinVos = result.data.coinVos;
                    this.refList.setData(result.data.coinVos)
                 } else if (result.code === 2||result.code === 4) {
                     DialogUtils.showToast(result.msg)
@@ -202,7 +216,7 @@ export default class NumberHome extends BaseComponent {
                 <Text style={{ color: Colors.text6, fontSize: 14, marginLeft: 5, flex: 1 }}>当前价格</Text>
                 <TouchableOpacity 
                     style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 5, backgroundColor: Colors.mainColor }}
-                    onPress = {()=>{this.props.navigation.navigate('CashTransactions',{cid:cid})}}
+                    onPress = {()=>{this.props.navigation.navigate('CashTransactions',{cid:cid, coin : this.getcoinVos(cid)})}}
                 >
                     <Text style={{ color: Colors.white, fontSize: 14, }}>现金交易</Text>
                 </TouchableOpacity>
