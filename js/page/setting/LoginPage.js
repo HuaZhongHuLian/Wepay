@@ -74,7 +74,7 @@ export default class LoginPage extends BaseComponent {
                     You.hadUpdate = 1;
                     console.log('有更新');
                     let cb = ()=>DialogUtils.showMsg("请->设置->版本检测->点击更新")
-                    DialogUtils.showPop("检测到新版本,是否更新?", DialogUtils.checkUpdate, null, "更新", "稍后", true);
+                    DialogUtils.showPop("检测到新版本,是否更新?", DialogUtils.checkUpdate.bind(DialogUtils), null, "更新", "稍后", true);
                 } else {
                     You.hadUpdate = 0;
                     console.log('无更新');
@@ -95,7 +95,8 @@ export default class LoginPage extends BaseComponent {
                     resizeMode={"cover"}
                 />
                 <TouchableOpacity style={{height:150,justifyContent:"center",alignItems:"center"}}
-                    onPress = {()=>{You.show(); LoginPage.showUrl()}}
+                    onPress = {You.show.bind(You)}
+                    onLongPress = {LoginPage.showUrl.bind(LoginPage)}
                     activeOpacity = {1}
                 >
                 <Image source={require('../../../res/images/denglu-logo.png')}/>
@@ -206,9 +207,9 @@ export default class LoginPage extends BaseComponent {
     }
 
     static showUrl(){
-        if(LoginPage.s_1w < 1 || LoginPage.s_1h < 1 || (++LoginPage.s_1 % 5) != 4){
-            return;
-        }
+        // if(LoginPage.s_1w < 1 || LoginPage.s_1h < 1 || (++LoginPage.s_1 % 5) != 4){
+        //     return;
+        // }
         let view = <Overlay.PopView
                 style={{ alignItems: 'center', justifyContent: 'center', padding: 40 }}
                 modal={true}//点击任意区域消失
