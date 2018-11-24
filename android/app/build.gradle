@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
+import groovy.json.*
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -95,6 +96,17 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = true
 
+
+//获取配置文件的版本信息
+ 
+def getAppVersion() {
+    def inputFile = new File("../package.json")
+    def packageJson = new JsonSlurper().parseText(inputFile.text)
+    return packageJson["version"]
+}
+ 
+def appVersion = getAppVersion()
+
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
@@ -107,7 +119,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 27
-        versionName "1.0.1"
+        versionName appVersion // "1.0.1"
 
         ndk {
             abiFilters "armeabi-v7a", "x86",'armeabi'
@@ -131,27 +143,33 @@ android {
             keyAlias "wepay"
             keyPassword "wepaywepay"
         }
-
-        debug {
-            storeFile file("Rn_wepay.keystore")
-            storePassword "wepaywepay"
-            keyAlias "wepay"
-            keyPassword "wepaywepay"
-        }
     }
     buildTypes {
         release {
+            resValue 'string', 'app_name', 'TOT'
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-           // buildConfigField "String", "CODEPUSH_KEY", '"v-5TDPSESydQj-n9alBgCVEab3Mefdf2b04e-456b-420f-8acd-58a99c8306be"'
+            buildConfigField "String", "CODEPUSH_KEY", '"Ypu_6i-rmXebsfSjiOmfLPQEDeknfdf2b04e-456b-420f-8acd-58a99c8306be"'
+            buildConfigField "String", "buildType", '"release"'
         }
-//        releaseStaging {
-//            buildConfigField "String", "CODEPUSH_KEY", '"rDOo0zulXVYp1xx5ub7fBKU1L9_tfdf2b04e-456b-420f-8acd-58a99c8306be"'
-//        }
-//        debug {
-//            buildConfigField "String", "CODEPUSH_KEY", '"rDOo0zulXVYp1xx5ub7fBKU1L9_tfdf2b04e-456b-420f-8acd-58a99c8306be"'
-//        }
+        releaseStaging {
+            resValue 'string', 'app_name', 'Test'
+            applicationIdSuffix ".releaseStaging"
+            signingConfig signingConfigs.release
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            buildConfigField "String", "CODEPUSH_KEY", '"Wd0-NPGdS1tzi0KDwnFRT1GbSOjFfdf2b04e-456b-420f-8acd-58a99c8306be"'
+            buildConfigField "String", "buildType", '"releaseStaging"'
+            matchingFallbacks = ['releaseStaging', 'release']
+        }
+
+        debug{
+            resValue 'string', 'app_name', 'Debug'
+            applicationIdSuffix ".debug"
+            buildConfigField "String", "CODEPUSH_KEY", '"Ypu_6i-rmXebsfSjiOmfLPQEDeknfdf2b04e-456b-420f-8acd-58a99c8306be"'
+            buildConfigField "String", "buildType", '"debug"'
+        }
     }
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->

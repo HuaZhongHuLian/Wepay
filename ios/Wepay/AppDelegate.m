@@ -10,7 +10,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import "RNSplashScreen.h"
+#import "RNSplashScreen.h" 
 
 @implementation AppDelegate
 
@@ -20,16 +20,23 @@
   //热更新
   //jsCodeLocation = [CodePush bundleURL];
     
-    #ifdef DEBUG
-          jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
-         //jsCodeLocation = [NSURL URLWithString:@"http://192.168.0.104:8081/index.bundle?platform=ios&dev=true"];
-    #else
-          jsCodeLocation = [CodePush bundleURL];
-         // jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"bundle/index.ios" withExtension:@"jsbundle"];
-    #endif
+#ifdef DEBUG
+     jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+//#if TARGET_OS_SIMULATOR
+//    jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.bundle?platform=ios&dev=true"];
+//#else
+//    NSString *serverIP = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"SERVER_IP"];
+//    NSString *jsCodeUrlString = [NSString stringWithFormat:@"http://%@:8081/index.bundle?platform=ios&dev=true",serverIP];
+//    NSString *jsBundleUrlString = [jsCodeUrlString stringByAddingPercentEscapesUsingEncoding : NSUTF8StringEncoding];
+//    jsCodeLocation = [NSURL URLWithString : jsBundleUrlString];
+//#endif
+#else
+//     jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"bundle/index.ios" withExtension:@"jsbundle"];
+    jsCodeLocation = [CodePush bundleURL];
+#endif
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"Wepay"
+                                                      moduleName:@"Wepay2"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
