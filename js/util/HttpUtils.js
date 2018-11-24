@@ -1,6 +1,7 @@
 import DialogUtils from './DialogUtils';
 import BaseUrl from './BaseUrl';
 export default class HttpUtils {
+    static s_goLogin = null;
     /**
      * 
      * @param {*} url 
@@ -19,6 +20,43 @@ export default class HttpUtils {
                    reject(error);
                 })
         })
+    }
+
+    static get(url, data){
+        let f;
+        if(data){
+            var formData = new FormData();
+            for (const key in data) {
+                formData.append(key,data[key]);
+            }
+            f = fetch(url, {
+                method: 'POST',
+                header: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    //'charset':'UTF-8'
+                },
+                body: formData,
+            })
+        } else {
+            f = fetch(url);
+        }
+        return f.then(response => response.json())
+        .then(result => {
+            DialogUtils.hideLoading();
+            if(result.code == 1 || result.code == 21){
+                return result;
+            }else {
+                DialogUtils.showToast(result.msg);
+                if(result.code == 2 || result.code == 4){
+                    HttpUtils.s_goLogin && HttpUtils.s_goLogin();
+                }
+            }
+        })
+        .catch(error => {
+           this.errorMsg(error)
+           return error;
+        })       
     }
 
     /**错误信息解析
@@ -79,7 +117,7 @@ export default class HttpUtils {
      * @param {*} callback 成功回调方法
      */
     static uploadImage(url,obj,imgAry,callback) {
-        DialogUtils.showLoading()
+        DialogUtils.showLoading("", true)
         let formData = new FormData();       //因为需要上传多张图片,所以需要遍历数组,把图片的路径数组放入formData中
         for (var i = 0; i < imgAry.length; i++) {
             //截取获取文件名
