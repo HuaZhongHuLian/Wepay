@@ -71,6 +71,9 @@ import TranWB from "../page/number/TranWB"
 import OrderRecord from "../page/number/OrderRecord"
 import TeadeRecord from "../page/number/TeadeRecord"
 
+import GameAmuse from '../page/GameAmuse'
+import GameExchange from '../page/GameExchange'
+import GameGuide from '../page/GameGuide'
 
 export default AppNavigator = createStackNavigator({
     // PassNumInput: {//密码输入
@@ -293,6 +296,12 @@ export default AppNavigator = createStackNavigator({
     AboutOur: {
         screen: AboutOur,
     },
+    // 游戏娱乐
+    GameAmuse : {screen : GameAmuse},
+
+    GameExchange : {screen : GameExchange},
+
+    GameGuide : {screen : GameGuide},
     Welcome: {//欢迎页 
         screen: Welcome,
         path: 'app/homeTwo',//使用url导航时用到, 如 web app 和 Deep Linking

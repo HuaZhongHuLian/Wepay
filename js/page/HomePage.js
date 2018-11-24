@@ -300,7 +300,9 @@ export default class HomePage extends BaseComponent {
                 this.props.navigation.navigate('JiHuo');
                 break;
             case 8://游戏娱乐
-                DialogUtils.showToast("此模块正在升级中...")
+                // DialogUtils.showToast("此模块正在升级中...")
+                // break;
+                this.gotoGame();
                 break;
             case 9://群员互动
                 DialogUtils.showToast("此模块正在升级中...")
@@ -310,6 +312,16 @@ export default class HomePage extends BaseComponent {
         }
     }
 
+    gotoGame(){
+        // this.props.navigation.navigate('GameAmuse', {gameDatas : [{gold:12345,gameId : 1,isBinding:1}]});
+
+        DialogUtils.showLoading('', true);
+        HttpUtils.postData(BaseUrl.getGameHomeUrl(), {sessionId : this.props.AppStore.userInfo.sessionId}).then(result => {
+            if(this.isNotLogin(result)){
+                this.props.navigation.navigate('GameAmuse', {gameDatas : result.data});
+            }
+        }).catch(DialogUtils.hideLoading)
+    }
 }
 const styles = StyleSheet.create({
     container_top: {

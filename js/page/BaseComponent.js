@@ -23,6 +23,7 @@ import Colors from "../util/Colors";
 export default class BaseComponent extends Component {
     constructor(props) {
         super(props);
+        HttpUtils.s_goLogin = (()=>{this.goLogin(this.props.navigation)}).bind(this);
         // this.navigation = this.props.navigation;
         //this.props.navigation.navigate('name');
         // this.props.navigation.goBack()
@@ -41,6 +42,17 @@ export default class BaseComponent extends Component {
         });
         //执行重置路由方法
         navigation.dispatch(resetAction)
+    }
+
+    isNotLogin(result) {
+        DialogUtils.hideLoading();
+        if(result.code == 1){
+            return true;
+        }
+        DialogUtils.showToast(result.msg);
+        if(result.code == 2 || result.code == 4){
+            this.goLogin(this.props.navigation);
+        }
     }
 
     //跳转并替换当前路由
