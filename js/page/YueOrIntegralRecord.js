@@ -48,7 +48,7 @@ export default class YueOrIntegralRecord extends BaseComponent {
                     padding: 15,
                     backgroundColor: "#fff",
                 }]}>
-                    <View style={{ alignItems: 'center', width: width / 4 - 20, }}>
+                    <View style={{ alignItems: 'center', width: width / 4 - 20 + 10, }}>
                         <Text style={{
                             color: '#333',
                             fontSize: 15,
@@ -151,10 +151,11 @@ export default class YueOrIntegralRecord extends BaseComponent {
                 //alert(JSON.stringify(data.item))
             }}>
                 <View style={{ flexDirection: 'row', }}>
-                    <View style={{ justifyContent: "center", alignItems: 'center', width: width / 4 - 10, }}>
+                    <View style={{ justifyContent: "center", alignItems: 'center', width: width / 4 - 10 + 5, }}>
                         <Text style={{
                             color: '#333',
                             fontSize: 13,
+                            textAlign : 'center',
                         }}>{this.type === 0 ? this.getYueType(data)[0] : this.getJifenType(data)[0]}</Text>
                     </View>
                     <View style={{ justifyContent: "center", alignItems: 'center', width: width / 4 - 10, }}>
@@ -170,10 +171,11 @@ export default class YueOrIntegralRecord extends BaseComponent {
                             //当getType===0 时  当前余额或者积分 取得的 nowNums 其他的都是取nowNumsGet
                         }}>{data.item.getType === 0||data.item.getType === 4 ? data.item.nowNums : data.item.nowNumsGet}</Text>
                     </View>
-                    <View style={{ justifyContent: "center", alignItems: 'center', width: width / 4 + 14, }}>
+                    <View style={{ justifyContent: "center", alignItems: 'center', width: width / 4 + 14 - 5, }}>
                         <Text style={{
                             color: '#333',
                             fontSize: 13,
+                            textAlign : 'center',
                         }}>{Utils.formatDateTime(data.item.getTime * 1000, "-")}</Text>
                     </View>
                 </View>
@@ -215,7 +217,7 @@ export default class YueOrIntegralRecord extends BaseComponent {
                 typeValue = "+" + yue
                 break;
             case 7:
-                typeText = "购买众筹"
+                typeText = "私募扣除"
                 typeValue = "-" + yue
                 break;
             case 8:
@@ -269,6 +271,13 @@ export default class YueOrIntegralRecord extends BaseComponent {
             case 32:
                 typeText = "激活扣除"
                 typeValue = "-" + yue
+            case 50 : 
+                typeText = '金币兑换\n余额获得';
+                typeValue = '+' + yue;
+                break;
+            case 51 : 
+                typeText = '余额兑换\n金币扣除';
+                typeValue = '-' + yue;
                 break;
         }
         return [typeText, typeValue];

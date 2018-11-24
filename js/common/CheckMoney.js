@@ -41,18 +41,19 @@ export default class CheckMoney extends Component {
     creatViews(arrText) {
         let textWidth = window_width / 3 - 30
         let style = {
-            width: textWidth,
-            height: textWidth / 3,
+            width: this.props.selectWidth || textWidth,
+            height: this.props.selectHeight || (textWidth / 3),
             borderRadius: 5,
             borderWidth: 1,
             borderColor: Colors.mainColor,
             alignItems: 'center', justifyContent: 'center',
             margin: 10,
+            ...this.props.styleItem,
         }
         var views = [];
         for (let i = 0; i < arrText.length; i++) {
-            let styleText = this.state.seleIndex === i ? {color: "#fff"} : { color: Colors.mainColor};
-            let styleView = this.state.seleIndex === i ? {backgroundColor: Colors.mainColor} : { backgroundColor: "#fff"};
+            let styleText = this.state.seleIndex === i ? {color: "#fff"} : { color: this.props.unselectedColor || Colors.mainColor};
+            let styleView = this.state.seleIndex === i ? {backgroundColor: Colors.mainColor} : { backgroundColor: "#fff", borderColor : this.props.unselectedColor || Colors.mainColor};
             views.push(
                 <TouchableOpacity
                     key={arrText[i]}
@@ -67,7 +68,7 @@ export default class CheckMoney extends Component {
                     }}>
                     <Text
                         key={i}
-                        style={[styleText,{fontSize: 16,}]}>{arrText[i]}</Text>
+                        style={[styleText,{fontSize: 16, ...this.props.fontStyle}]}>{this.props.fontDesc ? this.props.fontDesc(arrText[i]) : arrText[i]}</Text>
                 </TouchableOpacity>
             );
         }
@@ -77,7 +78,8 @@ export default class CheckMoney extends Component {
             marginLeft: 15,
             marginRight: 15,
             paddingTop: 10,
-            paddingBottom: 10
+            paddingBottom: 10,
+            ...this.props.viewStyle,
         }}>
             {views}
         </View>
