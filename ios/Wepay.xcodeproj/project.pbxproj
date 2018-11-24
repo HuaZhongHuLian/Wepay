@@ -16,8 +16,6 @@
 		041CF217217733D20015D107 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 041CF216217733740015D107 /* libSplashScreen.a */; };
 		046FA61021180F1100D770A9 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 046FA5EC21180E3B00D770A9 /* libRCTCameraRoll.a */; };
 		04829FD62143B2DE008ACA40 /* libFastImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04829FD52143B2D3008ACA40 /* libFastImage.a */; };
-		04A05FBE2122848800C46C6E /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 04A05FBC2122848800C46C6E /* assets */; };
-		04A05FBF2122848800C46C6E /* index.ios.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 04A05FBD2122848800C46C6E /* index.ios.jsbundle */; };
 		04C3B6F820F347DF00896097 /* TZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04C3B6D120F347DF00896097 /* TZImagePickerController.bundle */; };
 		04E048C1210478AF0005E3BC /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		0B0A8A2DF5E84A8ABF0FF4A0 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C20EC66ECC9145CEB5D2EFA3 /* Octicons.ttf */; };
@@ -31,6 +29,10 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1A9DBFF294CF4384AF8C35AA /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 20FD1009D23F43FDB4AAB812 /* MaterialCommunityIcons.ttf */; };
+		1C0AAB3121946A5C00FF4239 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 1C0AAB2E21946A5C00FF4239 /* assets */; };
+		1C0AAB3221946A5C00FF4239 /* index.ios.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C0AAB2F21946A5C00FF4239 /* index.ios.jsbundle */; };
+		1C0AAB3321946A5C00FF4239 /* index.ios.jsbundle.meta in Resources */ = {isa = PBXBuildFile; fileRef = 1C0AAB3021946A5C00FF4239 /* index.ios.jsbundle.meta */; };
+		1C415F67218C851200583F39 /* WepayModules.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C415F66218C851200583F39 /* WepayModules.m */; };
 		22A5462F5423419B88CB19B5 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 074669B514AD441E8F44EE19 /* Zocial.ttf */; };
 		261307C7D3104919AEE0360E /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37DDC512520A4713A431DB1A /* libCodePush.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -415,14 +417,12 @@
 		041CF211217733740015D107 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		046FA5DE21180E3A00D770A9 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		04829FCF2143B2D3008ACA40 /* FastImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FastImage.xcodeproj; path = "../node_modules/react-native-fast-image/ios/FastImage.xcodeproj"; sourceTree = "<group>"; };
-		04A05FBC2122848800C46C6E /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = bundle/assets; sourceTree = "<group>"; };
-		04A05FBD2122848800C46C6E /* index.ios.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = index.ios.jsbundle; path = bundle/index.ios.jsbundle; sourceTree = "<group>"; };
 		04A05FC02122E4EC00C46C6E /* Wepay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Wepay.entitlements; path = Wepay/Wepay.entitlements; sourceTree = "<group>"; };
 		04C3B6D120F347DF00896097 /* TZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TZImagePickerController.bundle; path = "../node_modules/react-native-syan-image-picker/ios/TZImagePickerController/TZImagePickerController.bundle"; sourceTree = "<group>"; };
 		074669B514AD441E8F44EE19 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* Wepay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wepay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Wepay.temp_caseinsensitive_rename.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wepay.temp_caseinsensitive_rename.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Wepay/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Wepay/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -430,6 +430,11 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Wepay/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Wepay/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1C0AAB2E21946A5C00FF4239 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = bundle/assets; sourceTree = "<group>"; };
+		1C0AAB2F21946A5C00FF4239 /* index.ios.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = index.ios.jsbundle; path = bundle/index.ios.jsbundle; sourceTree = "<group>"; };
+		1C0AAB3021946A5C00FF4239 /* index.ios.jsbundle.meta */ = {isa = PBXFileReference; lastKnownFileType = file; name = index.ios.jsbundle.meta; path = bundle/index.ios.jsbundle.meta; sourceTree = "<group>"; };
+		1C415F65218C851200583F39 /* WepayModules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WepayModules.h; path = Wepay/WepayModules.h; sourceTree = "<group>"; };
+		1C415F66218C851200583F39 /* WepayModules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WepayModules.m; path = Wepay/WepayModules.m; sourceTree = "<group>"; };
 		1F68AE69AFEA4BD4B29E8974 /* libRNCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCamera.a; sourceTree = "<group>"; };
 		20FD1009D23F43FDB4AAB812 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Wepay-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wepay-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -692,9 +697,12 @@
 		13B07FAE1A68108700A75B9A /* Wepay */ = {
 			isa = PBXGroup;
 			children = (
+				1C0AAB2E21946A5C00FF4239 /* assets */,
+				1C0AAB2F21946A5C00FF4239 /* index.ios.jsbundle */,
+				1C0AAB3021946A5C00FF4239 /* index.ios.jsbundle.meta */,
+				1C415F65218C851200583F39 /* WepayModules.h */,
+				1C415F66218C851200583F39 /* WepayModules.m */,
 				04A05FC02122E4EC00C46C6E /* Wepay.entitlements */,
-				04A05FBC2122848800C46C6E /* assets */,
-				04A05FBD2122848800C46C6E /* index.ios.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -813,7 +821,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* Wepay.app */,
+				13B07F961A680F5B00A75B9A /* Wepay.temp_caseinsensitive_rename.app */,
 				00E356EE1AD99517003FC87E /* WepayTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* Wepay-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* Wepay-tvOSTests.xctest */,
@@ -888,6 +896,8 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				A05F4E7A908C1FB9862CA2B3 /* [CP] Copy Pods Resources */,
+				1C09F365218C428A003888A1 /* Run Script getVersionName */,
+				1C030DF2218D4962000012D8 /* Run Script JsDebugIP */,
 			);
 			buildRules = (
 			);
@@ -895,7 +905,7 @@
 			);
 			name = Wepay;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* Wepay.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Wepay.temp_caseinsensitive_rename.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* Wepay-tvOS */ = {
@@ -945,11 +955,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = UA8H248KA6;
+						DevelopmentTeam = 8DKJELWVCF;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = UA8H248KA6;
+						DevelopmentTeam = 8DKJELWVCF;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -959,12 +969,12 @@
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = UA8H248KA6;
+						DevelopmentTeam = 8DKJELWVCF;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = UA8H248KA6;
+						DevelopmentTeam = 8DKJELWVCF;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
@@ -1418,14 +1428,15 @@
 				9B6EF25A8EFB40D7964D877F /* Feather.ttf in Resources */,
 				BFAC768557B249DAA039A649 /* FontAwesome.ttf in Resources */,
 				48EBA9245E82482BB55C1611 /* Foundation.ttf in Resources */,
-				04A05FBE2122848800C46C6E /* assets in Resources */,
+				1C0AAB3121946A5C00FF4239 /* assets in Resources */,
 				4B40DEA3C1E248F1A48B9838 /* Ionicons.ttf in Resources */,
 				1A9DBFF294CF4384AF8C35AA /* MaterialCommunityIcons.ttf in Resources */,
 				B223F46ABF204A3296128389 /* MaterialIcons.ttf in Resources */,
 				0B0A8A2DF5E84A8ABF0FF4A0 /* Octicons.ttf in Resources */,
 				72C974C90F61465EB08C5686 /* SimpleLineIcons.ttf in Resources */,
 				22A5462F5423419B88CB19B5 /* Zocial.ttf in Resources */,
-				04A05FBF2122848800C46C6E /* index.ios.jsbundle in Resources */,
+				1C0AAB3321946A5C00FF4239 /* index.ios.jsbundle.meta in Resources */,
+				1C0AAB3221946A5C00FF4239 /* index.ios.jsbundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1460,6 +1471,42 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		1C030DF2218D4962000012D8 /* Run Script JsDebugIP */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script JsDebugIP";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "INFOPLIST=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n\necho \"writing to $INFOPLIST\" PLISTCMD=\"Add :SERVER_IP string $(ifconfig | grep inet\\ | grep -v 127.0 | head -1 | cut -d \" \" -f 2)\"\n\necho -n \"$INFOPLIST\" | xargs -0 /usr/libexec/PlistBuddy -c \"$PLISTCMD\" || true PLISTCMD=\"Set :SERVER_IP $(ifconfig | grep inet\\ | ifconfig | grep inet\\ | grep -v 127.0 | head -1 | cut -d \" \" -f 2)\"\n\necho -n \"$INFOPLIST\" | xargs -0 /usr/libexec/PlistBuddy -c \"$PLISTCMD\" || true\n";
+		};
+		1C09F365218C428A003888A1 /* Run Script getVersionName */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script getVersionName";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "PACKAGE_VERSION=$(cat ../package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\\\",]//g' | tr -d '[[:space:]]')\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $PACKAGE_VERSION\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1527,6 +1574,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				1C415F67218C851200583F39 /* WepayModules.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1580,7 +1628,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1617,7 +1665,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wepay.app/Wepay";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wepay.temp_caseinsensitive_rename.app/Wepay.temp_caseinsensitive_rename";
 			};
 			name = Debug;
 		};
@@ -1626,7 +1674,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
@@ -1659,7 +1707,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wepay.app/Wepay";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wepay.temp_caseinsensitive_rename.app/Wepay.temp_caseinsensitive_rename";
 			};
 			name = Release;
 		};
@@ -1690,8 +1738,9 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODEPUSH_KEY = "FFv7wkh-fism-vMuvqkyuPfptUjrfdf2b04e-456b-420f-8acd-58a99c8306be";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/release$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1715,12 +1764,20 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DEB59B0B1AE415AC6030847 /* Pods-Wepay.release.xcconfig */;
 			buildSettings = {
+				APP_NAME = Test;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODEPUSH_KEY = "yUf-qXiEh-Vl7imkjoY8CR1O7tKsfdf2b04e-456b-420f-8acd-58a99c8306be";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/release$(EFFECTIVE_PLATFORM_NAME)";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"STAGING=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..",
@@ -1745,8 +1802,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay2;
-				PRODUCT_NAME = Wepay;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay2.releaseStaging;
+				PRODUCT_NAME = Wepay.temp_caseinsensitive_rename;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1758,7 +1815,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
@@ -1791,7 +1848,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wepay.app/Wepay";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wepay.temp_caseinsensitive_rename.app/Wepay.temp_caseinsensitive_rename";
 			};
 			name = Staging;
 		};
@@ -1806,7 +1863,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1855,7 +1912,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1889,7 +1946,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Wepay-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wepay-tvOS.app/Wepay-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wepay.temp_caseinsensitive_rename-tvOS.app/Wepay.temp_caseinsensitive_rename-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Staging;
@@ -1899,13 +1956,15 @@
 			baseConfigurationReference = FDAD2FB6CADBE2E51858036D /* Pods-Wepay.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				APP_NAME = Debug;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODEPUSH_KEY = "pQXZssyR4YroQJv8AEBNfiM1R3vgfdf2b04e-456b-420f-8acd-58a99c8306be";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..",
@@ -1930,8 +1989,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay2;
-				PRODUCT_NAME = Wepay;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay2.debug;
+				PRODUCT_NAME = Wepay.temp_caseinsensitive_rename;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1943,12 +2002,18 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DEB59B0B1AE415AC6030847 /* Pods-Wepay.release.xcconfig */;
 			buildSettings = {
+				APP_NAME = TOT;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODEPUSH_KEY = "pQXZssyR4YroQJv8AEBNfiM1R3vgfdf2b04e-456b-420f-8acd-58a99c8306be";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..",
@@ -1974,7 +2039,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Wepay2;
-				PRODUCT_NAME = Wepay;
+				PRODUCT_NAME = Wepay.temp_caseinsensitive_rename;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1991,7 +2056,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -2042,7 +2107,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2090,7 +2155,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -2125,7 +2190,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Wepay-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wepay-tvOS.app/Wepay-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wepay.temp_caseinsensitive_rename-tvOS.app/Wepay.temp_caseinsensitive_rename-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
@@ -2140,7 +2205,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = UA8H248KA6;
+				DEVELOPMENT_TEAM = 8DKJELWVCF;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2174,7 +2239,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Wepay-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wepay-tvOS.app/Wepay-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wepay.temp_caseinsensitive_rename-tvOS.app/Wepay.temp_caseinsensitive_rename-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -2206,7 +2271,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODEPUSH_KEY = "_WI56vjwcQkFTgHCXVCM7V8q-M3Ofdf2b04e-456b-420f-8acd-58a99c8306be";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2261,7 +2326,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODEPUSH_KEY = "_WI56vjwcQkFTgHCXVCM7V8q-M3Ofdf2b04e-456b-420f-8acd-58a99c8306be";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
