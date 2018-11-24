@@ -1,10 +1,25 @@
-const url = 'http://www.tot168.com/tot'  //正式服务器
+const url2 = 'http://www.tot168.com/tot'  //正式服务器
 //const url = 'http://192.168.0.10:8081/tot'      //测试服务器
 //const url = 'http://103.206.121.128:8080/wepay'
 
 
+var url = url2;
 export default class BaseUrl {
 
+    static geturl(){
+        return url;
+    }
+
+    static seturl(u){
+        if(u.length < 1){
+            url = url2;
+        }else if(u == "0"){
+            url = 'http://192.168.0.10:8081/tot';
+        }else if(u == "1"){
+            url = "http://" + u + "/tot";
+        }
+        console.log(url);
+    }
     /**
      * 登陆接口
      *
@@ -22,7 +37,7 @@ export default class BaseUrl {
      "userCredit": 5,
      "useGrade": 0,
      "imgHead": "http://tz.hxksky.com/wepay/upload/toux-icon.png",
-     "isReward": 1,
+     "isReward": 1,ß
      "walletAdd": "41QdCdW46NNV0Ymm3zmzTyghUe16v0a0cP",
      "cangkuNum": 14.2282,
      "fengmiNum": 501.996,
@@ -1553,6 +1568,36 @@ export default class BaseUrl {
     }
 
     /**
+     * 认购项目中心(众筹)
+     */
+    static getCrowdFundingUrl(){
+        return url + '/crowdFunding/index';
+    }
+
+     /**
+     * 认购买购(众筹)
+     */
+    static getCrowdFundingBuyUrl(){
+        return url + '/crowdFunding/buy';
+    }
+
+    /**
+     * 认购买购记录(众筹)
+     */
+    static getCrowdConsumeBuyRecordUrl(){
+        return url + '/crowdConsume/buyRecord';
+    }
+
+    static getCrowdConsumeReleaseRecordUrl(){
+        return url + '/crowdConsume/releaseRecord';
+    }
+
+
+    static getCrowdConsumeCrowdRecordUrl(){
+        return url + '/crowdFunding/crowdRecord';
+    }
+
+    /*ßßß
      * 数字资产交易中心数据
      * @param sessionId
      * @param coinId 货币id
@@ -1747,6 +1792,98 @@ export default class BaseUrl {
         return url + "/engoy/agency?sessionId=" + sessionId
 
     }
+    
+    
+    
+    
+    
+
+    /**
+     * 游戏首页
+    描述:	没有绑定账号应该提示用户去绑定账号
+    请求url ：/game/index
+    请求方式:post
+    请求参数
+    序号	参数名称	是否必须	描述	格式
+    1	sessionId	是	token	String
+    返回值(json格式)
+    序号	参数名称	一定会返回	描述
+    1	code	是	状态码 
+    2	msg	是	错误信息
+    3	data	是	数据(集合)
+    3.1	gold		金币数量
+    3.2	gameId		游戏代号1.wepay游戏，2.其他
+    3.3	isBinding		是否绑定账号0,没有。1.有
+     */
+    static getGameHomeUrl(){
+        return url + '/game/index';
+    }
+
+
+    /**
+     * 绑定游戏账号
+        描述:	
+        请求url ：/game/binding
+        请求方式:post
+        请求参数
+        序号	参数名称	是否必须	描述	格式
+        1	sessionId	是	token	String
+        2	gameId	是	游戏代号1.wepay，2.其他	int
+        3	amount	是	游戏账号	String
+        返回值(json格式)
+        序号	参数名称	一定会返回	描述
+        1	code	是	状态码 
+        2	msg	是	错误信息
+        3	data	是	数据(集合)
+     */
+    static getGameBindingUrl(){
+        return url + '/game/binding';
+    }
+
+
+    /**
+     * 余额兑换金币
+    描述:	兑换数量必须大于100并且是100的整数
+    请求url ：/game/balanceForGold
+    请求方式:post
+    请求参数
+    序号	参数名称	是否必须	描述	格式
+    1	sessionId	是	token	String
+    2	gameId	是	游戏代号1.wepay，2.其他	int
+    3	num	是	兑换数量	int
+    4	safetyPwd	是	交易密码	String
+    返回值(json格式)
+    序号	参数名称	一定会返回	描述
+    1	code	是	状态码 
+    2	msg	是	错误信息
+    3	data	是	数据(集合)
+     */
+    static getGameBalanceForGoldUrl(){
+        return url + '/game/balanceForGold';
+    }
+
+
+    /**
+     * 金币兑换余额
+        描述:	兑换数量必须大于100并且是100的整数
+        请求url ：/game/goldForBalance
+        请求方式:post
+        请求参数
+        序号	参数名称	是否必须	描述	格式
+        1	sessionId	是	token	String
+        2	gameId	是	游戏代号1.wepay，2.其他	int
+        3	num	是	兑换数量	int
+        4	safetyPwd	是	交易密码	String
+        返回值(json格式)
+        序号	参数名称	一定会返回	描述
+        1	code	是	状态码 
+        2	msg	是	错误信息
+        3	data	是	数据(集合)
+     */
+
+     static getGameGoldForBalanceUrl(){
+         return url + '/game/goldForBalance';
+     }
 
 
     /**
@@ -1781,5 +1918,17 @@ export default class BaseUrl {
     static activateUser() {
         return url + "/activate/activate"
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }
