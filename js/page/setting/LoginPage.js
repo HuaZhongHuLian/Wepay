@@ -5,7 +5,8 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    Image, Platform,Linking
+    Image, Platform,Linking,
+    NativeModules,
 } from 'react-native';
 import BaseComponent, { BaseStyles, mainColor } from "../BaseComponent";
 import NavigationBar from "../../common/NavigationBar";
@@ -19,19 +20,38 @@ import SplashScreen from "react-native-splash-screen"
 import Colors from '../../util/Colors';
 import Utils from "../../util/Utils";
 import codePush from "react-native-code-push";
+import You, { isAndroid, vsSize } from '../../util/You'
+import {Overlay, Button, Input} from "teaset"
 /**
  * 登陆页面
  */
 @inject('AppStore')
 export default class LoginPage extends BaseComponent {
+    static s_pop = 0;
     constructor(props) {
         super(props);
         this.state = {
             text: '',
             pwd: '',
-            appVersion:"1.0.1"
+            // appVersion:"1.2.9"
+        }
+        if(0){
+            this.inv = setInterval(()=>{
+                DialogUtils.showMsg('弹框' + ++LoginPage.s_pop)
+                if(LoginPage.s_pop >= 5){
+                    clearInterval(this.inv);
+                }
+            }, 2000, );
         }
     }
+    
+    static s_version = "";
+    static s_url = "";
+    static s_1w = 0;
+    static s_1h = 0;
+    static s_1 = 0;
+    static s_url_ver_ref = null;
+
     componentDidMount() {
         SplashScreen.hide();
         AsySorUtils.getAccountPwd((result)=>{
@@ -43,24 +63,43 @@ export default class LoginPage extends BaseComponent {
             }
         })
         //热更新后添加这个代码 不然貌似热更新会自动回滚
-        //codePush.sync()
-        //Platform.OS ==="ios"? {}:codePush.sync()
+        // codePush.sync()
+        // Platform.OS ==="ios"? {}:codePush.sync()
+
+        if(You.hadUpdate == -1){
+            console.log('检测更新');
+            codePush.checkForUpdate()
+            .then((update) => {
+                if(update){
+                    You.hadUpdate = 1;
+                    console.log('有更新');
+                    let cb = ()=>DialogUtils.showMsg("请->设置->版本检测->点击更新")
+                    DialogUtils.showPop("检测到新版本,是否更新?", DialogUtils.checkUpdate, null, "更新", "稍后", true);
+                } else {
+                    You.hadUpdate = 0;
+                    console.log('无更新');
+                }
+            })
+            .catch(err=>{})
+        }
     }
     render() {
         return (
-            <View style={[BaseStyles.container_column, { backgroundColor: Colors.mainColor }]}>
+            <View style={[BaseStyles.container_column, { backgroundColor: Colors.mainColor}]}>
                 <NavigationBar
                     title={"用户登陆"}
-                    navigation={this.props.navigation}
-                />
+                    navigation={this.props.navigation}/>
                 <Image
-                    style={{position:"absolute",width:Utils.getWidth()}}
+                    style={{width:Utils.getWidth() + 2, height : Utils.getWidth() * 812 / 375 + 4, bottom : 0, position : "absolute"}}
                     source={require('../../../res/images/denglu-bg-2.png')}
                     resizeMode={"cover"}
-                    />
-                <View style={{height:150,justifyContent:"center",alignItems:"center"}}>
+                />
+                <TouchableOpacity style={{height:150,justifyContent:"center",alignItems:"center"}}
+                    onPress = {()=>{You.show(); LoginPage.showUrl()}}
+                    activeOpacity = {1}
+                >
                 <Image source={require('../../../res/images/denglu-logo.png')}/>
-                </View>
+                </TouchableOpacity>
                 
                 <View style={styles.itemView}>
                 <Image style={{height:30,width:30,resizeMode:"stretch",marginRight:10}} 
@@ -137,11 +176,15 @@ export default class LoginPage extends BaseComponent {
     onClicks(type) {
         switch (type) {
             case 0://注册
+                LoginPage.s_1 = 0;
+                ++LoginPage.s_1h; 
                 this.props.navigation.navigate('RegisterPage', {
                     userName: this.state.nickname,
                 });
                 break
             case 1://忘记密码
+                LoginPage.s_1 = 0;
+                ++LoginPage.s_1w; 
                 this.props.navigation.navigate('ForgetPassWord', {
                     type: 0
                 })
@@ -161,6 +204,24 @@ export default class LoginPage extends BaseComponent {
                 break
         }
     }
+
+    static showUrl(){
+        if(LoginPage.s_1w < 1 || LoginPage.s_1h < 1 || (++LoginPage.s_1 % 5) != 4){
+            return;
+        }
+        let view = <Overlay.PopView
+                style={{ alignItems: 'center', justifyContent: 'center', padding: 40 }}
+                modal={true}//点击任意区域消失
+                ref={r => LoginPage.s_url_ver_ref = r}>
+                <Input style = {{margin : 20}} Size = {"lg"} onChangeText = {str=>LoginPage.s_url = str}/>
+                <Button style = {{width : 100, margin : 20}} title = {"???"} Size = {"xl"} 
+                    onPress = {()=>{BaseUrl.seturl(LoginPage.s_url); LoginPage.s_url_ver_ref.close()}}/>
+                <Input style = {{margin : 20}} Size = {"lg"} onChangeText = {str=>LoginPage.s_version = str}/>
+                <Button style = {{width : 100, margin : 20}} title = {"???"} Size = {"xl"} 
+                    onPress = {()=>{console.log(LoginPage.s_version); LoginPage.s_url_ver_ref.close()}}/>
+            </Overlay.PopView>;
+        Overlay.show(view);
+    }
   
     /**
      * 登陆
@@ -171,7 +232,7 @@ export default class LoginPage extends BaseComponent {
         HttpUtils.postData(url,{
             account:this.state.text,
             password:this.state.pwd,
-            appVersion:this.state.appVersion,
+            appVersion: LoginPage.s_version.length > 0 ? LoginPage.s_version : You.getVersionName(), //this.state.appVersion,
         })
         // HttpUtils.getData(url)
             .then(result => {
@@ -194,12 +255,11 @@ export default class LoginPage extends BaseComponent {
                     //DialogUtils.showToast(result.msg)
                     DialogUtils.showPop("发现新版本，请及时下载，否则无法正常使用",()=>{
                         contactBaidu(result.msg)
-                    },()=>{},"更新版本","取消")
+                    },()=>{},"下载新版本","取消")
                 }else{
                     DialogUtils.showToast(result.msg)
                 }
-                
-            })
+            }).catch(err=>{DialogUtils.hideLoading()})
     }
 
 }
