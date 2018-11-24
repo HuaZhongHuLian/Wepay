@@ -1,4 +1,4 @@
-package com.wepay;
+package com.wepay2;
 
 import android.os.Bundle;
 
@@ -15,7 +15,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "Wepay";
+        return "Wepay2";
     }
 
     @Override

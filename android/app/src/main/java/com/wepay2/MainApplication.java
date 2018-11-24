@@ -1,4 +1,4 @@
-package com.wepay;
+package com.wepay2;
 
 import android.app.Application;
 
@@ -38,14 +38,16 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
+            new WepayModulesPackage(),
+            new MainReactPackage(),
             new FastImageViewPackage(),
             new RCTCameraPackage(),
             new VectorIconsPackage(),
             new RNSyanImagePickerPackage(),
             new SplashScreenReactPackage(),
             new PickerViewPackage(),
-            new CodePush("Ypu_6i-rmXebsfSjiOmfLPQEDeknfdf2b04e-456b-420f-8acd-58a99c8306be", getApplicationContext(), BuildConfig.DEBUG)
+			      // "Ypu_6i-rmXebsfSjiOmfLPQEDeknfdf2b04e-456b-420f-8acd-58a99c8306be"
+            new CodePush(com.wepay2.BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG)
       );
     }
 
